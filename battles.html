@@ -3,6 +3,7 @@
     github.com/01mu
 -->
 
+<!DOCTYPE html>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0
@@ -44,80 +45,82 @@ bootstrap.min.js"></script>
 
 <title>battles</title>
 
-<div class="body">
-    <div id="stats" class="top">
-        <div v-for="(stat, index) in stats" :key="stat">
-            <div class="stat" v-on:click="changeChannel(stat.channel)">
-                [{{ stat.channel }}]
-            </div>
-        </div>
-        &nbsp;
-    </div>
-    <div id="title">
-        <div align="center" class="title" v-on:click="goHome()">
-            battles
-        </div>
-    </div>
-    <div id="artistBattles" v-if="visible">
-        <div class="row">
-            <div class="col-sm-8">
-                <div class="artisttitle hideoverflow">
-                    {{ artist }}
-                </div>
-                <div class="channeltitle hideoverflow">
-                    {{ channel }}
+<html>
+    <div class="body">
+        <div id="stats" class="top">
+            <div v-for="(stat, index) in stats" :key="stat">
+                <div class="stat" v-on:click="changeChannel(stat.channel)">
+                    [{{ stat.channel }}]
                 </div>
             </div>
-            <div class="col-sm-4">
-                <p class="stattitle">battles: {{ battle_count }}</p>
-                <p class="stattitle">views: {{ commas(views) }}</p>
-                <p class="stattitle">average: {{ commas(average) }}</p>
-                <p class="stattitle">percentage: {{ percentage }}</p>
+            &nbsp;
+        </div>
+        <div id="title">
+            <div align="center" class="title" v-on:click="goHome()">
+                battles
             </div>
         </div>
-        <div class="lightborder"></div>
-        <div class="fz">
-            <div class="row artist-row">
-                <div class="col-sm-6">battle</div>
-                <div class="col-sm-3">views</div>
-                <div class="col-sm-3">when</div>
+        <div id="artistBattles" v-if="visible">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="artisttitle hideoverflow">
+                        {{ artist }}
+                    </div>
+                    <div class="channeltitle hideoverflow">
+                        {{ channel }}
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <p class="stattitle">battles: {{ battle_count }}</p>
+                    <p class="stattitle">views: {{ commas(views) }}</p>
+                    <p class="stattitle">average: {{ commas(average) }}</p>
+                    <p class="stattitle">percentage: {{ percentage }}</p>
+                </div>
+            </div>
+            <div class="lightborder"></div>
+            <div class="fz">
+                <div class="row artist-row">
+                    <div class="col-sm-6">battle</div>
+                    <div class="col-sm-3">views</div>
+                    <div class="col-sm-3">when</div>
+                </div>
+            </div>
+            <div v-for="(battle, index) in battles" :key="battle"
+                :class="{'r0': index % 2 === 0, 'r1': index % 2 !== 0 }">
+                <div class="row artist-row" v-on:click="">
+                    <div class="col-sm-6 hideoverflow">{{ battle.vs_str }}</div>
+                    <div class="col-sm-3">{{ commas(battle.views) }}</div>
+                    <div class="col-sm-3">{{ since(battle.timestamp) }}</div>
+                </div>
             </div>
         </div>
-        <div v-for="(battle, index) in battles" :key="battle"
-            :class="{'r0': index % 2 === 0, 'r1': index % 2 !== 0 }">
-            <div class="row artist-row" v-on:click="">
-                <div class="col-sm-6 hideoverflow">{{ battle.vs_str }}</div>
-                <div class="col-sm-3">{{ commas(battle.views) }}</div>
-                <div class="col-sm-3">{{ since(battle.timestamp) }}</div>
+        <div id="artists" v-if="visible">
+            <div class="fz">
+                <div class="row artist-row">
+                    <div class="col-sm-4">artist</div>
+                    <div class="col-sm-3">views</div>
+                    <div class="col-sm-3">average</div>
+                    <div class="col-sm-1">battles</div>
+                </div>
             </div>
-        </div>
-    </div>
-    <div id="artists" v-if="visible">
-        <div class="fz">
-            <div class="row artist-row">
-                <div class="col-sm-4">artist</div>
-                <div class="col-sm-3">views</div>
-                <div class="col-sm-3">average</div>
-                <div class="col-sm-1">battles</div>
-            </div>
-        </div>
-        <div v-for="(artist, index) in artists" :key="artist"
-            :class="{'r0': index % 2 === 0, 'r1': index % 2 !== 0 }">
-            <div class="row artist-row"
-                v-on:click="loadArtist(artist.name, artist.channel)">
+            <div v-for="(artist, index) in artists" :key="artist"
+                :class="{'r0': index % 2 === 0, 'r1': index % 2 !== 0 }">
+                <div class="row artist-row"
+                    v-on:click="loadArtist(artist.name, artist.channel)">
 
-                <div class="col-sm-4">{{ artist.name }}</div>
-                <div class="col-sm-3">{{ commas(artist.battle_views) }}</div>
-                <div class="col-sm-3">{{ commas(artist.views_average) }}</div>
-                <div class="col-sm-1">{{ artist.battle_count }}</div>
+                    <div class="col-sm-4">{{ artist.name }}</div>
+                    <div class="col-sm-3">{{ commas(artist.battle_views) }}</div>
+                    <div class="col-sm-3">{{ commas(artist.views_average) }}</div>
+                    <div class="col-sm-1">{{ artist.battle_count }}</div>
+                </div>
+            </div>
+            <div class="fz" align="center">
+                <div class="loadmore" v-on:click="loadMore">{{ loadingText }}</div>
             </div>
         </div>
-        <div class="fz" align="center">
-            <div class="loadmore" v-on:click="loadMore">{{ loadingText }}</div>
-        </div>
+        <div style="margin-bottom: 30px;"></div>
     </div>
-    <div style="margin-bottom: 30px;"></div>
-</div>
+</html>
 
 <script>
     var base = 'https://smallfolio.bitnamiapp.com/battles/';
