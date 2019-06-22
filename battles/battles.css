@@ -1,0 +1,32 @@
+body { background-color: #ffffff; overflow-y:scroll; }
+.title { color: #144dd1; font-weight: bold; font-size: 70px;
+    font-family: "Georgia"; cursor: pointer; padding-bottom: 20px; }
+.artisttitle { color: #000000; font-weight: bold; font-size: 20px;
+    cursor: pointer; }
+.channeltitle { color: #000000; font-weight: bold; font-size: 15px;
+    cursor: pointer; }
+.stattitle { color: #000000; font-size: 15px; cursor: pointer; }
+.loadmore { margin-top: 25px; padding: 15px; background-color: #f2f3f4;
+    cursor: pointer; font-weight: bold; font-size: 15px; text-align: center; }
+.fz { font-weight: bold; font-size: 15px; background-color: #efefef;
+    padding: 5px; }
+.body { margin: 0 auto; max-width: 800px; }
+.r0 { background-color: #fafafa; cursor: pointer; padding: 5px;}
+.r1 { background-color: #fbfbfb; cursor: pointer; padding: 5px; }
+.top { margin-top: 10px; font-size: 12px; border-bottom: solid;
+    border-width: 1px; border-color: #eeeeee; padding-bottom: 10px;
+    display: flex; }
+.stat { cursor: pointer; }
+.stat:hover { text-decoration: underline; }
+.artist-row { padding: 5px; }
+.r0:hover, .r1:hover, .loadmore:hover { background-color: #f2f2f2; }
+.hideoverflow { white-space: nowrap; overflow: hidden;
+    text-overflow: ellipsis; }
+.lightborder { border-bottom: solid; border-width: 1px;
+    border-color: #eeeeee; margin-bottom: 10px; }
+.videoWrapper { position: relative; padding-bottom: 56.25%; padding-top: 25px;
+    height: 0; }
+.videoWrapper iframe { position: absolute; top: 0; left: 0; width: 100%;
+    height: 100%; }
+[v-cloak] { display: none; }
+.footer { padding: 30px; text-align: center; background-color: #f2f3f4; }
