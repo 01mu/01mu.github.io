@@ -2,7 +2,7 @@ Vue.component('perfo', {
   props: ['performer'],
   template: '<div class="flex perfthing"> \
         <div class="wrapper50"> \
-        <img height="20" width="20" v-bind:src="performer.url" /> \
+        <img height="20" width="20" v-bind:src="performer.url"/> \
         {{ performer.symbol }} \
         </div>\
         <div class="wrapper50"> \
@@ -11,17 +11,96 @@ Vue.component('perfo', {
         </div>'
 })
 
+Vue.component('coinlist', {
+  props: ['coin'],
+  template:
+    '<div class="flex coinpad"> \
+    <div class="wrapper5">{{ coin.rank }}</div> \
+    <div class="wrapper15 overflow">\
+    <img height="20" width="20" v-bind:src="coin.url"/> {{ coin.name }}</div> \
+    <div class="wrapper10">{{ coin.price_usd }}</div> \
+    <div class="wrapper10">{{ coin.price_btc }}</div> \
+    <div class="wrapper9">{{ coin.change_1h }}</div> \
+    <div class="wrapper9">{{ coin.change_24h }}</div> \
+    <div class="wrapper9">{{ coin.change_7d }}</div> \
+    <div class="wrapper10">{{ coin.market_cap }}</div> \
+    <div class="wrapper6p5">{{ coin.market_cap_percent }}</div> \
+    <div class="wrapper10">{{ coin.volume_24h }}</div> \
+    <div class="wrapper6p5">{{ coin.volume_24h_percent }}</div> \
+    </div>'
+})
+
+
 var head = new Vue ({
     el: '#head',
     methods: {
         showPerformers: function() {
             performers.visible = true;
-            portfolio.visible = false;
+            coins.visible = portfolio.visible = false;
         },
         showPortfolio: function() {
-            performers.visible = false;
+            coins.visible = performers.visible = false;
             portfolio.visible = true;
+        },
+        showCoins: function() {
+            coins.visible = true;
+            performers.visible = portfolio.visible = false;
         }
+    }
+});
+
+var coins = new Vue({
+    el: '#coins',
+    data: {
+        coins: [],
+        page: 0,
+        lastUpdated: 0,
+        loadingText: 'Load more',
+        visible: false
+    },
+    methods: {
+        loadMore: function() {
+            var url = 'https://smallfolio.bitnamiapp.com/crypto/coins/';
+
+            this.page++;
+            this.loadingText = 'Loading...'
+
+            $.getJSON(url + coins.page, function (json) {
+                coins.formatCoins(json.coins);
+                coins.coins = coins.coins.concat(json.coins);
+                coins.lastUpdated = json.last_update_coins.input_value;
+                coins.loadingText = 'Load more'
+            });
+        },
+        formatCoins: function(coins) {
+            coins.map(function(element) {
+                element.url = 'https://smallfolio.bitnamiapp.com/dl_icon/' +
+                    element.symbol + '.png';
+
+                element.price_usd = '$' + commas(element.price_usd.toFixed(2));
+                element.price_btc = element.price_btc.toFixed(5) + '₿';
+                element.change_1h = element.change_1h.toFixed(2) + '%';
+                element.change_24h = element.change_24h.toFixed(2) + '%';
+                element.change_7d = element.change_7d.toFixed(2) + '%';
+
+                element.market_cap = numWord(element.market_cap);
+                element.market_cap_percent =
+                    element.market_cap_percent.toFixed(2) + '%';
+
+                element.volume_24h = numWord(element.volume_24h);
+                element.volume_24h_percent =
+                    element.volume_24h_percent.toFixed(2) + '%';
+            });
+        }
+    },
+    created: function() {
+        var url = 'https://smallfolio.bitnamiapp.com/crypto/coins/';
+
+        $.getJSON(url + this.page, function (json) {
+            coins.coins = json.coins;
+            coins.lastUpdated = json.last_update_coins.input_value;
+            coins.formatCoins(coins.coins);
+        });
     }
 });
 
@@ -224,7 +303,7 @@ var portfolio = new Vue({
                 portfolio.value = document.title =
                     commas(portfolio.priceSymbol + totalValue.toFixed(2));
 
-                portfolio.btcValue = btcTotal.toFixed(10) + ' BTC';
+                portfolio.btcValue = btcTotal.toFixed(10) + '₿';
 
                 newDisplay.sort(function (a, b) {
                     return b.percentage - a.percentage;
@@ -282,6 +361,23 @@ var portfolio = new Vue({
         setInterval(function() { portfolio.updateValue(); }, 60000);
     }
 })
+
+function numWord(labelValue) {
+    // Nine Zeroes for Billions
+    return Math.abs(Number(labelValue)) >= 1.0e+9
+
+    ? Math.abs(Number(labelValue)) / 1.0e+9 + " billion"
+    // Six Zeroes for Millions
+    : Math.abs(Number(labelValue)) >= 1.0e+6
+
+    ? Math.abs(Number(labelValue)) / 1.0e+6 + " million"
+    // Three Zeroes for Thousands
+    : Math.abs(Number(labelValue)) >= 1.0e+3
+
+    ? Math.abs(Number(labelValue)) / 1.0e+3 + " thousand"
+
+    : Math.abs(Number(labelValue));
+}
 
 function commas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

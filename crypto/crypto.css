@@ -1,6 +1,6 @@
 body { background-color: #fafbfc; overflow-y:scroll; }
 .body { margin: 0 auto; max-width: 800px; }
-.performers { margin: 0 auto; max-width: 1200px; }
+.bigger { margin: 0 auto; max-width: 1200px; }
 [v-cloak] { display: none; }
 .portfoliorow:hover { background-color: #f2f2f2; }
 .r0 { background-color: #fafafa; }
@@ -42,16 +42,43 @@ body { background-color: #fafbfc; overflow-y:scroll; }
 .wrapper33e { width: 33%; text-align: right; }
 .wrapper25  { width: 25%; }
 .wrapper5  { width: 5%; }
-
+.wrapper9  { width: 9%; }
 .wrapper40  { width: 40%; }
 .wrapper20  { width: 20%; }
 .wrapper60  { width: 60%; }
 .wrapper30  { width: 30%; }
 .wrapper10  { width: 10%; }
+.wrapper15  { width: 15%; }
+.wrapper6p5  { width: 6.5%; }
 
-.footer { padding-: 20px; text-align: center; }
+.footer { margin: 20px; padding-: 20px; text-align: center; }
 
 .loadmore { padding: 10px; background-color: #f2f3f4;
     margin-top: 10px; margin-bottom: 10px;
     cursor: pointer; font-weight: bold; font-size: 15px; text-align: center; }
 .loadmore:hover { background-color: #f2f2f2; }
+
+table {
+table-layout: fixed;
+width: 100%;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+}
+
+th, td {
+  border-bottom: 1px solid #ddd;
+}
+
+.coinpad { padding:10px; }
+.coinpad:hover { background-color: #f2f2f2; }
+.coinheader { text-align: left; font-weight: bold; padding: 10px;
+    margin-bottom: 10px; background-color: #f2f3f4; }
+
+.overflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  }

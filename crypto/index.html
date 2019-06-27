@@ -26,7 +26,9 @@ bootstrap.min.js"></script>
                 <li class="headthing">
                     <a v-on:click="showPerformers()" style="color:black;">Performers</a>
                 </li>
-                <li class="headthing"><a style="color:black;">Coins</a></li>
+                <li class="headthing">
+                    <a v-on:click="showCoins()" style="color:black;">Coins</a>
+                </li>
                 <li class="headthing"><a style="color:black;">Heat Map</a></li>
                 <li class="headthing"><a style="color:black;">/biz/</a></li>
                 <li class="headthing"><a style="color:black;">/r/CryptoCurrency</a></li>
@@ -34,114 +36,129 @@ bootstrap.min.js"></script>
         </div>
     </nav>
 
+    <div id="coins" v-if="visible" v-cloak class="bigger">
+        <div class="flex coinheader">
+            <div class="wrapper5">Rank</div>
+            <div class="wrapper15">Coin</div>
+            <div class="wrapper10">USD Price</div>
+            <div class="wrapper10">BTC Price</div>
+            <div class="wrapper9">1 Hour Δ</div>
+            <div class="wrapper9">24 Hour Δ</div>
+            <div class="wrapper9">7 Day Δ</div>
+            <div class="wrapper10">Market Cap</div>
+            <div class="wrapper6p5">%</div>
+            <div class="wrapper10">24 Hour Volume</div>
+            <div class="wrapper6p5">%</div>
+        </div>
+        <coinlist   v-for="coin in coins"
+                    v-bind:coin="coin">
+        </coinlist>
+        <div class="loadmore" v-on:click="loadMore">{{ loadingText }}</div>
+    </div>
 
-    <div class="performers">
-        <div id="performers" v-if="visible" v-cloak>
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="perfheader">1 Hour Change</div>
-                    <div class="flex">
-                        <div class="wrapper50">
-                            <perfo  v-for="perf in change1hDesc"
-                                    v-bind:performer="perf">
-                            </perfo>
-                        </div>
-                        <div class="wrapper50">
-                            <perfo  v-for="perf in change1hAsc"
-                                    v-bind:performer="perf">
-                            </perfo>
-                        </div>
+
+    <div id="performers" v-if="visible" v-cloak class="bigger">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="perfheader">1 Hour Change</div>
+                <div class="flex">
+                    <div class="wrapper50">
+                        <perfo  v-for="perf in change1hDesc"
+                                v-bind:performer="perf">
+                        </perfo>
                     </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="perfheader">24 Hour Change</div>
-                    <div class="flex">
-                        <div class="wrapper50">
-                            <perfo  v-for="perf in change24hDesc"
-                                    v-bind:performer="perf">
-                            </perfo>
-                        </div>
-                        <div class="wrapper50">
-                            <perfo  v-for="perf in change24hAsc"
-                                    v-bind:performer="perf">
-                            </perfo>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="perfheader">7 Day Change</div>
-                    <div class="flex">
-                        <div class="wrapper50">
-                            <perfo  v-for="perf in change7dDesc"
-                                    v-bind:performer="perf">
-                            </perfo>
-                        </div>
-                        <div class="wrapper50">
-                            <perfo  v-for="perf in change7dAsc"
-                                    v-bind:performer="perf">
-                            </perfo>
-                        </div>
+                    <div class="wrapper50">
+                        <perfo  v-for="perf in change1hAsc"
+                                v-bind:performer="perf">
+                        </perfo>
                     </div>
                 </div>
             </div>
-            <div class="loadmore" v-on:click="loadMore">{{ loadingText }}</div>
+            <div class="col-sm-4">
+                <div class="perfheader">24 Hour Change</div>
+                <div class="flex">
+                    <div class="wrapper50">
+                        <perfo  v-for="perf in change24hDesc"
+                                v-bind:performer="perf">
+                        </perfo>
+                    </div>
+                    <div class="wrapper50">
+                        <perfo  v-for="perf in change24hAsc"
+                                v-bind:performer="perf">
+                        </perfo>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="perfheader">7 Day Change</div>
+                <div class="flex">
+                    <div class="wrapper50">
+                        <perfo  v-for="perf in change7dDesc"
+                                v-bind:performer="perf">
+                        </perfo>
+                    </div>
+                    <div class="wrapper50">
+                        <perfo  v-for="perf in change7dAsc"
+                                v-bind:performer="perf">
+                        </perfo>
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="loadmore" v-on:click="loadMore">{{ loadingText }}</div>
     </div>
 
-
-    <div class="body">
-        <div id="portfolio" v-if="visible" v-cloak>
-            <h1>{{ value }}</h1>
-            <h5>{{ btcValue }}</h5>
-            <table class="table">
-                <thead>
-                    <tr class="r1">
-                        <th scope="col">#</th>
-                        <th scope="col">Symbol</th>
-                        <th scope="col">Amount</th>
-                        <th scope="col">Percentage</th>
-                        <th scope="col">Value</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Action</th>
+    <div id="portfolio" v-if="visible" v-cloak class="body">
+        <h1>{{ value }}</h1>
+        <h5>{{ btcValue }}</h5>
+        <table>
+            <thead>
+                <tr class="r1">
+                    <th scope="col">#</th>
+                    <th scope="col">Symbol</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Percentage</th>
+                    <th scope="col">Value</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template v-for="(coin, index) in coinDisplay">
+                    <tr class="portfoliorow"
+                     :class="{'r0': index % 2 === 0, 'r1': index % 2 !== 0 }">
+                        <th scope="row">
+                        <img height="20" width="20" v-bind:src="coin.icon" />
+                        </th>
+                        <td>{{ coin.symbol }}</td>
+                        <td>{{ coin.amount }}</td>
+                        <td>{{ coin.percentage }}</td>
+                        <td>{{ coin.value }}</td>
+                        <td>{{ coin.price }}</td>
+                        <td>
+                            <button class="button-green"
+                                v-on:click="setEdit(coin.symbol)">
+                                Edit
+                            </button>
+                            <button class="button-red"
+                                v-on:click="removeCoin(coin.symbol)">
+                                Remove
+                            </button>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    <template v-for="(coin, index) in coinDisplay">
-                        <tr class="portfoliorow"
-                         :class="{'r0': index % 2 === 0, 'r1': index % 2 !== 0 }">
-                            <th scope="row">
-                            <img height="20" width="20" v-bind:src="coin.icon" />
-                            </th>
-                            <td>{{ coin.symbol }}</td>
-                            <td>{{ coin.amount }}</td>
-                            <td>{{ coin.percentage }}</td>
-                            <td>{{ coin.value }}</td>
-                            <td>{{ coin.price }}</td>
-                            <td>
-                                <button class="button-green"
-                                    v-on:click="setEdit(coin.symbol)">
-                                    Edit
-                                </button>
-                                <button class="button-red"
-                                    v-on:click="removeCoin(coin.symbol)">
-                                    Remove
-                                </button>
-                            </td>
-                        </tr>
-                    </template>
-                </tbody>
-            </table>
-            <input placeholder="Symbol" v-model="coinSymbol"></input>
-            <input placeholder="Amount" v-model="coinAmount"></input>
-            <button class="button-blue" v-on:click="confirmCoin()">Add coin</button>
-            <span v-if="showEdit">
-                <input placeholder="New amount" v-model="newAmount">
-                <button class="button-blue" v-on:click="makeEdit()">Edit {{toEdit}}</button>
-            </span>
-            <b>{{ notice }}</b>
-        </div>
+                </template>
+            </tbody>
+        </table>
+        <br>
+        <input placeholder="Symbol" v-model="coinSymbol"></input>
+        <input placeholder="Amount" v-model="coinAmount"></input>
+        <button class="button-blue" v-on:click="confirmCoin()">Add coin</button>
+        <span v-if="showEdit">
+            <input placeholder="New amount" v-model="newAmount">
+            <button class="button-blue" v-on:click="makeEdit()">Edit {{toEdit}}</button>
+        </span>
+        <b>{{ notice }}</b>
     </div>
-
 
     <div class="footer">
         <a href="https://01mu.github.io/crypto/">
