@@ -1,0 +1,8 @@
+body { background-color: #fafbfc; overflow-y:scroll; }
+.body { margin: 0 auto; max-width: 800px; }
+[v-cloak] { display: none; }
+.portfoliorow:hover { background-color: #f2f2f2; }
+.r0 { background-color: #fafafa; }
+.r1 { background-color: #fbfbfb; }
+.navbar { background-color: #47a3ff; }
+.navbar-brand { color: black; }
