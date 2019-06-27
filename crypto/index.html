@@ -8,18 +8,89 @@ jquery.min.js"></script>
 bootstrap.min.js"></script>
 <script src="https://unpkg.com/vue-router@2.0.0/dist/vue-router.js"></script>
 <link rel="stylesheet" href="crypto.css">
+<link rel="icon" type="image/x-icon"/>
 <html>
-    <div id="portfolio" v-cloak>
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a id="title" class="navbar-brand">
-                        <span style="color:black;"></span>
-                    </a>
+    <nav id="head" class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand">
+                    <span style="color:black; font-weight: bold; font-size: 20px;">
+                        Crypto
+                    </span>
+                </a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="headthing">
+                    <a v-on:click="showPortfolio()" style="color:black;">Portfolio</a>
+                </li>
+                <li class="headthing">
+                    <a v-on:click="showPerformers()" style="color:black;">Performers</a>
+                </li>
+                <li class="headthing"><a style="color:black;">Coins</a></li>
+                <li class="headthing"><a style="color:black;">Heat Map</a></li>
+                <li class="headthing"><a style="color:black;">/biz/</a></li>
+                <li class="headthing"><a style="color:black;">/r/CryptoCurrency</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="performers">
+        <div id="performers" v-if="visible" v-cloak>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="perfheader">1 Hour Change</div>
+                    <div class="flex">
+                        <div class="wrapper50">
+                            <perfo  v-for="perf in change1hDesc"
+                                    v-bind:performer="perf">
+                            </perfo>
+                        </div>
+                        <div class="wrapper50">
+                            <perfo  v-for="perf in change1hAsc"
+                                    v-bind:performer="perf">
+                            </perfo>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="perfheader">24 Hour Change</div>
+                    <div class="flex">
+                        <div class="wrapper50">
+                            <perfo  v-for="perf in change24hDesc"
+                                    v-bind:performer="perf">
+                            </perfo>
+                        </div>
+                        <div class="wrapper50">
+                            <perfo  v-for="perf in change24hAsc"
+                                    v-bind:performer="perf">
+                            </perfo>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="perfheader">7 Day Change</div>
+                    <div class="flex">
+                        <div class="wrapper50">
+                            <perfo  v-for="perf in change7dDesc"
+                                    v-bind:performer="perf">
+                            </perfo>
+                        </div>
+                        <div class="wrapper50">
+                            <perfo  v-for="perf in change7dAsc"
+                                    v-bind:performer="perf">
+                            </perfo>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </nav>
-        <div class="body">
+            <div class="loadmore" v-on:click="loadMore">{{ loadingText }}</div>
+        </div>
+    </div>
+
+
+    <div class="body">
+        <div id="portfolio" v-if="visible" v-cloak>
             <h1>{{ value }}</h1>
             <h5>{{ btcValue }}</h5>
             <table class="table">
@@ -47,10 +118,12 @@ bootstrap.min.js"></script>
                             <td>{{ coin.value }}</td>
                             <td>{{ coin.price }}</td>
                             <td>
-                                <button v-on:click="setEdit(coin.symbol)">
+                                <button class="button-green"
+                                    v-on:click="setEdit(coin.symbol)">
                                     Edit
                                 </button>
-                                <button v-on:click="removeCoin(coin.symbol)">
+                                <button class="button-red"
+                                    v-on:click="removeCoin(coin.symbol)">
                                     Remove
                                 </button>
                             </td>
@@ -60,13 +133,20 @@ bootstrap.min.js"></script>
             </table>
             <input placeholder="Symbol" v-model="coinSymbol"></input>
             <input placeholder="Amount" v-model="coinAmount"></input>
-            <button v-on:click="confirmCoin()">Add coin</button>
-            <b>{{ notice }}</b>
-            <form v-if="showEdit">
+            <button class="button-blue" v-on:click="confirmCoin()">Add coin</button>
+            <span v-if="showEdit">
                 <input placeholder="New amount" v-model="newAmount">
-                <button v-on:click="makeEdit()">Edit {{toEdit}}</button>
-            </form>
+                <button class="button-blue" v-on:click="makeEdit()">Edit {{toEdit}}</button>
+            </span>
+            <b>{{ notice }}</b>
         </div>
+    </div>
+
+
+    <div class="footer">
+        <a href="https://01mu.github.io/crypto/">
+            01mu.github.io/crypto/
+        </a>
     </div>
 </html>
 <script src="crypto.js"></script>

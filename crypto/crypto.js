@@ -1,17 +1,125 @@
+Vue.component('perfo', {
+  props: ['performer'],
+  template: '<div class="flex perfthing"> \
+        <div class="wrapper50"> \
+        <img height="20" width="20" v-bind:src="performer.url" /> \
+        {{ performer.symbol }} \
+        </div>\
+        <div class="wrapper50"> \
+        {{ performer.change.toFixed(2) }}% \
+        </div> \
+        </div>'
+})
+
+var head = new Vue ({
+    el: '#head',
+    methods: {
+        showPerformers: function() {
+            performers.visible = true;
+            portfolio.visible = false;
+        },
+        showPortfolio: function() {
+            performers.visible = false;
+            portfolio.visible = true;
+        }
+    }
+});
+
+var performers = new Vue({
+    el: '#performers',
+    data: {
+        change1hAsc: [],
+        change1hDesc: [],
+        change24hAsc: [],
+        change24hDesc: [],
+        change7dAsc: [],
+        change7dDesc: [],
+        rankLimit: 100,
+        page: 0,
+        visible: false,
+        loadingText: 'Load more'
+    },
+    methods: {
+        loadMore: function() {
+            var url = 'https://smallfolio.bitnamiapp.com/crypto/performers/';
+
+            this.page++;
+            this.loadingText = 'Loading...'
+
+            $.getJSON(url + this.rankLimit + '/' + this.page, function (json) {
+                var asd = [json.change_1h_asc, json.change_1h_desc,
+                    json.change_24h_asc, json.change_24h_desc,
+                    json.change_7d_asc, json.change_7d_desc];
+
+                asd.forEach(function(per) {
+                    per.map(function(element) {
+                        element.url = 'https://smallfolio.bitnamiapp.com/dl_icon/' +
+                            element.symbol + '.png';
+                    });
+                });
+
+                performers.change1hAsc =
+                    performers.change1hAsc.concat(json.change_1h_asc);
+                performers.change1hDesc =
+                    performers.change1hDesc.concat(json.change_1h_desc);
+                performers.change24hAsc =
+                    performers.change24hAsc.concat(json.change_24h_asc);
+                performers.change24hDesc =
+                    performers.change24hDesc.concat(json.change_24h_desc);
+                performers.change7dAsc =
+                    performers.change7dAsc.concat(json.change_7d_asc);
+                performers.change7dDesc =
+                    performers.change7dDesc.concat(json.change_7d_desc);
+
+                performers.loadingText = 'Load more'
+            });
+        }
+    },
+    created: function() {
+        var url = 'https://smallfolio.bitnamiapp.com/crypto/performers/';
+
+        $.getJSON(url + this.rankLimit + '/' + this.page, function (json) {
+            performers.change1hAsc = json.change_1h_asc;
+            performers.change1hDesc = json.change_1h_desc;
+            performers.change24hAsc = json.change_24h_asc;
+            performers.change24hDesc = json.change_24h_desc;
+            performers.change7dAsc = json.change_7d_asc;
+            performers.change7dDesc = json.change_7d_desc;
+
+            var asd = [performers.change1hAsc, performers.change1hDesc,
+                performers.change24hAsc, performers.change24hDesc,
+                performers.change7dAsc, performers.change7dDesc];
+
+            asd.forEach(function(per) {
+                per.map(function(element) {
+                    element.url = 'https://smallfolio.bitnamiapp.com/dl_icon/' +
+                        element.symbol + '.png';
+                });
+            });
+        });
+    }
+})
+
 var portfolio = new Vue({
     el: '#portfolio',
     data: {
         value: '',
         btcValue: '',
+
         coinDisplay: [],
         coinTable: {},
+
         coinSymbol: '',
         coinAmount: '',
         priceSymbol: '$',
+
         notice: '',
+
         showEdit: false,
         toEdit: '',
-        newAmount: 0
+        newAmount: 0,
+
+        visible: true
     },
     methods: {
         update: function(a) {
@@ -30,6 +138,13 @@ var portfolio = new Vue({
         },
         makeEdit: function() {
             var a = JSON.parse(this.coinTable);
+            var amount = parseFloat(this.newAmount, 10);
+
+            if(amount < 0 || isNaN(amount)) {
+                portfolio.notice = 'Invalid input';
+                return;
+            }
+
             a[this.toEdit] = this.newAmount;
             this.update(a);
         },
@@ -118,6 +233,9 @@ var portfolio = new Vue({
                 newDisplay.map(function(element) {
                     element.percentage = element.percentage + '%';
                 });
+
+                document.querySelector("link[rel*='icon']").href =
+                    newDisplay[0]['icon'];
 
                 portfolio.coinDisplay = newDisplay;
             });
