@@ -1,10 +1,13 @@
 body { background-color: #fafbfc; overflow-y:scroll; }
 .body { margin: 0 auto; max-width: 800px; }
 .bigger { margin: 0 auto; max-width: 1200px; }
+.biggerer { margin: 0 auto; max-width: 100%; }
 [v-cloak] { display: none; }
 .portfoliorow:hover { background-color: #f2f2f2; }
 .r0 { background-color: #fafafa; }
 .r1 { background-color: #fbfbfb; }
+
+.smalltext { margin-top: 10px; font-size: 10px; }
 
 .button-green, .button-red, .button-blue  {
   border: none;
@@ -82,3 +85,9 @@ th, td {
   overflow: hidden;
   text-overflow: ellipsis;
   }
+
+.titletext { color:black; font-weight: bold; font-size: 20px; }
+.smalllink { text-decoration:underline; cursor: pointer; }
+
+
+.hm { background-color: green; }
