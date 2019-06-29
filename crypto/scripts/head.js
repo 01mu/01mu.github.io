@@ -1,11 +1,12 @@
 var head = new Vue ({
     el: '#head',
     data: {
-        info: []
+        info: [],
+        visible: false
     },
     methods: {
         toggle: function(show) {
-            var vues = [performers, coins, portfolio, heatmap];
+            var vues = [performers, coins, portfolio, heatmap, biz];
 
             vues.forEach(function(e) {
                 if(e != show) {
@@ -29,6 +30,10 @@ var head = new Vue ({
         showHeatMap: function() {
             this.toggle(heatmap);
             heatmap.init();
+        },
+        showBiz: function() {
+            this.toggle(biz);
+            biz.init();
         }
     },
     created: function() {
@@ -56,6 +61,8 @@ var head = new Vue ({
             head.info.push({'value': info.total_markets});
             head.info.push({'value': info.total_market_cap});
             head.info.push({'value': info.total_volume_24h});
+
+            head.visible = true;
         });
     }
 });

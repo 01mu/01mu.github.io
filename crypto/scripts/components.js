@@ -21,7 +21,7 @@ Vue.component('coins', {
         <img height="20" width="20" \
         onerror="this.style.display=\'none\'" \
         v-bind:src="coin.url" \
-        /> {{ coin.name }} \
+        /> {{ coin.name }} ({{ coin.symbol }}) \
         </div> \
         <div class="wrapper10">{{ coin.price_usd }}</div> \
         <div class="wrapper10">{{ coin.price_btc }}</div> \
@@ -36,7 +36,7 @@ Vue.component('coins', {
 })
 
 Vue.component('headthing', {
-  props: ['head'],
-  template: '<li class="headthing"> \
-        <a style="color:black;">{{ head.value }}</a></li>'
+    props: ['head'],
+    template: '<li class="headthing"> \
+    <a style="color:black;">{{ head.value }}</a></li>'
 })

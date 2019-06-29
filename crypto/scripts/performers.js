@@ -15,6 +15,25 @@ var performers = new Vue({
         notice: ''
     },
     methods: {
+        load: function() {
+            var limit = localStorage.getItem('performers_rank');
+
+            if(limit == null) {
+                this.rank = 50;
+            } else {
+                this.rank = limit;
+            }
+
+            $.getJSON(this.url + this.rank + '/' + this.page,
+                function (json) {
+
+                performers.formatPerformers(json);
+                performers.performers = json;
+                performers.lastUpdated =
+                    'Last updated ' +
+                    since(json.last_update_coins.input_value);
+            });
+        },
         updateRank: function() {
             if(this.rank <= 0 || this.rank > 500 || isNaN(this.rank)) {
                 this.notice = 'Range: 1 to 500';
@@ -22,31 +41,15 @@ var performers = new Vue({
                 localStorage.setItem('performers_rank', this.rank);
 
                 this.page = 0;
-                this.init()
+                this.load();
             }
         },
         init: function() {
             if(!this.isInit) {
-                var limit = localStorage.getItem('performers_rank');
-
-                if(limit == null) {
-                    this.rank = 50;
-                } else {
-                    this.rank = limit;
-                }
-
-                $.getJSON(this.url + this.rank + '/' + this.page,
-                    function (json) {
-
-                    performers.formatPerformers(json);
-                    performers.performers = json;
-                    performers.lastUpdated =
-                        'Last updated ' +
-                        since(json.last_update_coins.input_value);
-                });
+                this.load();
             }
 
-            isInit = true;
+            this.isInit = true;
         },
         formatPerformers: function(json) {
             this.performerTypes.forEach(function(p) {
