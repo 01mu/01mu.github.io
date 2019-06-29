@@ -25,27 +25,34 @@ bootstrap.min.js"></script>
                     Crypto
                 </a>
             </div>
-            <ul class="nav navbar-nav" style="color:black; font-size: 12px;">
+            <ul class="nav navbar-nav" style="color:black;">
                 <li class="headthing">
-                    <a v-on:click="showPortfolio()">Portfolio</a>
+                    <a style="color:black;" v-on:click="showPortfolio()">Portfolio</a>
                 </li>
                 <li class="headthing">
-                    <a v-on:click="showPerformers()">Performers</a>
+                    <a style="color:black;" v-on:click="showPerformers()">Performers</a>
                 </li>
                 <li class="headthing">
-                    <a v-on:click="showCoins()">Coins</a>
+                    <a style="color:black;" v-on:click="showCoins()">Coins</a>
                 </li>
                 <li class="headthing">
-                    <a v-on:click="showHeatMap()">Heat Map</a>
+                    <a style="color:black;" v-on:click="showHeatMap()">Heat Map</a>
                 </li>
-                <li class="headthing">
-                    <a>/biz/</a>
-                </li>
-                <li class="headthing">
-                    <a>/r/CryptoCurrency</a>
+                <li class="dropdown">
+                    <a class="dropdown-toggle"
+                        style="color:black;"
+                        data-toggle="dropdown" href="#">
+
+                        Mentions
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="headthing"><a>/biz/</a></li>
+                        <li class="headthing"><a>/r/CryptoCurrency</a></li>
+                    </ul>
                 </li>
             </ul>
-            <ul class="nav navbar-nav navbar-right" style="font-size: 12px;">
+            <ul class="nav navbar-nav navbar-right">
                 <headthing v-for="p in info"
                     v-bind:head="p"></headthing>
             </ul>
@@ -236,6 +243,6 @@ bootstrap.min.js"></script>
 <script src="scripts/components.js"></script>
 <script src="scripts/functions.js"></script>
 <script src="scripts/head.js"></script>
-<script src="scripts/heatmap.js"></script>
+<script src="scripts/hm.js"></script>
 <script src="scripts/performers.js"></script>
 <script src="scripts/portfolio.js"></script>
