@@ -37,5 +37,6 @@ Vue.component('coins', {
 
 Vue.component('headthing', {
   props: ['head'],
-  template: '<li class="headthing"><a>{{ head.value }}</a></li>'
+  template: '<li class="headthing"> \
+        <a style="color:black;">{{ head.value }}</a></li>'
 })
