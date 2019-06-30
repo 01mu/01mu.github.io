@@ -26,19 +26,19 @@ bootstrap.min.js"></script>
                 </a>
             </div>
             <ul class="nav navbar-nav" style="color:black;">
-                <li class="headthing">
+                <li v-bind:class="active['portfolio']">
                     <a style="color:black;" v-on:click="showPortfolio()">Portfolio</a>
                 </li>
-                <li class="headthing">
+                <li v-bind:class="active['performers']">
                     <a style="color:black;" v-on:click="showPerformers()">Performers</a>
                 </li>
-                <li class="headthing">
+                <li v-bind:class="active['coins']">
                     <a style="color:black;" v-on:click="showCoins()">Coins</a>
                 </li>
-                <li class="headthing">
+                <li v-bind:class="active['heatmap']">
                     <a style="color:black;" v-on:click="showHeatMap()">Heat Map</a>
                 </li>
-                <li class="dropdown">
+                <li v-bind:class="active['mentions']">
                     <a class="dropdown-toggle headthing"
                         style="color:black;"
                         data-toggle="dropdown" href="#">
@@ -283,7 +283,7 @@ bootstrap.min.js"></script>
 <script src="scripts/coins.js"></script>
 <script src="scripts/components.js"></script>
 <script src="scripts/functions.js"></script>
-<script src="scripts/head.js"></script>
 <script src="scripts/hm.js"></script>
 <script src="scripts/performers.js"></script>
 <script src="scripts/portfolio.js"></script>
+<script src="scripts/head.js"></script>

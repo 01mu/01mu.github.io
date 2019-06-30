@@ -1,6 +1,7 @@
 var performers = new Vue({
     el: '#performers',
     data: {
+        nav: 'performers',
         url: 'https://smallfolio.bitnamiapp.com/crypto/performers/',
         performers: [],
         performerTypes: ['change_1h_asc', 'change_1h_desc',

@@ -1,6 +1,7 @@
 var portfolio = new Vue({
     el: '#portfolio',
     data: {
+        nav: 'portfolio',
         value: '',
         btcValue: '',
 

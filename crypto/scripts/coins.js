@@ -1,6 +1,7 @@
 var coins = new Vue({
     el: '#coins',
     data: {
+        nav: 'coins',
         url: 'https://smallfolio.bitnamiapp.com/crypto/coins/',
         coins: [],
         page: 0,

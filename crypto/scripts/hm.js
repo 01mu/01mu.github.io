@@ -1,6 +1,7 @@
 var heatmap = new Vue({
     el: '#heatmap',
     data: {
+        nav: 'heatmap',
         url: 'https://smallfolio.bitnamiapp.com/crypto/heatmap/',
         heatmap: [],
         page: 0,

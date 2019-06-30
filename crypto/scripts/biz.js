@@ -1,6 +1,7 @@
 var biz = new Vue({
     el: '#biz',
     data: {
+        nav: 'mentions',
         url: 'https://smallfolio.bitnamiapp.com/crypto/biz/',
         rank: 50,
         bizCounts: [],

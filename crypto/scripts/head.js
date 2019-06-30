@@ -1,15 +1,21 @@
 var head = new Vue ({
     el: '#head',
     data: {
-        info: []
+        vues: [portfolio, performers, coins, heatmap, biz],
+        info: [],
+        active: {}
     },
     methods: {
         toggle: function(show) {
-            var vues = [performers, coins, portfolio, heatmap, biz];
-
-            vues.forEach(function(e) {
+            this.vues.forEach(function(e) {
                 if(e != show) {
                     e.visible = false;
+                }
+
+                if(e == show) {
+                    head.active[e.nav] = 'headthing active';
+                } else {
+                    head.active[e.nav] = 'headthing';
                 }
             });
 
@@ -37,6 +43,15 @@ var head = new Vue ({
     },
     created: function() {
         var url = 'https://smallfolio.bitnamiapp.com/crypto/info';
+        var active = {};
+
+        this.vues.forEach(function(element) {
+            active[element.nav] = 'headthing';
+        });
+
+        active['portfolio'] = 'headthing active';
+
+        this.active = active;
 
         $.getJSON(url, function (json) {
             var info = {};

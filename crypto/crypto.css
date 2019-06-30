@@ -89,5 +89,9 @@ th, td {
 .titletext { color:black; font-weight: bold; font-size: 20px; }
 .smalllink { text-decoration:underline; cursor: pointer; }
 
-
 .hm { background-color: green; }
+
+.active { border-bottom: solid; border-width: 2px; border-color: #a69a12; }
+
+.averight { border-left: solid; border-left-width: 1px;
+    border-left-color: black; }
