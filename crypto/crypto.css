@@ -93,5 +93,4 @@ th, td {
 
 .active { border-bottom: solid; border-width: 2px; border-color: #a69a12; }
 
-.averight { border-left: solid; border-left-width: 1px;
-    border-left-color: black; }
+.ave { text-align: center; }

@@ -9,7 +9,8 @@ var heatmap = new Vue({
         lastUpdated: '',
         loadingText: 'Load more',
         visible: false,
-        isInit: false
+        isInit: false,
+        averages: []
     },
     methods: {
         init: function() {
@@ -22,6 +23,7 @@ var heatmap = new Vue({
                         heatmap.dates.push(date);
                     });
 
+                    heatmap.getAverages(json['heat_map']);
                     heatmap.formatHM(json['heat_map']);
                     heatmap.setColors(json['heat_map']);
                     heatmap.heatmap = json['heat_map'];
@@ -67,6 +69,8 @@ var heatmap = new Vue({
                 coin.forEach(function(element) {
                     var difference = element.difference;
                     element.color = heatmap.getColor(difference);
+
+
                 });
             });
         },
@@ -76,10 +80,30 @@ var heatmap = new Vue({
             $.getJSON(this.url + ++this.page, function (json) {
                 heatmap.loadingText = 'Load more';
 
+                heatmap.getAverages(json['heat_map']);
                 heatmap.formatHM(json['heat_map']);
                 heatmap.setColors(json['heat_map']);
                 heatmap.heatmap = heatmap.heatmap.concat(json['heat_map']);
             });
+        },
+        getAverages: function(hm) {
+            var totals = [];
+
+            for(var i = 0; i < 21; i++) {
+                totals[i] = 0;
+            }
+
+            hm.forEach(function(coin) {
+                for(var i = 0; i < coin.length; i++) {
+                    totals[i] += coin[i].difference;
+                }
+            });
+
+            for(var i = 0; i < 21; i++) {
+                totals[i] = (totals[i] / 21).toFixed(2);
+            }
+
+            this.averages = totals;
         }
     }
 });

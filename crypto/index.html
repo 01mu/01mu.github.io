@@ -18,48 +18,59 @@ bootstrap.min.js"></script>
     <!--
         nav bar
     -->
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default navbar-static-top">
         <div id="head" class="container-fluid">
             <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed"
+                        data-toggle="collapse"
+                        data-target="#app-navbar-collapse">
+
+                        <span class="sr-only">Toggle Navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
                 <a class="navbar-brand titletext" style="color: black;">
                     Crypto
                 </a>
             </div>
-            <ul class="nav navbar-nav" style="color:black;">
-                <li v-bind:class="active['portfolio']">
-                    <a style="color:black;" v-on:click="showPortfolio()">Portfolio</a>
-                </li>
-                <li v-bind:class="active['performers']">
-                    <a style="color:black;" v-on:click="showPerformers()">Performers</a>
-                </li>
-                <li v-bind:class="active['coins']">
-                    <a style="color:black;" v-on:click="showCoins()">Coins</a>
-                </li>
-                <li v-bind:class="active['heatmap']">
-                    <a style="color:black;" v-on:click="showHeatMap()">Heat Map</a>
-                </li>
-                <li v-bind:class="active['mentions']">
-                    <a class="dropdown-toggle headthing"
-                        style="color:black;"
-                        data-toggle="dropdown" href="#">
+            <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                <ul class="nav navbar-nav" style="color:black;">
+                    <li v-bind:class="active['portfolio']">
+                        <a style="color:black;" v-on:click="showPortfolio()">Portfolio</a>
+                    </li>
+                    <li v-bind:class="active['performers']">
+                        <a style="color:black;" v-on:click="showPerformers()">Performers</a>
+                    </li>
+                    <li v-bind:class="active['coins']">
+                        <a style="color:black;" v-on:click="showCoins()">Coins</a>
+                    </li>
+                    <li v-bind:class="active['heatmap']">
+                        <a style="color:black;" v-on:click="showHeatMap()">Heat Map</a>
+                    </li>
+                    <li v-bind:class="active['mentions']">
+                        <a class="dropdown-toggle headthing"
+                            style="color:black;"
+                            data-toggle="dropdown" href="#">
 
-                        Mentions
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="headthing"v-on:click="showBiz()">
-                            <a>/biz/</a>
-                        </li>
-                        <li class="headthing">
-                            <a>/r/CryptoCurrency</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <headthing v-for="p in info"
-                    v-bind:head="p"></headthing>
-            </ul>
+                            Mentions
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="headthing"v-on:click="showBiz()">
+                                <a>/biz/</a>
+                            </li>
+                            <li class="headthing">
+                                <a>/r/CryptoCurrency</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <headthing v-for="p in info"
+                        v-bind:head="p"></headthing>
+                </ul>
+            </div>
         </div>
     </nav>
     <!--
@@ -128,6 +139,12 @@ bootstrap.min.js"></script>
                         </template>
                     </tr>
                 </template>
+                <tr class="ave">
+                    <td class="ave">μ</td>
+                    <template v-for="(ave, index) in averages">
+                        <td style="background-color: #b3e0ff;">{{ ave }}</td>
+                    </template
+                </tr>
             </tbody>
         </table>
         <div class="smalltext">{{ lastUpdated }}</div>
@@ -220,8 +237,8 @@ bootstrap.min.js"></script>
                 <tr>
                     <th scope="col">Symbol</th>
                     <th scope="col">Amount</th>
-                    <th scope="col">Percentage</th>
-                    <th scope="col">Value</th>
+                    <th class="hidden-xs" scope="col">Percentage</th>
+                    <th class="hidden-xs" scope="col">Value</th>
                     <th scope="col">Price</th>
                     <th scope="col">Action</th>
                 </tr>
@@ -236,8 +253,8 @@ bootstrap.min.js"></script>
                             &nbsp;{{ coin.symbol }}
                         </td>
                         <td>{{ coin.amount }}</td>
-                        <td>{{ coin.percentage }}</td>
-                        <td>{{ coin.value }}</td>
+                        <td class="hidden-xs">{{ coin.percentage }}</td>
+                        <td class="hidden-xs">{{ coin.value }}</td>
                         <td>{{ coin.price }}</td>
                         <td>
                             <button class="button-green"
