@@ -10,7 +10,8 @@ var heatmap = new Vue({
         loadingText: 'Load more',
         visible: false,
         isInit: false,
-        averages: []
+        averages: [],
+        showAve: false
     },
     methods: {
         init: function() {
@@ -104,6 +105,7 @@ var heatmap = new Vue({
             }
 
             this.averages = totals;
+            this.showAve = true;
         }
     }
 });
