@@ -1,6 +1,23 @@
 body { background-color: #fafbfc; overflow-y:scroll; }
+
 .body { margin: 0 auto; max-width: 800px; }
 .bigger { margin: 0 auto; max-width: 1200px; }
+
+.hiddenbutton {   display: none; }
+
+.wrapper5s { width: 5%; }
+.wrapper15s { width: 15%; }
+.wrapper10s { width: 10%; }
+
+@media (max-width: 800px) {
+    .body { max-width: 800px; margin-left: 16px; margin-right: 16px; }
+    .bigger { max-width: 1200px;  margin-left: 16px; margin-right: 16px; }
+    .hiddenbutton {    display: inline-block; }
+    .wrapper5s { width: 15%; }
+    .wrapper15s { width: 42.5%; }
+    .wrapper10s { width: 42.5%; text-align: center; }
+}
+
 .biggerer { margin: 0 auto; max-width: 100%; }
 [v-cloak] { display: none; }
 .portfoliorow:hover { background-color: #f2f2f2; }

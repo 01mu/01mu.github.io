@@ -11,7 +11,8 @@ var heatmap = new Vue({
         visible: false,
         isInit: false,
         averages: [],
-        showAve: false
+        showAve: false,
+        hide: 'hidden-xs'
     },
     methods: {
         init: function() {
@@ -21,7 +22,7 @@ var heatmap = new Vue({
                         var date = new Date(element.time * 1000);
                         date = (date.getMonth() + 1) + '/' + date.getDate();
 
-                        heatmap.dates.push(date);
+                        heatmap.dates.push({'date': date, 'style': 'hidden-xs'});
                     });
 
                     heatmap.getAverages(json['heat_map']);
@@ -32,7 +33,7 @@ var heatmap = new Vue({
                         'Last updated ' +
                         since(json.last_update_heat_map.input_value);
                 });
-            }5
+            }
 
             this.isInit = true;
         },

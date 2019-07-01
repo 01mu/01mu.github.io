@@ -1,4 +1,8 @@
-var head = new Vue ({
+const router = new VueRouter({
+    routes: [],
+});
+
+var head = new Vue ({router,
     el: '#head',
     data: {
         vues: [portfolio, performers, coins, heatmap, biz],
@@ -7,6 +11,8 @@ var head = new Vue ({
     },
     methods: {
         toggle: function(show) {
+            var head = this;
+
             this.vues.forEach(function(e) {
                 if(e != show) {
                     e.visible = false;
@@ -24,24 +30,50 @@ var head = new Vue ({
         showPerformers: function() {
             this.toggle(performers);
             performers.init();
+            this.$router.push('/performers');
         },
         showPortfolio: function() {
             this.toggle(portfolio);
+            this.$router.push('/portfolio');
         },
         showCoins: function() {
             this.toggle(coins);
             coins.init();
+            this.$router.push('/coins');
         },
         showHeatMap: function() {
             this.toggle(heatmap);
             heatmap.init();
+            this.$router.push('/heatmap');
         },
         showBiz: function() {
             this.toggle(biz);
             biz.init();
+            this.$router.push('/biz');
+        },
+        doRoute: function() {
+            var head = this;
+            var split = this.$router.history.current.path.split('/');
+
+            switch(split[1]) {
+                case 'portfolio': head.showPortfolio(); break;
+                case 'performers': head.showPerformers(); break;
+                case 'coins': head.showCoins(); break;
+                case 'heatmap': head.showHeatMap(); break;
+                case 'biz': head.showBiz(); break;
+                default: head.showPortfolio(); break;
+            };
+        }
+    },
+    watch: {
+        '$route' (to, from) {
+            this.doRoute();
         }
     },
     created: function() {
+        var head = this;
+        var split = this.$router.history.current.path.split('/');
+
         var url = 'https://smallfolio.bitnamiapp.com/crypto/info';
         var active = {};
 
@@ -49,9 +81,10 @@ var head = new Vue ({
             active[element.nav] = 'headthing';
         });
 
-        active['portfolio'] = 'headthing active';
+        active[split[1]] = 'headthing active';
 
         this.active = active;
+        this.doRoute();
 
         $.getJSON(url, function (json) {
             var info = {};
