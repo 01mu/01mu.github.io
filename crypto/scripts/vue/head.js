@@ -5,7 +5,7 @@ const router = new VueRouter({
 var head = new Vue ({router,
     el: '#head',
     data: {
-        vues: [portfolio, performers, coins, heatmap, biz],
+        vues: [single, portfolio, performers, coins, heatmap, biz],
         info: [],
         active: {}
     },
@@ -51,7 +51,13 @@ var head = new Vue ({router,
             biz.init();
             this.$router.push('/biz');
         },
-        doRoute: function() {
+        showSingle: function(coin) {
+            this.toggle(single);
+            single.coin = coin;
+            single.update();
+            this.$router.push('/single/' + coin);
+        },
+        setRoute: function() {
             var head = this;
             var split = this.$router.history.current.path.split('/');
 
@@ -61,13 +67,14 @@ var head = new Vue ({router,
                 case 'coins': head.showCoins(); break;
                 case 'heatmap': head.showHeatMap(); break;
                 case 'biz': head.showBiz(); break;
+                case 'single': head.showSingle(split[2]); break;
                 default: head.showPortfolio(); break;
             };
         }
     },
     watch: {
         '$route' (to, from) {
-            this.doRoute();
+            this.setRoute();
         }
     },
     created: function() {
@@ -84,7 +91,7 @@ var head = new Vue ({router,
         active[split[1]] = 'headthing active';
 
         this.active = active;
-        this.doRoute();
+        this.setRoute();
 
         $.getJSON(url, function (json) {
             var info = {};

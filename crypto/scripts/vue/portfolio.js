@@ -4,20 +4,15 @@ var portfolio = new Vue({
         nav: 'portfolio',
         value: '',
         btcValue: '',
-
         coinDisplay: [],
         coinTable: {},
-
         coinSymbol: '',
         coinAmount: '',
         priceSymbol: '$',
-
         notice: '',
-
         showEdit: false,
         toEdit: '',
         newAmount: 0,
-
         visible: true
     },
     methods: {
