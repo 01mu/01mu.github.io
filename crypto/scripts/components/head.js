@@ -3,7 +3,10 @@ Vue.component('cmcinfo', {
     template:
     `
         <li class="headthing">
-            <a style="color:black;">{{ info.value }}</a>
+            <a style="color:black;">
+                <img src="nav/cmc.png" height="16" width="16">
+                {{ info.value }}
+            </a>
         </li>
     `
 });
@@ -23,33 +26,38 @@ Vue.component('navbar', {
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                <a class="navbar-brand titletext" style="color: black;">
-                    Crypto
-                </a>
+                    <a  class="navbar-brand titletext" style="color: black;"
+                        v-on:click="head.showPortfolio()">
+                        Crypto
+                    </a>
             </div>
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <ul class="nav navbar-nav" style="color:black;">
                     <li v-bind:class="active['portfolio']">
                         <a  class="linkCol" style="color:black;"
                             v-on:click="head.showPortfolio()">
+                            <img src="nav/portfolio.png" height="16" width="16">
                             Portfolio
                         </a>
                     </li>
                     <li v-bind:class="active['performers']">
                         <a  class="linkCol" style="color:black;"
                             v-on:click="head.showPerformers()">
+                            <img src="nav/performers.png" height="16" width="16">
                             Performers
                         </a>
                     </li>
                     <li v-bind:class="active['coins']">
                         <a  class="linkCol" style="color:black;"
                             v-on:click="head.showCoins()">
+                            <img src="nav/coins.png" height="16" width="16">
                             Coins
                         </a>
                     </li>
                     <li v-bind:class="active['heatmap']">
                         <a  class="linkCol" style="color:black;"
                             v-on:click="head.showHeatMap()">
+                            <img src="nav/hm.png" height="16" width="16">
                             Heat Map
                         </a>
                     </li>
@@ -57,6 +65,7 @@ Vue.component('navbar', {
                         <a  class="dropdown-toggle headthing"
                             style="color:black;"
                             data-toggle="dropdown" href="#">
+                            <img src="nav/mentions.png" height="16" width="16">
                             Mentions
                             <span class="caret"></span>
                         </a>
@@ -64,9 +73,9 @@ Vue.component('navbar', {
                             <li v-on:click="head.showBiz()">
                                 <a class="linkCol">/biz/</a>
                             </li>
-                            <li>
+                            <!--<li>
                                 <a class="linkCol">/r/CryptoCurrency</a>
-                            </li>
+                            </li>-->
                         </ul>
                     </li>
                 </ul>

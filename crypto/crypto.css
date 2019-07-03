@@ -1,7 +1,7 @@
 body { background-color: #fafbfc; overflow-y:scroll; }
 
 .body { margin: 0 auto; max-width: 800px; }
-.bigger { margin: 0 auto; max-width: 1200px; }
+.bigger { margin: 0 auto; max-width: 90%; }
 
 .hiddenbutton { display: none; }
 
@@ -38,7 +38,7 @@ body { background-color: #fafbfc; overflow-y:scroll; }
 .headthing:hover { background-color: #f2f2f2; }
 
 .perfheader { text-align: center; font-weight: bold; padding: 10px;
-    margin-bottom: 10px; background-color: #f2f3f4; }
+    margin-bottom: 10px; margin-top: 10px; border-bottom: solid 1px #ccc; }
 
 .perfthing { padding: 5px; }
 .perfthing:hover { background-color: #f2f2f2; }
@@ -63,10 +63,10 @@ body { background-color: #fafbfc; overflow-y:scroll; }
 
 .footer { margin: 20px; padding-: 20px; text-align: center; }
 
-.loadmore { padding: 10px; background-color: #f2f3f4;
+.loadmore { padding: 10px; background-color: #f2f2f2;
     margin-top: 10px; margin-bottom: 10px;
     cursor: pointer; font-weight: bold; font-size: 15px; text-align: center; }
-.loadmore:hover { background-color: #f2f2f2; }
+.loadmore:hover { background-color: #ededed; }
 
 table { table-layout: fixed; width: 100%; }
 th, td { padding: 10px; text-align: left; }
@@ -75,7 +75,7 @@ th, td { border-bottom: 1px solid #ddd; }
 .coinpad { padding:10px; }
 .coinpad:hover { background-color: #f2f2f2; }
 .coinheader { text-align: left; font-weight: bold; padding: 10px;
-    margin-bottom: 10px; background-color: #f2f3f4; }
+    margin-bottom: 10px; border-bottom: solid 1px #ccc; margin-top: 10px; }
 
 .overflow { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .titletext { color:black; font-weight: bold; font-size: 20px; }

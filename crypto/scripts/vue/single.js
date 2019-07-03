@@ -4,7 +4,9 @@ var single = new Vue({
         visible: false,
         coin: 'BTC',
         limit: 30,
-        lastMode: ''
+        lastMode: '',
+        recentCoins: [],
+        recentIcons: []
     },
     methods: {
         setMinute: function() {
@@ -82,6 +84,9 @@ var single = new Vue({
         upaux: function(url, type) {
             $.getJSON(url, function (json) {
                 var dataset = [];
+                var response = json['Response'];
+
+                if(response == 'Error') return 0;
 
                 json['Data'].forEach(function(element) {
                     var point = {};
@@ -100,8 +105,50 @@ var single = new Vue({
                 single.setChart(dataset, type);
             });
         },
-        update: function(url, type) {
+        updateCoinHistory: function() {
+            var oldHis = JSON.parse(localStorage.getItem('coin_history'));
+
+            if(oldHis == undefined) {
+                var newHis = [this.coin];
+
+                localStorage.setItem('coin_history', JSON.stringify(newHis));
+            } else {
+                var toStr = [];
+
+                oldHis = JSON.parse(localStorage.getItem('coin_history'));
+
+                if(!oldHis.includes(this.coin)) {
+                    oldHis.push(this.coin);
+                }
+
+                if(oldHis.length > 15) {
+                    for(var i = 1; i < oldHis.length; i++) {
+                        toStr[i - 1] = oldHis[i];
+                    }
+                } else {
+                    toStr = oldHis;
+                }
+
+                localStorage.setItem('coin_history', JSON.stringify(toStr));
+            }
+        },
+        confirmCoin: function(url, type) {
             localStorage.setItem('chart_limit', this.limit);
+
+            this.updateCoinHistory();
+
+            this.recentCoins = JSON.parse(localStorage.getItem('coin_history'))
+                .reverse();
+
+            this.recentIcons = [];
+
+            this.recentCoins.forEach(function(element) {
+                var icon = 'https://smallfolio.bitnamiapp.com/' +
+                    'crypto_icons/color/' + element.toLowerCase() +
+                    '.png';
+
+                single.recentIcons.push(icon);
+            });
 
             switch(localStorage.getItem('chart_mode')) {
                 case 'minute':
@@ -117,6 +164,23 @@ var single = new Vue({
                 default:
                     this.setDaily(); break;
             }
+        },
+        update: function(url, type) {
+            var url = 'https://min-api.cryptocompare.com/data/' +
+                'histoday?fsym=' + this.coin + '&tsym=USD';
+
+            $.getJSON(url, function (json) {
+                var dataset = [];
+                var response = json['Response'];
+
+                if(response !== 'Error') {
+                    single.confirmCoin(url, type);
+
+                } else {
+                    single.coin = 'Bad coin';
+                }
+            });
+
         }
     },
     created: function() {

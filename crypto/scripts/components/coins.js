@@ -56,7 +56,7 @@ Vue.component('coinlm', {
     `
     <span>
         <div class="smalltext">
-            {{ lastupdated }}
+            - {{ lastupdated }}
         </div>
         <div class="loadmore" v-on:click="coins.loadMore()">
             {{ loadingtext }}

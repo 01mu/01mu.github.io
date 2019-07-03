@@ -64,7 +64,7 @@ Vue.component('heatmaplm', {
     `
     <span>
         <div class="smalltext">
-            {{ lastupdated }}
+            - {{ lastupdated }}
         </div>
         <div class="loadmore" v-on:click="heatmap.loadMore()">
             {{ loadingtext }}

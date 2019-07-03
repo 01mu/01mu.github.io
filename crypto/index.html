@@ -32,11 +32,23 @@ bootstrap.min.js"></script>
             :info="info"
         ></navbar>
     </div>
-    <div id ="single" v-if="visible" v-cloak class="body">
-        <singlechart></singlechart>
-        <chartfooter
-            :chart="this"
-        ></chartfooter>
+    <div id ="single" v-if="visible" v-cloak class="bigger">
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="perfheader">{{ coin }}</div>
+                    <singlechart></singlechart>
+                    <chartfooter
+                        :chart="this"
+                    ></chartfooter>
+            </div>
+            <div class="col-sm-2">
+                <div class="perfheader">Recent Coins</div>
+                    <recentcoins
+                        :urls="recentIcons"
+                        :coins="recentCoins"
+                    ></recentcoins>
+            </div>
+        </div>
     </div>
     <div id="biz" v-if="visible" v-cloak class="body">
         <biztable

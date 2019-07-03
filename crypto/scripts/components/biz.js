@@ -3,8 +3,8 @@ Vue.component('bizfooter', {
     template:
     `
     <div class="smalltext">
-        {{ lastupdated }} |
-        Rank limit <input v-on:keyup.enter="biz.updateRank()"
+        - {{ lastupdated }} <br>
+        - Rank limit: <input v-on:keyup.enter="biz.updateRank()"
             placeholder="Rank limit" v-model="biz.rank"></input>
         <span class="smalllink" v-on:click="biz.updateRank()">Update</span>
         <b>{{ notice }}</b>
