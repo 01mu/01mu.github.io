@@ -34,23 +34,64 @@ Vue.component('recentcoins', {
     props: ['urls', 'coins'],
     template:
     `
-        <table>
-            <tbody>
-                <template v-for="(coin, index) in coins">
-                    <tr class="portfoliorow">
-                        <td>
-                            <img height="20" width="20"
-                            onerror="this.style.display='none'"
-                            style="cursor: pointer;"
-                            v-on:click="head.showSingle(coins[index])"
-                            v-bind:src="urls[index]"/>
-                            <a v-on:click="head.showSingle(coins[index]);">
-                                {{ coins[index] }}
-                            </a>
-                        </td>
-                    </tr>
-                </template>
-            </tbody>
-        </table>
+    <table>
+        <tbody>
+            <template v-for="(coin, index) in coins">
+                <tr class="portfoliorow">
+                    <td>
+                        <img height="20" width="20"
+                        onerror="this.style.display='none'"
+                        style="cursor: pointer;"
+                        v-on:click="head.showSingle(coins[index])"
+                        v-bind:src="urls[index]"/>
+                        <a v-on:click="head.showSingle(coins[index]);">
+                            {{ coins[index] }}
+                        </a>
+                    </td>
+                </tr>
+            </template>
+        </tbody>
+    </table>
     `
+});
+
+Vue.component('chartcoininfo', {
+   props: ['info'],
+   template:
+   `
+    <table>
+        <tbody>
+            <tr class="portfoliorow">
+                <td>
+                    <img src="nav/cmc.png" height="16" width="16">
+                    Open: {{ info.open }}
+                </td>
+            <tr>
+            <tr class="portfoliorow">
+                <td>
+                    <img src="nav/cmc.png" height="16" width="16">
+                    Close: {{ info.close }}
+                </td>
+            <tr>
+            <tr class="portfoliorow">
+                <td>
+                    <img src="nav/cmc.png" height="16" width="16">
+                    Change: {{ info.change }}
+                </td>
+            <tr>
+            <tr class="portfoliorow">
+                <td>
+                    <img src="nav/cmc.png" height="16" width="16">
+                    High: {{ info.high }}
+                </td>
+            <tr>
+            <tr class="portfoliorow">
+                <td>
+                    <img src="nav/cmc.png" height="16" width="16">
+                    Low: {{ info.low }}
+                </td>
+            <tr>
+        </tbody>
+   </table>
+   `
 });

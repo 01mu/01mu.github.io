@@ -6,12 +6,14 @@ var single = new Vue({
         limit: 30,
         lastMode: '',
         recentCoins: [],
-        recentIcons: []
+        recentIcons: [],
+        coinInfo: {'icon' : '', 'open': 0, 'close': 0, 'high': 0, 'low': 0,
+            'change': 0}
     },
     methods: {
         setMinute: function() {
-            var url = 'https://min-api.cryptocompare.com/data/histominute?fsym=' +
-                this.coin + '&tsym=USD&limit=' + this.limit +
+            var url = 'https://min-api.cryptocompare.com/data/histominute' +
+                '?fsym=' + this.coin + '&tsym=USD&limit=' + this.limit +
                 '&aggregate=1&e=CCCAGG';
 
             this.upaux(url, '(Minute)');
@@ -86,23 +88,90 @@ var single = new Vue({
                 var dataset = [];
                 var response = json['Response'];
 
-                if(response == 'Error') return 0;
+                if(response == 'Error')  {
+                    single.coin = 'Error';
+                } else {
+                    var highest = 0;
+                    var lowest = Number.MAX_SAFE_INTEGER;
 
-                json['Data'].forEach(function(element) {
-                    var point = {};
+                    for(var i = 0; i < json['Data'].length; i++) {
+                        var element = json['Data'][i];
+                        var point = {};
 
-                    point['t'] = luxon.DateTime.fromSeconds(element.time)
-                        .valueOf();
+                        point['t'] = luxon.DateTime.fromSeconds(element.time)
+                            .valueOf();
 
-                    point['o'] = element.open;
-                    point['h'] = element.high;
-                    point['l'] = element.low;
-                    point['c'] = element.close;
+                        point['o'] = element.open;
+                        point['h'] = element.high;
+                        point['l'] = element.low;
+                        point['c'] = element.close;
 
-                    dataset.push(point);
-                });
+                        dataset.push(point);
 
-                single.setChart(dataset, type);
+                        if(i === 0) {
+                            single.coinInfo['open'] = element.high
+                        }
+
+                        if(i === json['Data'].length - 1) {
+                            single.coinInfo['close'] = element.high
+                        }
+
+                        if(element.high > highest) {
+                            highest = element.high;
+                        }
+
+                        if(element.high < lowest) {
+                            lowest = element.high;
+                        }
+                    }
+
+                    single.setCoinInfo(highest, lowest);
+                    single.setChart(dataset, type);
+                    single.updateCoinHistory();
+                    single.setRecentCoins();
+                }
+            });
+        },
+        setCoinInfo: function(highest, lowest) {
+            single.coinInfo['change'] = single.getChange(
+                single.coinInfo['close'],
+                single.coinInfo['open']);
+
+            single.coinInfo['high'] = '$' + commas(highest);
+            single.coinInfo['low'] = '$' + commas(lowest);
+            single.coinInfo['icon'] =
+                'https://smallfolio.bitnamiapp.com/' +
+                'crypto_icons/color/' + single.coin.toLowerCase() +
+                '.png';
+
+            single.coinInfo['open'] = '$' + commas(single.coinInfo['open']);
+            single.coinInfo['close'] = '$' + commas(single.coinInfo['close']);
+        },
+        getChange: function(current, previous) {
+            if(current === previous || previous === 0) {
+                return 0;
+            }
+
+            var v = (Math.abs(current - previous) / previous) * 100;
+
+            if(current < previous) {
+                v *= -1;
+            }
+
+            return v.toFixed(2) + '%';
+        },
+        setRecentCoins: function() {
+            this.recentCoins = JSON.parse(localStorage.getItem('coin_history'))
+                .reverse();
+
+            this.recentIcons = [];
+
+            this.recentCoins.forEach(function(element) {
+                var icon = 'https://smallfolio.bitnamiapp.com/' +
+                    'crypto_icons/color/' + element.toLowerCase() +
+                    '.png';
+
+                single.recentIcons.push(icon);
             });
         },
         updateCoinHistory: function() {
@@ -121,7 +190,7 @@ var single = new Vue({
                     oldHis.push(this.coin);
                 }
 
-                if(oldHis.length > 15) {
+                if(oldHis.length > 7) {
                     for(var i = 1; i < oldHis.length; i++) {
                         toStr[i - 1] = oldHis[i];
                     }
@@ -132,23 +201,8 @@ var single = new Vue({
                 localStorage.setItem('coin_history', JSON.stringify(toStr));
             }
         },
-        confirmCoin: function(url, type) {
+        update: function(url, type) {
             localStorage.setItem('chart_limit', this.limit);
-
-            this.updateCoinHistory();
-
-            this.recentCoins = JSON.parse(localStorage.getItem('coin_history'))
-                .reverse();
-
-            this.recentIcons = [];
-
-            this.recentCoins.forEach(function(element) {
-                var icon = 'https://smallfolio.bitnamiapp.com/' +
-                    'crypto_icons/color/' + element.toLowerCase() +
-                    '.png';
-
-                single.recentIcons.push(icon);
-            });
 
             switch(localStorage.getItem('chart_mode')) {
                 case 'minute':
@@ -164,23 +218,6 @@ var single = new Vue({
                 default:
                     this.setDaily(); break;
             }
-        },
-        update: function(url, type) {
-            var url = 'https://min-api.cryptocompare.com/data/' +
-                'histoday?fsym=' + this.coin + '&tsym=USD';
-
-            $.getJSON(url, function (json) {
-                var dataset = [];
-                var response = json['Response'];
-
-                if(response !== 'Error') {
-                    single.confirmCoin(url, type);
-
-                } else {
-                    single.coin = 'Bad coin';
-                }
-            });
-
         }
     },
     created: function() {

@@ -2,12 +2,12 @@ Vue.component('cmcinfo', {
     props: ['info'],
     template:
     `
-        <li class="headthing">
-            <a style="color:black;">
-                <img src="nav/cmc.png" height="16" width="16">
-                {{ info.value }}
-            </a>
-        </li>
+    <li class="headthing">
+        <a style="color:black;">
+            <img src="nav/cmc.png" height="16" width="16">
+            {{ info.value }}
+        </a>
+    </li>
     `
 });
 

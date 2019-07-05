@@ -78,4 +78,4 @@ var performers = new Vue({
             });
         }
     }
-})
+});

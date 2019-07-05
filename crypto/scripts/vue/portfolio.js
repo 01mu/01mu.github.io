@@ -100,7 +100,7 @@ var portfolio = new Vue({
                     var amount = p[element];
                     var price = (json[element].USD).toFixed(2);
                     var value = (price * amount).toFixed(2);
-                    var per = (value / portfolio.value * 100).toFixed(3);
+                    var per = (value / portfolio.value * 100).toFixed(2);
 
                     var icon = 'https://smallfolio.bitnamiapp.com/' +
                     'crypto_icons/color/' + element.toLowerCase()  + '.png';
@@ -177,4 +177,4 @@ var portfolio = new Vue({
 
         setInterval(function() { portfolio.updateValue(); }, 60000);
     }
-})
+});
