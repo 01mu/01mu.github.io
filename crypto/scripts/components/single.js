@@ -64,31 +64,31 @@ Vue.component('chartcoininfo', {
             <tr class="portfoliorow">
                 <td>
                     <img src="nav/cmc.png" height="16" width="16">
-                    Open: {{ info.open }}
+                    Open: {{ info.coinInfo.open }}
                 </td>
             <tr>
             <tr class="portfoliorow">
                 <td>
                     <img src="nav/cmc.png" height="16" width="16">
-                    Close: {{ info.close }}
+                    Close: {{ info.coinInfo.close }}
                 </td>
             <tr>
             <tr class="portfoliorow">
                 <td>
                     <img src="nav/cmc.png" height="16" width="16">
-                    Change: {{ info.change }}
+                    Change: {{ info.coinInfo.change }}
                 </td>
             <tr>
             <tr class="portfoliorow">
                 <td>
                     <img src="nav/cmc.png" height="16" width="16">
-                    High: {{ info.high }}
+                    High: {{ info.coinInfo.high }}
                 </td>
             <tr>
             <tr class="portfoliorow">
                 <td>
                     <img src="nav/cmc.png" height="16" width="16">
-                    Low: {{ info.low }}
+                    Low: {{ info.coinInfo.low }}
                 </td>
             <tr>
         </tbody>
