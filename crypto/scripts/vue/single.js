@@ -1,6 +1,7 @@
 var single = new Vue({
     el: '#single',
     data: {
+        coinHistoryDisplay: 6,
         visible: false,
         coin: 'BTC',
         limit: 30,
@@ -137,15 +138,14 @@ var single = new Vue({
                 single.coinInfo['close'],
                 single.coinInfo['open']);
 
-            single.coinInfo['high'] = '$' + commas(highest);
-            single.coinInfo['low'] = '$' + commas(lowest);
-            single.coinInfo['icon'] =
-                'https://smallfolio.bitnamiapp.com/' +
-                'crypto_icons/color/' + single.coin.toLowerCase() +
-                '.png';
+            single.coinInfo['high'] = '$' + commas(highest.toFixed(2));
+            single.coinInfo['low'] = '$' + commas(lowest.toFixed(2));
 
-            single.coinInfo['open'] = '$' + commas(single.coinInfo['open']);
-            single.coinInfo['close'] = '$' + commas(single.coinInfo['close']);
+            single.coinInfo['open'] = '$' + commas(single.coinInfo['open']
+                .toFixed(2));
+
+            single.coinInfo['close'] = '$' + commas(single.coinInfo['close']
+                .toFixed(2));
         },
         getChange: function(current, previous) {
             if(current === previous || previous === 0) {
@@ -190,7 +190,7 @@ var single = new Vue({
                     oldHis.push(this.coin);
                 }
 
-                if(oldHis.length > 7) {
+                if(oldHis.length > single.coinHistoryDisplay) {
                     for(var i = 1; i < oldHis.length; i++) {
                         toStr[i - 1] = oldHis[i];
                     }
@@ -203,6 +203,11 @@ var single = new Vue({
         },
         update: function(url, type) {
             localStorage.setItem('chart_limit', this.limit);
+
+            single.coinInfo['icon'] =
+                'https://smallfolio.bitnamiapp.com/' +
+                'crypto_icons/color/' + single.coin.toLowerCase() +
+                '.png';
 
             switch(localStorage.getItem('chart_mode')) {
                 case 'minute':

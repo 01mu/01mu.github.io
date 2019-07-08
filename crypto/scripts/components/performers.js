@@ -76,7 +76,7 @@ Vue.component('performersfooter', {
         <div class="smalltext">
             - {{ lastupdated }}<br>
             - Rank limit: <input v-on:keyup.enter="performers.updateRank()"
-                placeholder="Rank limit" v-model="rank"></input>
+                placeholder="Rank limit" v-model="performers.rank"></input>
             <span class="smalllink" v-on:click="performers.updateRank()">
                 Update
             </span>
