@@ -91,8 +91,7 @@ var head = new Vue ({router,
                     head.showPortfolio();
                     break;
             };
-        },
-        ass: function() {console.log('as')}
+        }
     },
     watch: {
         '$route' (to, from) {
@@ -139,7 +138,7 @@ var head = new Vue ({router,
             head.info.push({'value': info.total_volume_24h});
         });
 
-        window.onkeydown = function (e) {
+        /*window.onkeydown = function (e) {
             var code = e.keyCode ? e.keyCode : e.which;
 
             switch(code) {
@@ -150,6 +149,6 @@ var head = new Vue ({router,
                 case 40: console.log('down');break;
                 default: break;
             }
-        };
+        };*/
     }
 });

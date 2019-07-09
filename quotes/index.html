@@ -14,21 +14,60 @@ jquery.min.js"></script>
 bootstrap.min.js"></script>
 <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/luxon@1.15.0"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@0.1.1"></script>
-
 <link rel="stylesheet" href="quotes.css">
 <link rel="icon" type="image/x-icon"/>
 
 <title>Quotes</title>
 
 <html>
-
+    <div id="head">
+        <navbar></navbar>
+    </div>
+    <div id="quotes" v-if="visible" v-cloak class="body">
+        <quotebody
+            :q="this"
+        ></quotebody>
+        <quoteslm
+            :q="this"
+        ></quoteslm>
+    </div>
+    <div id="authorquotes" v-if="visible" v-cloak class="body">
+        <quotebody
+            :q="this"
+        ></quotebody>
+        <quoteslm
+            :q="this"
+        ></quoteslm>
+    </div>
+    <div id="searchquotes" v-if="visible" v-cloak class="body">
+        <quotebody
+            :q="this"
+        ></quotebody>
+        <quoteslm
+            :q="this"
+        ></quoteslm>
+    </div>
+    <div id="authors" v-if="visible" v-cloak class="body">
+        <authorsearch
+            :a="this"
+        ></authorsearch>
+        <authorslm
+            :loadingtext="loadingText"
+        ></authorslm>
+    </div>
+    <div class="footer">
+        <a href="https://01mu.github.io/quotes">
+            01mu.github.io/quotes
+        </a>
+    </div>
 </html>
 
-<script>
+<script src="scripts/components/authors.js"></script>
+<script src="scripts/components/common.js"></script>
+<script src="scripts/components/head.js"></script>
 
-
-
-</script>
+<script src="scripts/vue/quotes.js"></script>
+<script src="scripts/vue/authors.js"></script>
+<script src="scripts/vue/authorquotes.js"></script>
+<script src="scripts/vue/searchquotes.js"></script>
+<script src="scripts/vue/head.js"></script>
