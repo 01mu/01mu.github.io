@@ -1,5 +1,5 @@
 Vue.component('navbar', {
-    props: [''],
+    props: ['head'],
     template:
     `
     <nav class="navbar navbar-default navbar-static-top">
@@ -21,7 +21,20 @@ Vue.component('navbar', {
             </div>
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <ul class="nav navbar-nav" style="color:black;">
-
+                    <li v-bind:class="head.active['quotes']"
+                        v-if="head.showAuthorOption">
+                        <a v-on:click="head.showAuthorQuotes(head.currentAuthor)"
+                            style="cursor: pointer;">
+                            {{ head.currentAuthor }} Quotes
+                        </a>
+                    </li>
+                    <li v-bind:class="head.active['relations']"
+                        v-if="head.showAuthorOption">
+                        <a v-on:click="head.showAuthorRelations(head.currentAuthor)"
+                            style="cursor: pointer;">
+                            {{ head.currentAuthor }} Relations
+                        </a>
+                    </li>
                 </ul>
                 <div class="navbar-form navbar-right">
                     <input class="form-control" type="text"

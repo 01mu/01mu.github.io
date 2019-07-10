@@ -106,7 +106,7 @@ var portfolio = new Vue({
                     'crypto_icons/color/' + element.toLowerCase()  + '.png';
 
                     show['symbol'] = element;
-                    show['amount'] = commas(amount);
+                    show['amount'] = parseFloat(amount, 10).toFixed(4);
                     show['percentage'] = per;
                     show['icon'] = icon;
                     show['price'] = commas(portfolio.priceSymbol + price);

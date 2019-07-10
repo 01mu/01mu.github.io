@@ -5,7 +5,10 @@ const router = new VueRouter({
 var head = new Vue ({router,
     el: '#head',
     data: {
-        vues: [quotes, authors, authorquotes, searchquotes]
+        vues: [quotes, authors, authorquotes, searchquotes, authorrelations],
+        showAuthorOption: false,
+        currentAuthor: '',
+        active: {'quotes': 'active', 'relations': ''}
     },
     methods: {
         toggle: function(show) {
@@ -26,6 +29,10 @@ var head = new Vue ({router,
             authorquotes.chosenAuthor = author;
             this.$router.push('/aquotes/' + authorquotes.chosenAuthor);
         },
+        showAuthorRelations: function(author) {
+            authorrelations.chosenAuthor = author;
+            this.$router.push('/arelations/' + authorrelations.chosenAuthor);
+        },
         authorSearch: function() {
             this.$router.push('/asearch/' + authors.searchedAuthor);
         },
@@ -39,6 +46,7 @@ var head = new Vue ({router,
             switch(split[1]) {
                 case 'quotes':
                     this.toggle(quotes);
+                    head.showAuthorOption = false;
                     break;
                 case 'asearch':
                     if(split[2] == undefined || split[2] === '') {
@@ -49,6 +57,8 @@ var head = new Vue ({router,
                         this.toggle(authors);
                         authors.performSearch();
                     }
+
+                    head.showAuthorOption = false;
                     break;
                 case 'qsearch':
                     if(split[2] == undefined || split[2] === '') {
@@ -59,6 +69,8 @@ var head = new Vue ({router,
                         this.toggle(searchquotes);
                         searchquotes.showSearchedQuotes();
                     }
+
+                    head.showAuthorOption = false;
                     break;
                 case 'aquotes':
                     if(split[2] == undefined || split[2] === '') {
@@ -66,8 +78,30 @@ var head = new Vue ({router,
                     } else {
                         authorquotes.chosenAuthor = split[2];
 
+                        head.active['relations'] = '';
+                        head.active['quotes'] = 'active';
+
+                        head.currentAuthor = split[2];
+                        head.showAuthorOption = true;
+
                         this.toggle(authorquotes);
                         authorquotes.showAuthorQuotes();
+                    }
+                    break;
+                case 'arelations':
+                    if(split[2] == undefined || split[2] === '') {
+                        head.showQuotesAll();
+                    } else {
+                        authorrelations.chosenAuthor = split[2];
+
+                        head.active['relations'] = 'active';
+                        head.active['quotes'] = '';
+
+                        head.currentAuthor = split[2];
+                        head.showAuthorOption = true;
+
+                        this.toggle(authorrelations);
+                        authorrelations.showAuthorRelations();
                     }
                     break;
                 default:
@@ -83,5 +117,9 @@ var head = new Vue ({router,
     },
     created: function() {
         this.setRoute();
+
+        var a = {};
+
+        this.active
     }
 });

@@ -72,4 +72,13 @@ body
 
 [v-cloak] { display: none; }
 
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    color: #000;
+    background: #e0dfce;
+}
+
 .footer { margin: 20px; padding-: 20px; text-align: center; }
+.active { border-bottom: solid; border-width: 2px; border-color: #cccccc;
+    background-color: #e0dfce; }
