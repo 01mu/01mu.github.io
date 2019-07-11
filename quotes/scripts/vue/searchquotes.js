@@ -56,11 +56,3 @@ var searchquotes = new Vue({
         }
     }
 });
-
-function highlight(string, needle) {
-    var reg = new RegExp(needle, 'gi');
-
-    return string.replace(reg, function(str) {
-        return '<span style="background-color:#fffa00;">' +
-            str + '</span>'});
-}

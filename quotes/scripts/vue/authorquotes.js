@@ -21,6 +21,13 @@ var authorquotes = new Vue({
             $.getJSON(url, function(json) {
                 var flag = 0;
 
+                if(json.length == 0) {
+                    head.showQuotesAll();
+                } else {
+                    head.showAuthorOption = true;
+                    //document.title = authorquotes.chosenAuthor + " Quotes";
+                }
+
                 for(var i = 0; i < json.length; i++) {
                     json[i].wikipedia = 'https://en.wikipedia.org/wiki/' +
                         json[i].author;

@@ -25,6 +25,7 @@ var authors = new Vue({
                 'search/' + this.searchedAuthor + '/0';
 
             this.counter = 0;
+            this.searchResults = [];
 
             $.getJSON(url, function(json) {
                 if(json.length === 1) {

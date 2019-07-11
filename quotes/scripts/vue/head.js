@@ -45,6 +45,7 @@ var head = new Vue ({router,
 
             switch(split[1]) {
                 case 'quotes':
+                    head.showQuotesAll();
                     this.toggle(quotes);
                     head.showAuthorOption = false;
                     break;
@@ -76,13 +77,14 @@ var head = new Vue ({router,
                     if(split[2] == undefined || split[2] === '') {
                         head.showQuotesAll();
                     } else {
-                        authorquotes.chosenAuthor = split[2];
+                        var author = split[2];
 
+                        authorquotes.chosenAuthor = author;
+
+                        head.showAuthorOption = false;
+                        head.currentAuthor = author;
                         head.active['relations'] = '';
                         head.active['quotes'] = 'active';
-
-                        head.currentAuthor = split[2];
-                        head.showAuthorOption = true;
 
                         this.toggle(authorquotes);
                         authorquotes.showAuthorQuotes();
@@ -92,20 +94,23 @@ var head = new Vue ({router,
                     if(split[2] == undefined || split[2] === '') {
                         head.showQuotesAll();
                     } else {
-                        authorrelations.chosenAuthor = split[2];
+                        var author = split[2];
 
+                        authorrelations.chosenAuthor = author;
+
+                        head.showAuthorOption = false;
+                        head.currentAuthor = author;
                         head.active['relations'] = 'active';
                         head.active['quotes'] = '';
-
-                        head.currentAuthor = split[2];
-                        head.showAuthorOption = true;
 
                         this.toggle(authorrelations);
                         authorrelations.showAuthorRelations();
                     }
                     break;
                 default:
+                    head.showQuotesAll();
                     this.toggle(quotes);
+                    head.showAuthorOption = false;
                     break;
             };
         }
@@ -117,9 +122,5 @@ var head = new Vue ({router,
     },
     created: function() {
         this.setRoute();
-
-        var a = {};
-
-        this.active
     }
 });

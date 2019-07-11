@@ -21,6 +21,12 @@ var authorrelations = new Vue({
             $.getJSON(url, function(json) {
                 var flag = 0;
 
+                if(json.length == 0) {
+                    head.showQuotesAll();
+                } else {
+                    head.showAuthorOption = true;
+                }
+
                 for(var i = 0; i < json.length; i++) {
                     authorrelations.relations[flag++].push(json[i]);
 

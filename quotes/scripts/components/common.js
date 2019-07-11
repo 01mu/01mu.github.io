@@ -49,7 +49,7 @@ Vue.component('quotebody', {
     `
 });
 
-Vue.component('quoteslm', {
+Vue.component('loadmore', {
     props: ['q'],
     template:
     `

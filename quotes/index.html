@@ -4,8 +4,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>-->
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/vue"></script>-->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0
 /css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/
@@ -15,72 +15,59 @@ bootstrap.min.js"></script>
 <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 
 <link rel="stylesheet" href="quotes.css">
-<link rel="icon" type="image/x-icon" href="http://iconsetc.com/icons-watermarks/simple-orange/broccolidry/broccolidry_glo
-be/broccolidry_globe_simple-orange_512x512.png"/>
+<link rel="icon" type="image/x-icon" href="favicon-32x32.png"/>
 
 <title>Quotes</title>
 
 <html>
     <div id="head">
-        <navbar
-            :head="this"
-        ></navbar>
+        <navbar :head="this"></navbar>
     </div>
-    <div id="quotes" v-if="visible" v-cloak class="body">
-        <quotebody
-            :q="this"
-        ></quotebody>
-        <quoteslm
-            :q="this"
-        ></quoteslm>
-    </div>
-    <div id="authorquotes" v-if="visible" v-cloak class="body">
-        <quotebody
-            :q="this"
-        ></quotebody>
-        <quoteslm
-            :q="this"
-        ></quoteslm>
-    </div>
-    <div id="searchquotes" v-if="visible" v-cloak class="body">
-        <quotebody
-            :q="this"
-        ></quotebody>
-        <quoteslm
-            :q="this"
-        ></quoteslm>
-    </div>
-    <div id="authors" v-if="visible" v-cloak class="body">
-        <authorsearch
-            :a="this"
-        ></authorsearch>
-        <authorslm
-            :loadingtext="loadingText"
-        ></authorslm>
-    </div>
-    <div id="authorrelations" v-if="visible" v-cloak class="body">
-        <relationbody
-            :q="this"
-            ></relationbody>
-        <quoteslm
-            :q="this"
-        ></quoteslm>
+    <div class="body">
+        <div id="quotes" v-if="visible" v-cloak>
+            <quotebody :q="this"></quotebody>
+            <loadmore :q="this"></loadmore>
+        </div>
+        <div id="authorquotes" v-if="visible" v-cloak>
+            <quotebody :q="this"></quotebody>
+            <loadmore :q="this"></loadmore>
+        </div>
+        <div id="searchquotes" v-if="visible" v-cloak>
+            <quotebody :q="this"></quotebody>
+            <loadmore :q="this"></loadmore>
+        </div>
+        <div id="authors" v-if="visible" v-cloak>
+            <authorsearch :a="this"></authorsearch>
+            <loadmore :q="this"></loadmore>
+        </div>
+        <div id="authorrelations" v-if="visible" v-cloak>
+            <relationbody :q="this"></relationbody>
+            <loadmore :q="this" ></loadmore>
+        </div>
     </div>
     <div class="footer">
-        <a href="https://01mu.github.io/quotes">
-            01mu.github.io/quotes
-        </a>
+        <a href="https://01mu.github.io/quotes">01mu.github.io/quotes</a>
     </div>
 </html>
 
-<script src="scripts/components/authors.js"></script>
 <script src="scripts/components/common.js"></script>
+<script src="scripts/components/authors.js"></script>
 <script src="scripts/components/authorrelations.js"></script>
 <script src="scripts/components/head.js"></script>
 
 <script src="scripts/vue/quotes.js"></script>
 <script src="scripts/vue/authors.js"></script>
+<script src="scripts/vue/authorrelations.js"></script>
 <script src="scripts/vue/authorquotes.js"></script>
 <script src="scripts/vue/searchquotes.js"></script>
-<script src="scripts/vue/authorrelations.js"></script>
 <script src="scripts/vue/head.js"></script>
+
+<script>
+    function highlight(string, needle) {
+        var reg = new RegExp(needle, 'gi');
+
+        return string.replace(reg, function(str) {
+            return '<span style="background-color:#fffa00;">' +
+                str + '</span>'});
+    }
+</script>

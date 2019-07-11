@@ -12,13 +12,3 @@ Vue.component('authorsearch', {
     </span>
     `
 });
-
-Vue.component('authorslm', {
-    props: ['loadingtext'],
-    template:
-    `
-        <div class="loadmore" v-on:click="authors.loadMore()">
-            {{ loadingtext }}
-        </div>
-    `
-});
