@@ -35,7 +35,7 @@ var head = new Vue ({router,
             $('.navbar-collapse').collapse('hide');
 
             this.toggle(portfolio);
-            this.$router.push('/portfolio');
+            //this.$router.push('/portfolio');
         },
         showCoins: function() {
             this.toggle(coins);

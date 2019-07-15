@@ -25,6 +25,7 @@ var searchquotes = new Vue({
                     json[i].wikipedia = 'https://en.wikipedia.org/wiki/' +
                         json[i].author;
 
+                    json[i].quote = '"' + json[i].quote + '"';
                     json[i].quote = highlight(json[i].quote,
                         searchquotes.searchTerm);
 

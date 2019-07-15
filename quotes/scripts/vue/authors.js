@@ -28,11 +28,12 @@ var authors = new Vue({
             this.searchResults = [];
 
             $.getJSON(url, function(json) {
-                if(json.length === 1) {
+                authors.searchResults = json;
+                /*if(json.length === 1) {
                     head.showAuthorQuotes(json[0].author);
                 } else {
                     authors.searchResults = json;
-                }
+                }*/
             });
         }
     }

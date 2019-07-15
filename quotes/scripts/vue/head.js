@@ -23,6 +23,8 @@ var head = new Vue ({router,
             show.visible = true;
         },
         showQuotesAll: function() {
+            this.toggle(quotes);
+            head.showAuthorOption = false;
             this.$router.push('/quotes/all');
         },
         showAuthorQuotes: function(author) {
@@ -45,7 +47,7 @@ var head = new Vue ({router,
 
             switch(split[1]) {
                 case 'quotes':
-                    head.showQuotesAll();
+                    //head.showQuotesAll();
                     this.toggle(quotes);
                     head.showAuthorOption = false;
                     break;
@@ -108,7 +110,7 @@ var head = new Vue ({router,
                     }
                     break;
                 default:
-                    head.showQuotesAll();
+                    //head.showQuotesAll();
                     this.toggle(quotes);
                     head.showAuthorOption = false;
                     break;
