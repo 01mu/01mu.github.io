@@ -35,7 +35,7 @@ var head = new Vue ({router,
             $('.navbar-collapse').collapse('hide');
 
             this.toggle(portfolio);
-            //this.$router.push('/portfolio');
+            this.$router.push('/portfolio');
         },
         showCoins: function() {
             this.toggle(coins);
@@ -88,7 +88,8 @@ var head = new Vue ({router,
                     single.update();
                     break;
                 default:
-                    head.showPortfolio();
+                    this.toggle(portfolio);
+                    //head.showPortfolio();
                     break;
             };
         }
@@ -137,18 +138,5 @@ var head = new Vue ({router,
             head.info.push({'value': info.total_market_cap});
             head.info.push({'value': info.total_volume_24h});
         });
-
-        /*window.onkeydown = function (e) {
-            var code = e.keyCode ? e.keyCode : e.which;
-
-            switch(code) {
-                case 32: console.log('space');break;
-                case 37: console.log('left');break;
-                case 38: console.log('up'); break;
-                case 39: console.log('right');break;
-                case 40: console.log('down');break;
-                default: break;
-            }
-        };*/
     }
 });
