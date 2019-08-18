@@ -45,11 +45,11 @@ Vue.component('portfoliotable', {
                     <td>
                         <button class="button-green"
                             v-on:click="portfolio.setEdit(coin.symbol)">
-                            Δ
+                            Edit
                         </button>
                         <button class="button-red"
                             v-on:click="portfolio.removeCoin(coin.symbol)">
-                            X
+                            Remove
                         </button>
                     </td>
                 </tr>
