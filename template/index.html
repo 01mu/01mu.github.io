@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/vue"></script>-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0
+/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/
+jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/
+bootstrap.min.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+<link rel="stylesheet" href="style.css">
+
+<title>Template</title>
+
+<html>
+    <div id="head">
+        <navbar :head="this"></navbar>
+    </div>
+</html>
+
+<script>
+Vue.component('navbar', {
+    props: ['head'],
+    template:
+    `
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed"
+                        data-toggle="collapse"
+                        data-target="#app-navbar-collapse">
+                        <span class="sr-only">Toggle Navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand titletext">
+                        Template
+                    </a>
+            </div>
+            <div class="collapse navbar-collapse" id="app-navbar-collapse">
+
+            </div>
+        </div>
+    </nav>
+    `
+});
+
+const router = new VueRouter({
+    routes: [],
+});
+
+var head = new Vue ({router,
+    el: '#head',
+    data: {
+
+    },
+    methods: {
+
+    },
+    watch: {
+
+    },
+    created: function() {
+
+    }
+});
+
+</script>
