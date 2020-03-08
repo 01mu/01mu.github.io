@@ -29,25 +29,25 @@ var head = new Vue ({router,
         },
         showPerformers: function() {
             this.toggle(performers);
-            this.$router.push('/performers');
+            this.$router.push('/performers').catch(err => {})
         },
         showPortfolio: function() {
             $('.navbar-collapse').collapse('hide');
 
             this.toggle(portfolio);
-            this.$router.push('/portfolio');
+            this.$router.push('/portfolio').catch(err => {})
         },
         showCoins: function() {
             this.toggle(coins);
-            this.$router.push('/coins');
+            this.$router.push('/coins').catch(err => {})
         },
         showHeatMap: function() {
             this.toggle(heatmap);
-            this.$router.push('/heatmap');
+            this.$router.push('/heatmap').catch(err => {})
         },
         showBiz: function() {
             this.toggle(biz);
-            this.$router.push('/biz');
+            this.$router.push('/biz').catch(err => {})
         },
         showSingle: function(coin) {
             $('.navbar-collapse').collapse('hide');
@@ -56,7 +56,7 @@ var head = new Vue ({router,
             if(coin != undefined) {
                 this.toggle(single);
                 single.coin = coin;
-                this.$router.push('/single/' + coin);
+                this.$router.push('/single/' + coin).catch(err => {})
             }
         },
         setRoute: function() {
