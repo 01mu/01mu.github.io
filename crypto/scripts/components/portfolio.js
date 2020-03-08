@@ -75,7 +75,7 @@ Vue.component('portfoliofooter', {
         <span v-if="showedit">
             <input v-on:keyup.enter="portfolio.makeEdit()"
                 placeholder="New amount" v-model="portfolio.newAmount">
-            <button class="button-blue" v-on:click="makeEdit()">
+            <button class="button-blue" v-on:click="portfolio.makeEdit()">
                 Edit {{ portfolio.toEdit }}
             </button>
         </span>
