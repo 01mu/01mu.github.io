@@ -46,6 +46,10 @@ var biz = new Vue({
                 element.url = 'https://smallfolio.bitnamiapp.com/' +
                     'crypto_icons/color/' + element.symbol.toLowerCase() +
                     '.png';
+
+                if(element.change_24h > 0) {
+                    element.change_24h = '+' + element.change_24h
+                }
             });
         },
         init: function() {

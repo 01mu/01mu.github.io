@@ -28,29 +28,21 @@ var head = new Vue ({router,
             show.visible = true;
         },
         showPerformers: function() {
-            this.toggle(performers);
             this.$router.push('/performers').catch(err => {})
         },
         showPortfolio: function() {
-            $('.navbar-collapse').collapse('hide');
-
-            this.toggle(portfolio);
             this.$router.push('/portfolio').catch(err => {})
         },
         showCoins: function() {
-            this.toggle(coins);
             this.$router.push('/coins').catch(err => {})
         },
         showHeatMap: function() {
-            this.toggle(heatmap);
             this.$router.push('/heatmap').catch(err => {})
         },
         showBiz: function() {
-            this.toggle(biz);
             this.$router.push('/biz').catch(err => {})
         },
         showSingle: function(coin) {
-            $('.navbar-collapse').collapse('hide');
             $('html, body').animate({ scrollTop: 0 }, 'fast');
 
             if(coin != undefined) {
@@ -60,36 +52,39 @@ var head = new Vue ({router,
             }
         },
         setRoute: function() {
-            var head = this;
             var split = this.$router.history.current.path.split('/');
 
             switch(split[1]) {
                 case 'portfolio':
-                    head.showPortfolio();
+                    this.toggle(portfolio);
+                    this.showPortfolio();
                     break;
                 case 'performers':
-                    head.showPerformers();
+                    this.toggle(performers);
+                    this.showPerformers();
                     performers.init();
                     break;
                 case 'coins':
+                    this.toggle(coins);
+                    this.showCoins();
                     coins.init();
-                    head.showCoins();
                     break;
                 case 'heatmap':
-                    head.showHeatMap();
+                    this.toggle(heatmap);
+                    this.showHeatMap();
                     heatmap.init();
                     break;
                 case 'biz':
-                    head.showBiz();
+                    this.toggle(biz);
+                    this.showBiz();
                     biz.init();
                     break;
                 case 'single':
-                    head.showSingle(split[2]);
+                    this.showSingle(split[2]);
                     single.update();
                     break;
                 default:
                     this.toggle(portfolio);
-                    //head.showPortfolio();
                     break;
             };
         }

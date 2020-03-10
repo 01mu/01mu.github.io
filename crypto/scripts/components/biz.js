@@ -22,6 +22,7 @@ Vue.component('biztable', {
                 <th>Coin</th>
                 <th>Symbol</th>
                 <th class="overflow">24 Hour Mentions</th>
+                <th class="overflow">24 Hour Δ</th>
             </tr>
         </thead>
         <tbody>
@@ -43,6 +44,7 @@ Vue.component('biztable', {
                         </a>
                     </td>
                     <td>{{ count.mention_count }}</td>
+                    <td>{{ count.change_24h }}</td>
                 </tr>
             </template>
         </tbody>
