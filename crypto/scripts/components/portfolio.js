@@ -43,13 +43,13 @@ Vue.component('portfoliotable', {
                     <td class="hidden-xs">{{ coin.value }}</td>
                     <td>{{ coin.price }}</td>
                     <td>
-                        <button class="button-green"
+                        <button class="button-green" style="width:40px"
                             v-on:click="portfolio.setEdit(coin.symbol)">
                             Edit
                         </button>
-                        <button class="button-red"
+                        <button class="button-red" style="width:40px"
                             v-on:click="portfolio.removeCoin(coin.symbol)">
-                            Remove
+                            Del
                         </button>
                     </td>
                 </tr>

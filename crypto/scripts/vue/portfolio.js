@@ -13,7 +13,7 @@ var portfolio = new Vue({
         showEdit: false,
         toEdit: '',
         newAmount: 0,
-        visible: true
+        visible: false
     },
     methods: {
         update: function(a) {
@@ -100,10 +100,15 @@ var portfolio = new Vue({
                     var amount = p[element];
                     var price = (json[element].USD).toFixed(2);
                     var value = (price * amount).toFixed(2);
+
                     var per = (value / portfolio.value * 100).toFixed(2);
 
+                    if(per === 'NaN') {
+                        per = '- '
+                    }
+
                     var icon = 'https://smallfolio.bitnamiapp.com/' +
-                    'crypto_icons/color/' + element.toLowerCase()  + '.png';
+                        'crypto_icons/color/' + element.toLowerCase()  + '.png';
 
                     show['symbol'] = element;
                     show['amount'] = parseFloat(amount, 10).toFixed(4);

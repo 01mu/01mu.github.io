@@ -34,6 +34,7 @@ var head = new Vue ({router,
             this.$router.push('/portfolio').catch(err => {})
         },
         showCoins: function() {
+            console.log(1)
             this.$router.push('/coins').catch(err => {})
         },
         showHeatMap: function() {
@@ -95,7 +96,6 @@ var head = new Vue ({router,
         }
     },
     created: function() {
-        var head = this;
         var split = this.$router.history.current.path.split('/');
 
         var url = 'https://smallfolio.bitnamiapp.com/crypto/info';

@@ -91,46 +91,47 @@ var single = new Vue({
 
                 if(response == 'Error')  {
                     single.coin = 'Error';
-                } else {
-                    var highest = 0;
-                    var lowest = Number.MAX_SAFE_INTEGER;
+                    return;
+                }
 
-                    for(var i = 0; i < json['Data'].length; i++) {
-                        var element = json['Data'][i];
-                        var point = {};
+                var highest = 0;
+                var lowest = Number.MAX_SAFE_INTEGER;
 
-                        point['t'] = luxon.DateTime.fromSeconds(element.time)
-                            .valueOf();
+                for(var i = 0; i < json['Data'].length; i++) {
+                    var element = json['Data'][i];
+                    var point = {};
 
-                        point['o'] = element.open;
-                        point['h'] = element.high;
-                        point['l'] = element.low;
-                        point['c'] = element.close;
+                    point['t'] = luxon.DateTime.fromSeconds(element.time)
+                        .valueOf();
 
-                        dataset.push(point);
+                    point['o'] = element.open;
+                    point['h'] = element.high;
+                    point['l'] = element.low;
+                    point['c'] = element.close;
 
-                        if(i === 0) {
-                            single.coinInfo['open'] = element.high
-                        }
+                    dataset.push(point);
 
-                        if(i === json['Data'].length - 1) {
-                            single.coinInfo['close'] = element.high
-                        }
-
-                        if(element.high > highest) {
-                            highest = element.high;
-                        }
-
-                        if(element.high < lowest) {
-                            lowest = element.high;
-                        }
+                    if(i === 0) {
+                        single.coinInfo['open'] = element.high
                     }
 
-                    single.setCoinInfo(highest, lowest);
-                    single.setChart(dataset, type);
-                    single.updateCoinHistory();
-                    single.setRecentCoins();
+                    if(i === json['Data'].length - 1) {
+                        single.coinInfo['close'] = element.high
+                    }
+
+                    if(element.high > highest) {
+                        highest = element.high;
+                    }
+
+                    if(element.high < lowest) {
+                        lowest = element.high;
+                    }
                 }
+
+                single.setCoinInfo(highest, lowest);
+                single.setChart(dataset, type);
+                single.updateCoinHistory();
+                single.setRecentCoins();
             });
         },
         setCoinInfo: function(highest, lowest) {
