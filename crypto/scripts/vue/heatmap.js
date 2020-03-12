@@ -16,24 +16,28 @@ var heatmap = new Vue({
     },
     methods: {
         init: function() {
-            if(!this.isInit) {
-                $.getJSON(this.url + this.page, function (json) {
-                    json['heat_map'][0].forEach(function(element) {
-                        var date = new Date(element.time * 1000);
-                        date = (date.getMonth() + 1) + '/' + date.getDate();
-
-                        heatmap.dates.push({'date': date, 'style': 'hidden-xs'});
-                    });
-
-                    heatmap.getAverages(json['heat_map']);
-                    heatmap.formatHM(json['heat_map']);
-                    heatmap.setColors(json['heat_map']);
-                    heatmap.heatmap = json['heat_map'];
-                    heatmap.lastUpdated =
-                        'Last updated ' +
-                        since(json.last_update_heat_map.input_value);
-                });
+            if(this.isInit) {
+                return;
             }
+
+            $.getJSON(this.url + this.page, function (json) {
+                json['heat_map'][0].forEach(function(element) {
+                    var date = new Date(element.time * 1000);
+
+                    d = (date.getMonth() + 1) + '/' + date.getDate();
+
+                    heatmap.dates.push({'date': d, 'style': 'hidden-xs'});
+                });
+
+                heatmap.getAverages(json['heat_map']);
+                heatmap.formatHM(json['heat_map']);
+                heatmap.setColors(json['heat_map']);
+                heatmap.heatmap = json['heat_map'];
+
+                heatmap.lastUpdated =
+                    'Last updated ' +
+                    since(json.last_update_heat_map.input_value);
+            });
 
             this.isInit = true;
         },
@@ -61,7 +65,7 @@ var heatmap = new Vue({
                 case(diff >= .5 && diff < 1): color = '#99ffbb;'; break;
                 case(diff >= 1 && diff < 2): color = '#80ffaa;'; break;
                 case(diff >= 2 && diff < 3): color = '#66ff99;'; break;
-                case(diff >= 3): color = '#4dff88;'; break;
+                default: color = '#4dff88;'; break;
             }
 
             return 'background-color:' + color;
@@ -81,7 +85,6 @@ var heatmap = new Vue({
 
             $.getJSON(this.url + ++this.page, function (json) {
                 heatmap.loadingText = 'Load more';
-
                 heatmap.getAverages(json['heat_map']);
                 heatmap.formatHM(json['heat_map']);
                 heatmap.setColors(json['heat_map']);

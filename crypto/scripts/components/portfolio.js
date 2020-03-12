@@ -28,13 +28,15 @@ Vue.component('portfoliotable', {
             <template v-for="(coin, index) in coins">
                 <tr class="portfoliorow">
                     <td>
-                        <img height="20" width="20"
-                            onerror="this.style.display='none'"
-                            v-bind:src="coin.icon"
-                            style="cursor: pointer;"
-                            v-on:click="head.showSingle(coin.symbol)"/>
+                        <a :href="'index.html#/single/' + coin.symbol">
+                            <img height="20" width="20"
+                                onerror="this.style.display='none'"
+                                v-bind:src="coin.icon"
+                                style="cursor: pointer;"
+                                v-on:click="head.showSingle(coin.symbol)"/>
+                        </a>
                         &nbsp;
-                        <a v-on:click="head.showSingle(coin.symbol)">
+                        <a :href="'index.html#/single/' + coin.symbol">
                             {{ coin.symbol }}
                         </a>
                     </td>
