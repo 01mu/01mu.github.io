@@ -5,12 +5,14 @@ Vue.component('coins', {
     <div class="flex coinpad">
         <div class="wrapper5s">{{ coin.rank }}</div>
         <div class="wrapper15s overflow">
-            <img height="20" width="20"
-            onerror="this.style.display='none'"
-            style="cursor: pointer;"
-            v-on:click="head.showSingle(coin.symbol)"
-            v-bind:src="coin.url"/>
-            <a v-on:click="head.showSingle(coin.symbol)">
+            <a :href="'index.html#/single/' + coin.symbol">
+                <img height="20" width="20"
+                    onerror="this.style.display='none'"
+                    style="cursor: pointer;"
+                    v-on:click="head.showSingle(coin.symbol)"
+                    v-bind:src="coin.url"/>
+            </a>
+            <a :href="'index.html#/single/' + coin.symbol">
                 {{ coin.name }} ({{ coin.symbol }})
             </a>
         </div>
@@ -56,7 +58,7 @@ Vue.component('coinlm', {
     `
     <span>
         <div class="smalltext">
-            - {{ lastupdated }}
+            {{ lastupdated }}
         </div>
         <div class="loadmore" v-on:click="coins.loadMore()">
             {{ loadingtext }}

@@ -20,12 +20,13 @@ Vue.component('heatmaptable', {
             <template v-for="(hm, index) in hmtable">
                 <tr>
                     <td style="text-align:center;">
-                        <img height="20" width="20"
-                            onerror="this.style.display='none'"
-                            v-bind:title="hm[0].symbol"
-                            v-on:click="head.showSingle(hm[0].symbol)"
-                            style="cursor: pointer;"
-                            v-bind:src="hm[0].icon"/>
+                        <a :href="'index.html#/single/' + hm[0].symbol">
+                            <img height="20" width="20"
+                                onerror="this.style.display='none'"
+                                v-bind:title="hm[0].symbol"
+                                style="cursor: pointer;"
+                                v-bind:src="hm[0].icon"/>
+                            <a>
                     </td>
                     <template v-for="(coin, index) in hm">
                             <td v-if="index < 16" v-bind:class="hide"
@@ -64,7 +65,7 @@ Vue.component('heatmaplm', {
     `
     <span>
         <div class="smalltext">
-            - {{ lastupdated }}
+            {{ lastupdated }}
         </div>
         <div class="loadmore" v-on:click="heatmap.loadMore()">
             {{ loadingtext }}

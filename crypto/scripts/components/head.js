@@ -26,8 +26,7 @@ Vue.component('navbar', {
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a  class="navbar-brand titletext" style="color: black;"
-                        v-on:click="head.showPortfolio()">
+                    <a  class="navbar-brand titletext" style="color: black;">
                         Crypto
                     </a>
             </div>
@@ -35,28 +34,28 @@ Vue.component('navbar', {
                 <ul class="nav navbar-nav" style="color:black;">
                     <li v-bind:class="active['portfolio']">
                         <a  class="linkCol" style="color:black;"
-                            v-on:click="head.showPortfolio()">
+                            href="index.html#/portfolio">
                             <img src="nav/portfolio.png" height="16" width="16">
                             Portfolio
                         </a>
                     </li>
                     <li v-bind:class="active['performers']">
                         <a  class="linkCol" style="color:black;"
-                            v-on:click="head.showPerformers()">
+                            href="index.html#/performers">
                             <img src="nav/performers.png" height="16" width="16">
                             Performers
                         </a>
                     </li>
                     <li v-bind:class="active['coins']">
                         <a  class="linkCol" style="color:black;"
-                            v-on:click="head.showCoins()">
+                            href="index.html#/coins">
                             <img src="nav/coins.png" height="16" width="16">
                             Coins
                         </a>
                     </li>
                     <li v-bind:class="active['heatmap']">
                         <a  class="linkCol" style="color:black;"
-                            v-on:click="head.showHeatMap()">
+                            href="index.html#/heatmap">
                             <img src="nav/hm.png" height="16" width="16">
                             Heat Map
                         </a>
@@ -70,8 +69,11 @@ Vue.component('navbar', {
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li v-on:click="head.showBiz()">
-                                <a class="linkCol">/biz/</a>
+                            <li>
+                                <a  class="linkCol"
+                                    href="index.html#/biz">
+                                    /biz/
+                                </a>
                             </li>
                             <!--<li>
                                 <a class="linkCol">/r/CryptoCurrency</a>

@@ -4,12 +4,15 @@ Vue.component('performers', {
     `
     <div class="flex perfthing">
         <div class="wrapper50 overflow">
-            <img height="20" width="20"
-            onerror="this.style.display='none'"
-            style="cursor: pointer;"
-            v-on:click="head.showSingle(performer.symbol)"
-            v-bind:src="performer.url"/>
-            <a v-on:click="head.showSingle(performer.symbol)">
+            <a :href="'index.html#/single/' + performer.symbol">
+                <img height="20" width="20"
+                    onerror="this.style.display='none'"
+                    style="cursor: pointer;"
+                    v-on:click="head.showSingle(performer.symbol)"
+                    v-bind:src="performer.url"/>
+            </a>
+            &nbsp;
+            <a :href="'index.html#/single/' + performer.symbol">
                 {{ performer.symbol }}
             </a>
         </div>
@@ -74,8 +77,8 @@ Vue.component('performersfooter', {
     `
     <span>
         <div class="smalltext">
-            - {{ lastupdated }}<br>
-            - Rank limit: <input v-on:keyup.enter="performers.updateRank()"
+            {{ lastupdated }}<br>
+            Rank limit: <input v-on:keyup.enter="performers.updateRank()"
                 placeholder="Rank limit" v-model="performers.rank"></input>
             <span class="smalllink" v-on:click="performers.updateRank()">
                 Update

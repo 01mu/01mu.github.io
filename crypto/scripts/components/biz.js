@@ -3,8 +3,8 @@ Vue.component('bizfooter', {
     template:
     `
     <div class="smalltext">
-        - {{ lastupdated }} <br>
-        - Rank limit: <input v-on:keyup.enter="biz.updateRank()"
+        {{ lastupdated }} <br>
+        Rank limit: <input v-on:keyup.enter="biz.updateRank()"
             placeholder="Rank limit" v-model="biz.rank"></input>
         <span class="smalllink" v-on:click="biz.updateRank()">Update</span>
         <b>{{ notice }}</b>
@@ -29,17 +29,19 @@ Vue.component('biztable', {
             <template v-for="(count, index) in bizcounts">
                 <tr class="portfoliorow">
                     <td class="overflow">
-                        <img height="20" width="20"
-                            onerror="this.style.display='none'"
-                            style="cursor: pointer;"
-                            v-on:click="head.showSingle(count.symbol)"
-                            v-bind:src="count.url"/>
-                        <a <a v-on:click="head.showSingle(count.symbol)">
+                        <a :href="'index.html#/single/' + count.symbol">
+                            <img height="20" width="20"
+                                onerror="this.style.display='none'"
+                                style="cursor: pointer;"
+                                v-on:click="head.showSingle(count.symbol)"
+                                v-bind:src="count.url"/>
+                        </a>
+                        <a :href="'index.html#/single/' + count.symbol">
                             {{ count.name }}
                         </a>
                     </td>
                     <td>
-                        <a v-on:click="head.showSingle(count.symbol)">
+                        <a :href="'index.html#/single/' + count.symbol">
                             {{ count.symbol }}
                         </a>
                     </td>
