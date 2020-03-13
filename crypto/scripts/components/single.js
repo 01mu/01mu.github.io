@@ -39,12 +39,13 @@ Vue.component('recentcoins', {
             <template v-for="(coin, index) in coins">
                 <tr class="portfoliorow">
                     <td>
-                        <img height="20" width="20"
-                        onerror="this.style.display='none'"
-                        style="cursor: pointer;"
-                        v-on:click="head.showSingle(coins[index])"
-                        v-bind:src="urls[index]"/>
-                        <a v-on:click="head.showSingle(coins[index]);">
+                        <a :href="'index.html#/single/' + coins[index]">
+                            <img height="20" width="20"
+                                onerror="this.style.display='none'"
+                                style="cursor: pointer;"
+                                v-bind:src="urls[index]"/>
+                        </a>
+                        <a :href="'index.html#/single/' + coins[index]">
                             {{ coins[index] }}
                         </a>
                     </td>

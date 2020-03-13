@@ -27,61 +27,33 @@ var head = new Vue ({router,
 
             show.visible = true;
         },
-        showPerformers: function() {
-            this.$router.push('/performers').catch(err => {})
-        },
-        showPortfolio: function() {
-            this.$router.push('/portfolio').catch(err => {})
-        },
-        showCoins: function() {
-            console.log(1)
-            this.$router.push('/coins').catch(err => {})
-        },
-        showHeatMap: function() {
-            this.$router.push('/heatmap').catch(err => {})
-        },
-        showBiz: function() {
-            this.$router.push('/biz').catch(err => {})
-        },
-        showSingle: function(coin) {
-            $('html, body').animate({ scrollTop: 0 }, 'fast');
-
-            if(coin != undefined) {
-                this.toggle(single);
-                single.coin = coin;
-                this.$router.push('/single/' + coin).catch(err => {})
-            }
-        },
         setRoute: function() {
             var split = this.$router.history.current.path.split('/');
 
             switch(split[1]) {
                 case 'portfolio':
                     this.toggle(portfolio);
-                    this.showPortfolio();
                     break;
                 case 'performers':
                     this.toggle(performers);
-                    this.showPerformers();
                     performers.init();
                     break;
                 case 'coins':
                     this.toggle(coins);
-                    this.showCoins();
                     coins.init();
                     break;
                 case 'heatmap':
                     this.toggle(heatmap);
-                    this.showHeatMap();
                     heatmap.init();
                     break;
                 case 'biz':
                     this.toggle(biz);
-                    this.showBiz();
                     biz.init();
                     break;
                 case 'single':
-                    this.showSingle(split[2]);
+                    $('html, body').animate({ scrollTop: 0 }, 'fast');
+                    single.coin = split[2];
+                    this.toggle(single);
                     single.update();
                     break;
                 default:
