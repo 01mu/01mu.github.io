@@ -18,7 +18,6 @@ var portfolio = new Vue({
     methods: {
         update: function(a) {
             localStorage.setItem('portfolio', JSON.stringify(a));
-            this.coinTable = localStorage.getItem('portfolio');
             this.updateValue();
         },
         setEdit: function(symbol) {
@@ -68,6 +67,8 @@ var portfolio = new Vue({
             });
         },
         updateValue: function() {
+            this.coinTable = localStorage.getItem('portfolio');
+
             var symbols = this.getSymbols();
             var url = 'https://min-api.cryptocompare.com/data/pricemulti' +
                 '?fsyms=' + symbols.join(',') + '&tsyms=USD,BTC'
@@ -172,14 +173,11 @@ var portfolio = new Vue({
                 localStorage.setItem('portfolio', JSON.stringify(a));
             }
 
-            this.coinTable = localStorage.getItem('portfolio');
             this.updateValue();
         }
     },
     created: function() {
-        this.coinTable = localStorage.getItem('portfolio');
         this.updateValue();
-
         setInterval(function() { portfolio.updateValue(); }, 60000);
     }
 });

@@ -5,6 +5,7 @@ const router = new VueRouter({
 var head = new Vue ({router,
     el: '#head',
     data: {
+        url: 'https://smallfolio.bitnamiapp.com/crypto/info',
         vues: [single, portfolio, performers, coins, heatmap, biz],
         info: [],
         active: {}
@@ -60,6 +61,12 @@ var head = new Vue ({router,
                     this.toggle(portfolio);
                     break;
             };
+        },
+        cf: function(text, val) {
+            return text + commas(parseFloat(val));
+        },
+        nf(text, val) {
+            return text + numWord(parseFloat(val).toFixed(2));
         }
     },
     watch: {
@@ -68,42 +75,30 @@ var head = new Vue ({router,
         }
     },
     created: function() {
-        var split = this.$router.history.current.path.split('/');
-
-        var url = 'https://smallfolio.bitnamiapp.com/crypto/info';
+        var i = {};
         var active = {};
 
         this.vues.forEach(function(element) {
             active[element.nav] = 'headthing';
         });
 
-        active[split[1]] = 'headthing active';
-
         this.active = active;
         this.setRoute();
 
-        $.getJSON(url, function (json) {
-            var info = {};
-
+        $.getJSON(this.url, function (json) {
             json.forEach(function(element) {
-                info[element.input_key] = element.input_value;
+                i[element.input_key] = element.input_value;
             });
 
-            info.total_coins = 'Coins: ' + commas(parseFloat(info.total_coins));
+            //i.total_coins = head.cf('Coins: ', i.total_coins);
+            //i.total_markets = head.cf('Markets: ', i.total_markets);
+            i.tmc = head.nf('Market Cap: $', i.total_market_cap);
+            i.tv = head.nf('24 Hour Volume: $', i.total_volume_24h);
 
-            info.total_markets = 'Markets: ' +
-                commas(parseFloat(info.total_markets));
-
-            info.total_market_cap = 'Market Cap: $' +
-                numWord(parseFloat(info.total_market_cap).toFixed(2));
-
-            info.total_volume_24h = '24 Hour Volume: $' +
-                numWord(parseFloat(info.total_volume_24h).toFixed(2));
-
-            //head.info.push({'value': info.total_coins});
-            //head.info.push({'value': info.total_markets});
-            head.info.push({'value': info.total_market_cap});
-            head.info.push({'value': info.total_volume_24h});
+            //head.info.push({'value': i.total_coins});
+            //head.info.push({'value': i.total_markets});
+            head.info.push({'value': i.tmc});
+            head.info.push({'value': i.tv});
         });
     }
 });

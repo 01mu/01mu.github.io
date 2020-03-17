@@ -13,7 +13,7 @@ Vue.component('bizfooter', {
 });
 
 Vue.component('biztable', {
-    props: ['bizcounts'],
+    props: ['bizcounts', 'update24h'],
     template:
     `
     <table>
@@ -22,7 +22,7 @@ Vue.component('biztable', {
                 <th>Coin</th>
                 <th>Symbol</th>
                 <th class="overflow">24 Hour Mentions</th>
-                <th class="overflow hidden-xs">24 Hour Δ</th>
+                <th class="overflow hidden-xs">Δ {{ update24h }}</th>
             </tr>
         </thead>
         <tbody>

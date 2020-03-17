@@ -12,16 +12,17 @@ var coins = new Vue({
     },
     methods: {
         init: function() {
-            if(!this.isInit) {
-                $.getJSON(this.url + this.page, function (json) {
-                    coins.coins = json.coins;
-                    coins.lastUpdated =
-                        'Last updated ' +
-                        since(json.last_update_coins.input_value);
-
-                    coins.formatCoins(coins.coins);
-                });
+            if(this.isInit) {
+                return;
             }
+
+            $.getJSON(this.url + this.page, function (json) {
+                coins.coins = json.coins;
+                coins.lastUpdated = 'Last updated ' +
+                    since(json.last_update_coins.input_value);
+
+                coins.formatCoins(coins.coins);
+            });
 
             this.isInit = true;
         },

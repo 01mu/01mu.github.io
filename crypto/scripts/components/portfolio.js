@@ -21,7 +21,7 @@ Vue.component('portfoliotable', {
                 <th class="hidden-xs" scope="col">Percentage</th>
                 <th class="hidden-xs" scope="col">Value</th>
                 <th scope="col">Price</th>
-                <th scope="col">Action</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
