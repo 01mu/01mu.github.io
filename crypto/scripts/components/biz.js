@@ -22,7 +22,6 @@ Vue.component('biztable', {
                 <th>Coin</th>
                 <th>Symbol</th>
                 <th class="overflow">24 Hour Mentions</th>
-                <th class="overflow hidden-xs">Δ {{ update24h }}</th>
             </tr>
         </thead>
         <tbody>
@@ -46,7 +45,6 @@ Vue.component('biztable', {
                         </a>
                     </td>
                     <td>{{ count.mention_count }}</td>
-                    <td class="hidden-xs">{{ count.change_24h }}</td>
                 </tr>
             </template>
         </tbody>
