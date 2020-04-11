@@ -8,8 +8,7 @@ var biz = new Vue({
         lastUpdated: '',
         visible: false,
         isInit: false,
-        notice: '',
-        update24h: ''
+        notice: ''
     },
     methods: {
         load: function() {
@@ -30,8 +29,6 @@ var biz = new Vue({
                 biz.lastUpdated =
                     'Last updated ' +
                     since(json.last_update_biz_counts.input_value);
-
-                biz.update24h = since(json.last_update_biz_24h.input_value);
             });
         },
         updateRank: function() {
