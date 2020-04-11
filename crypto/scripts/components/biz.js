@@ -13,7 +13,7 @@ Vue.component('bizfooter', {
 });
 
 Vue.component('biztable', {
-    props: ['bizcounts', 'update24h'],
+    props: ['bizcounts'],
     template:
     `
     <table>
