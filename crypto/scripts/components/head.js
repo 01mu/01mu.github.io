@@ -60,6 +60,17 @@ Vue.component('navbar', {
                             Heat Map
                         </a>
                     </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <cmcinfo v-for="p in info" :info="p"></cmcinfo>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    `
+});
+
+/*
                     <li v-bind:class="active['mentions']">
                         <a  class="dropdown-toggle headthing"
                             style="color:black;"
@@ -80,12 +91,4 @@ Vue.component('navbar', {
                             </li>-->
                         </ul>
                     </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <cmcinfo v-for="p in info" :info="p"></cmcinfo>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    `
-});
+*/
