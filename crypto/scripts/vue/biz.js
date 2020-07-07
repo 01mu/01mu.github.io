@@ -2,8 +2,7 @@ var biz = new Vue({
     el: '#biz',
     data: {
         nav: 'mentions',
-        url: 'http://127.0.0.1:8000/biz/',
-        //url: 'https://smallfolio.bitnamiapp.com/crypto/biz/',
+        url: 'https://smallfolio.bitnamiapp.com/crypto/biz/',
         rank: 50,
         bizCounts: [],
         lastUpdated: '',
