@@ -69,6 +69,8 @@ var portfolio = new Vue({
         updateValue: function() {
             this.coinTable = localStorage.getItem('portfolio');
 
+            if(!this.coinTable) return;
+
             var symbols = this.getSymbols();
             var url = 'https://min-api.cryptocompare.com/data/pricemulti' +
                 '?fsyms=' + symbols.join(',') + '&tsyms=USD,BTC'

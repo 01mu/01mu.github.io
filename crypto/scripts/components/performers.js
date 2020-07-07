@@ -6,7 +6,6 @@ Vue.component('performers', {
         <div class="wrapper50 overflow">
             <a :href="'index.html#/single/' + performer.symbol">
                 <img height="20" width="20"
-                    onerror="this.style.display='none'"
                     style="cursor: pointer;"
                     v-on:click="head.showSingle(performer.symbol)"
                     v-bind:src="performer.url"/>

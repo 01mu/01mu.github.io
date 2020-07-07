@@ -7,7 +7,6 @@ Vue.component('coins', {
         <div class="wrapper15s overflow">
             <a :href="'index.html#/single/' + coin.symbol">
                 <img height="20" width="20"
-                    onerror="this.style.display='none'"
                     style="cursor: pointer;"
                     v-on:click="head.showSingle(coin.symbol)"
                     v-bind:src="coin.url"/>

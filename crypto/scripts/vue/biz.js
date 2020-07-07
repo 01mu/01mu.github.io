@@ -2,15 +2,38 @@ var biz = new Vue({
     el: '#biz',
     data: {
         nav: 'mentions',
-        url: 'https://smallfolio.bitnamiapp.com/crypto/biz/',
+        url: 'http://127.0.0.1:8000/biz/',
+        //url: 'https://smallfolio.bitnamiapp.com/crypto/biz/',
         rank: 50,
         bizCounts: [],
         lastUpdated: '',
         visible: false,
         isInit: false,
-        notice: ''
+        notice: '',
+        st: 0
     },
     methods: {
+        sort: function(type) {
+            switch(type) {
+                case 'name':
+                    if(!biz.st) z = (a, b) => (a.name_count > b.name_count) ? 1 : -1;
+                    else z = (a, b) => (a.name_count < b.name_count) ? 1 : -1;
+                    break;
+                case 'symbol':
+                    if(!biz.st) z = (a, b) => (a.symbol_count > b.symbol_count) ? 1 : -1;
+                    else z = (a, b) => (a.symbol_count < b.symbol_count) ? 1 : -1;
+                    break;
+                default:
+                    if(!biz.st) z = (a, b) => (a.total > b.total) ? 1 : -1;
+                    else z = (a, b) => (a.total < b.total) ? 1 : -1;
+                    break;
+                }
+
+            biz.st ^= 1;
+            biz.bizCounts.sort(z);
+            //biz.formatCounts(biz.bizCounts);
+            console.log(biz.bizCounts);
+        },
         load: function() {
             var limit = localStorage.getItem('biz_rank');
 
@@ -28,7 +51,7 @@ var biz = new Vue({
 
                 biz.lastUpdated =
                     'Last updated ' +
-                    since(json.last_update_biz_counts.input_value);
+                    since(json.last_update_biz.input_value);
             });
         },
         updateRank: function() {
@@ -46,10 +69,6 @@ var biz = new Vue({
                 element.url = 'https://smallfolio.bitnamiapp.com/' +
                     'crypto_icons/color/' + element.symbol.toLowerCase() +
                     '.png';
-
-                if(element.change_24h > 0) {
-                    element.change_24h = '+' + element.change_24h
-                }
             });
         },
         init: function() {

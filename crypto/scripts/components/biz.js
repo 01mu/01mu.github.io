@@ -20,8 +20,12 @@ Vue.component('biztable', {
         <thead>
             <tr>
                 <th>Coin</th>
-                <th>Symbol</th>
-                <th class="overflow">24 Hour Mentions</th>
+                <th class="overflow" v-on:click="biz.sort('name')">
+                    <a>Name Mentions (24 Hours)</a></th>
+                <!--<th class="overflow" v-on:click="biz.sort('symbol')">
+                    <a>Symbol Mentions (24 Hours)</a></th>
+                <th class="overflow" v-on:click="biz.sort('total')">
+                    <a>Total Mentions (24 Hours)</a></th>-->
             </tr>
         </thead>
         <tbody>
@@ -30,21 +34,17 @@ Vue.component('biztable', {
                     <td class="overflow">
                         <a :href="'index.html#/single/' + count.symbol">
                             <img height="20" width="20"
-                                onerror="this.style.display='none'"
                                 style="cursor: pointer;"
                                 v-on:click="head.showSingle(count.symbol)"
-                                v-bind:src="count.url"/>
+                                :src="count.url"/>
                         </a>
                         <a :href="'index.html#/single/' + count.symbol">
                             {{ count.name }}
                         </a>
                     </td>
-                    <td>
-                        <a :href="'index.html#/single/' + count.symbol">
-                            {{ count.symbol }}
-                        </a>
-                    </td>
-                    <td>{{ count.mention_count }}</td>
+                    <td>{{ count.name_count }}</td>
+                    <!--<td>{{ count.symbol_count }}</td>
+                    <td>{{ count.total }}</td>-->
                 </tr>
             </template>
         </tbody>

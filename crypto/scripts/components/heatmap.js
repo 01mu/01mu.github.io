@@ -22,8 +22,6 @@ Vue.component('heatmaptable', {
                     <td style="text-align:center;">
                         <a :href="'index.html#/single/' + hm[0].symbol">
                             <img height="20" width="20"
-                                onerror="this.style.display='none'"
-                                v-bind:title="hm[0].symbol"
                                 style="cursor: pointer;"
                                 v-bind:src="hm[0].icon"/>
                             <a>
