@@ -17,7 +17,7 @@ var single = new Vue({
                 '?fsym=' + this.coin + '&tsym=USD&limit=' + this.limit +
                 '&aggregate=1&e=CCCAGG';
 
-            this.upaux(url, '(Minute)');
+            this.upaux(url, '(' + this.limit + ' Minutes)');
             localStorage.setItem('chart_mode', 'minute');
         },
         setHourly: function() {
@@ -25,7 +25,7 @@ var single = new Vue({
                 this.coin + '&tsym=USD&limit=' + this.limit +
                 '&aggregate=1&e=CCCAGG';
 
-            this.upaux(url, '(Hour)');
+            this.upaux(url, '(' + this.limit + ' Hours)');
             localStorage.setItem('chart_mode', 'hour');
         },
         setDaily: function() {
@@ -33,7 +33,7 @@ var single = new Vue({
                 this.coin + '&tsym=USD&limit=' + this.limit +
                 '&aggregate=1&e=CCCAGG';
 
-            this.upaux(url, '(Day)');
+            this.upaux(url, '(' + this.limit + ' (Days)');
             localStorage.setItem('chart_mode', 'day');
         },
         setWeekly: function() {
@@ -41,7 +41,7 @@ var single = new Vue({
                 this.coin + '&tsym=USD&limit=' + this.limit +
                 '&aggregate=7&e=CCCAGG';
 
-            this.upaux(url, '(Week)');
+            this.upaux(url, '(' + this.limit + ' Weeks)');
             localStorage.setItem('chart_mode', 'week');
         },
         setMonthly: function() {
@@ -49,7 +49,7 @@ var single = new Vue({
                 this.coin + '&tsym=USD&limit=' + this.limit +
                 '&aggregate=30&e=CCCAGG';
 
-            this.upaux(url, '(Month)');
+            this.upaux(url, '(' + this.limit + ' Months)');
             localStorage.setItem('chart_mode', 'month');
         },
         setChart: function(dataset, type) {

@@ -142,15 +142,15 @@ bootstrap.min.js"></script>
 <script src="scripts/vue/head.js"></script>
 
 <script>
-    $(document).ready(function() {
-        $('.navbar-nav>li>a').on('click', function() {
-            if(this.className == 'linkCol') {
-                $('.navbar-collapse').collapse('hide');
-            }
-        });
-
-        $('.dropdown-menu>li>a').on('click', function() {
+$(document).ready(function() {
+    $('.navbar-nav>li>a').on('click', function() {
+        if(this.className == 'linkCol') {
             $('.navbar-collapse').collapse('hide');
-        });
+        }
     });
+
+    $('.dropdown-menu>li>a').on('click', function() {
+        $('.navbar-collapse').collapse('hide');
+    });
+});
 </script>

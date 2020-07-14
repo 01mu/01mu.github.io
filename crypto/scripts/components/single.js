@@ -12,18 +12,17 @@ Vue.component('chartfooter', {
     template:
     `
     <div class="smalltext">
-        -
         <a style="text-decoration: underline" v-on:click="single.setMinute()">
-            Minute</a>&nbsp;
+            Minutes</a>&nbsp;
         <a style="text-decoration: underline" v-on:click="single.setHourly()">
-            Hour</a>&nbsp;
+            Hours</a>&nbsp;
         <a style="text-decoration: underline" v-on:click="single.setDaily()">
-            Day</a>&nbsp;
+            Days</a>&nbsp;
         <a style="text-decoration: underline" v-on:click="single.setWeekly()">
-            Week</a>&nbsp;
+            Weeks</a>&nbsp;
         <a style="text-decoration: underline" v-on:click="single.setMonthly()">
-            Month</a><br>
-        - Result limit: <input v-on:keyup.enter="single.update()"
+            Months</a><br>
+        Result limit: <input v-on:keyup.enter="single.update()"
             placeholder="Result limit" v-model="chart.limit"></input>
         <span class="smalllink" v-on:click="single.update()">Update</span>
     </div>
@@ -41,7 +40,6 @@ Vue.component('recentcoins', {
                     <td>
                         <a :href="'index.html#/single/' + coins[index]">
                             <img height="20" width="20"
-                                onerror="this.style.display='none'"
                                 style="cursor: pointer;"
                                 v-bind:src="urls[index]"/>
                         </a>

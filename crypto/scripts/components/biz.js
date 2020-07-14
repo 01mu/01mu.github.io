@@ -20,6 +20,8 @@ Vue.component('biztable', {
         <thead>
             <tr>
                 <th>Coin</th>
+                <th class="overflow" v-on:click="biz.sort('change')">
+                    <a>24 Hour Change</a></th>
                 <th class="overflow" v-on:click="biz.sort('name')">
                     <a>Name Mentions (24 Hours)</a></th>
                 <!--<th class="overflow" v-on:click="biz.sort('symbol')">
@@ -42,6 +44,7 @@ Vue.component('biztable', {
                             {{ count.name }}
                         </a>
                     </td>
+                    <td>{{ count.name_diff }}</td>
                     <td>{{ count.name_count }}</td>
                     <!--<td>{{ count.symbol_count }}</td>
                     <td>{{ count.total }}</td>-->

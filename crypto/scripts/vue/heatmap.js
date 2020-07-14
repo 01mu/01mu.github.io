@@ -22,10 +22,8 @@ var heatmap = new Vue({
 
             $.getJSON(this.url + this.page, function (json) {
                 json['heat_map'][0].forEach(function(element) {
-                    var date = new Date(element.time * 1000);
-
+                    date = new Date(element.time * 1000);
                     d = (date.getMonth() + 1) + '/' + date.getDate();
-
                     heatmap.dates.push({'date': d, 'style': 'hidden-xs'});
                 });
 
@@ -65,7 +63,7 @@ var heatmap = new Vue({
                 case(diff >= .5 && diff < 1): color = '#99ffbb;'; break;
                 case(diff >= 1 && diff < 2): color = '#80ffaa;'; break;
                 case(diff >= 2 && diff < 3): color = '#66ff99;'; break;
-                default: color = '#4dff88;'; break;
+                default: color = '#4dff88;';
             }
 
             return 'background-color:' + color;
@@ -75,8 +73,6 @@ var heatmap = new Vue({
                 coin.forEach(function(element) {
                     var difference = element.difference;
                     element.color = heatmap.getColor(difference);
-
-
                 });
             });
         },
