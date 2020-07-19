@@ -13,7 +13,7 @@ jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/
 bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="covid.css">
+<link rel="stylesheet" href="css/covid.css">
 
 <title>COVID-19</title>
 
@@ -21,6 +21,14 @@ bootstrap.min.js"></script>
     <div id="head">
         <navbar :active="active"></navbar>
     </div>
+    <div id="countries" v-if="visible" v-cloak class="bigger">
+        <country-table :countries_list="countries"></country-table>
+    </div>
+    <div class="footer">
+        <noscript>You need to enable JavaScript to run this app.</noscript>
+    </div>
 </html>
 
-<script src="covid.js"></script>
+<script src="scripts/functions.js"></script>
+<script src="scripts/countries.js"></script>
+<script src="scripts/navigation.js"></script>

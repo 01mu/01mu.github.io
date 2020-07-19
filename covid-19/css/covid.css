@@ -17,3 +17,8 @@ body {font-size: 18px; sbackground-color: #fafbfc; overflow-y:scroll; }
 .wrapper20 { padding: 2px; width: 20%; }
 
 .footer { margin: 20px; text-align: center; }
+
+.navbar-static-top
+{
+    border-color: #000000;
+}

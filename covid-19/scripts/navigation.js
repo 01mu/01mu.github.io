@@ -1,36 +1,3 @@
-Vue.component('countries', {
-    props: [],
-    template:
-    `
-    `
-});
-
-const countries = new Vue({
-    el: '#countries',
-    data: {
-        nav: 'countries',
-        //url: 'https://smallfolio.bitnamiapp.com/covid-19/countries',
-        url: 'http://127.0.0.1:8000/countries/',
-        page: 0,
-        loadingText: 'Load more',
-        visible: false,
-        isInit: false
-    },
-    methods: {
-        init: function() {
-            if(this.isInit) {
-                return;
-            }
-
-            $.getJSON(this.url + this.page, function (json) {
-                console.log(json);
-            });
-
-            this.isInit = true;
-        },
-    }
-});
-
 Vue.component('navbar', {
     props: ['active'],
     template:
@@ -44,22 +11,10 @@ Vue.component('navbar', {
             </div>
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <ul class="nav navbar-nav" style="color:black;">
-                    <li v-bind:class="active['daily']">
-                        <a class="linkCol" style="color:black;"
-                            href="index.html#/states">
-                        Daily
-                        </a>
-                    </li>
                     <li v-bind:class="active['countries']">
                         <a class="linkCol" style="color:black;"
                             href="index.html#/countries">
                         Countries
-                        </a>
-                    </li>
-                    <li v-bind:class="active['states']">
-                        <a class="linkCol" style="color:black;"
-                            href="index.html#/states">
-                        US States
                         </a>
                     </li>
                 </ul>
@@ -90,13 +45,11 @@ const head = new Vue({router,
             this.vues.forEach(function(e) {
                 if(e != show) e.visible = false;
 
-                if(e == show)
-                    head.active[e.nav] = 'nav_selection active';
-                else
-                    head.active[e.nav] = 'nav_selection';
+                if(e == show) head.active[e.nav] = 'nav_selection active';
+                else head.active[e.nav] = 'nav_selection';
             });
 
-            show.visible = true;
+            //show.visible = true;
         },
         setRoute: function() {
             var split = this.$router.history.current.path.split('/');
@@ -107,6 +60,8 @@ const head = new Vue({router,
                     countries.init();
                     break;
                 default:
+                    this.toggle(countries);
+                    countries.init();
                     break;
             };
         }
