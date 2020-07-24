@@ -12,23 +12,44 @@
 jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/
 bootstrap.min.js"></script>
-
+<link rel="icon" href="https://smallfolio.bitnamiapp.com/flags/GLOBAL.PNG" type="image/x-icon"/>
 <link rel="stylesheet" href="css/covid.css">
-
 <title>COVID-19</title>
-
 <html>
     <div id="head">
         <navbar :active="active"></navbar>
     </div>
-    <div id="countries" v-if="visible" v-cloak class="bigger">
-        <country-table :countries_list="countries"></country-table>
+    <div id="today" v-if="visible" v-cloak class="body">
+        <today-display  :global_stats="globalStats"
+                        :us_stats="usStats"
+                        :global_confirmed="globalConfirmed"
+                        :global_deaths="globalDeaths"
+                        :us_confirmed="usConfirmed"
+                        :us_deaths="usDeaths"
+                        :last_update="lastUpdate"></today-display>
+    </div>
+    <div id="countries" v-if="visible" v-cloak class="body">
+        <case-table :case_list="countries"
+                    :sort_option="sortOption"
+                    :col="'Country'"
+                    :opt=this></case-table>
+    </div>
+    <div id="states" v-if="visible" v-cloak class="body">
+        <case-table :case_list="states"
+                    :sort_option="sortOption"
+                    :col="'State'"
+                    :opt=this></case-table>
+    </div>
+    <div id="single" v-if="visible" v-cloak class="body">
+
+
     </div>
     <div class="footer">
         <noscript>You need to enable JavaScript to run this app.</noscript>
     </div>
 </html>
-
 <script src="scripts/functions.js"></script>
+<script src="scripts/single.js"></script>
+<script src="scripts/today.js"></script>
 <script src="scripts/countries.js"></script>
 <script src="scripts/navigation.js"></script>

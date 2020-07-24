@@ -11,10 +11,22 @@ Vue.component('navbar', {
             </div>
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <ul class="nav navbar-nav" style="color:black;">
+                    <li v-bind:class="active['today']">
+                        <a class="linkCol" style="color:black;"
+                            href="index.html#/today">
+                        Today
+                        </a>
+                    </li>
                     <li v-bind:class="active['countries']">
                         <a class="linkCol" style="color:black;"
                             href="index.html#/countries">
-                        Countries
+                        World
+                        </a>
+                    </li>
+                    <li v-bind:class="active['states']">
+                        <a class="linkCol" style="color:black;"
+                            href="index.html#/states">
+                        United States
                         </a>
                     </li>
                 </ul>
@@ -34,7 +46,7 @@ const router = new VueRouter({
 const head = new Vue({router,
     el: '#head',
     data: {
-        vues: [countries],
+        vues: [today, countries, states, single],
         info: [],
         active: {}
     },
@@ -48,20 +60,38 @@ const head = new Vue({router,
                 if(e == show) head.active[e.nav] = 'nav_selection active';
                 else head.active[e.nav] = 'nav_selection';
             });
-
-            //show.visible = true;
         },
         setRoute: function() {
             var split = this.$router.history.current.path.split('/');
 
             switch(split[1]) {
+                case 'today':
+                    this.toggle(today);
+                    today.init();
+                    break;
                 case 'countries':
                     this.toggle(countries);
                     countries.init();
                     break;
+                case 'states':
+                    this.toggle(states);
+                    states.init();
+                    break;
+                case 'country':
+                    single.place = split[2];
+                    single.type = 'country';
+                    this.toggle(single);
+                    single.update();
+                    break;
+                case 'state':
+                    single.place = split[2];
+                    single.type = 'us';
+                    this.toggle(single);
+                    single.update();
+                    break;
                 default:
-                    this.toggle(countries);
-                    countries.init();
+                    this.toggle(today);
+                    today.init();
                     break;
             };
         }
