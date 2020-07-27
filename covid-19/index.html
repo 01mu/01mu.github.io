@@ -41,8 +41,9 @@ bootstrap.min.js"></script>
                     :opt=this></case-table>
     </div>
     <div id="single" v-if="visible" v-cloak class="body">
-
-
+        <single-display :place="place"
+                        :icon="icon"
+                        :data="data"></single-display>
     </div>
     <div class="footer">
         <noscript>You need to enable JavaScript to run this app.</noscript>

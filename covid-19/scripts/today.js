@@ -1,13 +1,15 @@
 Vue.component('today-data', {
-   props: ['name', 'a', 'b', 'flag'],
+   props: ['name', 'a', 'b', 'flag', 'dest'],
    template:
    `
    <div class="flex">
         <div class="wrapper33">
-            <img height="20" width="30"
-                style="cursor: pointer;"
-                v-bind:title="name"
-                v-bind:src="flag"/>
+            <a :href="'index.html#/' + dest + '/' + name">
+                <img height="20" width="30"
+                    style="cursor: pointer;"
+                    v-bind:title="name"
+                    v-bind:src="flag"/>
+            </a>
         </div>
         <div class="wrapper33">{{commas(a)}}</div>
         <div class="wrapper33">
@@ -44,6 +46,7 @@ Vue.component('today-display', {
                                     v-bind:a="place.new_confirmed"
                                     v-bind:b="place.new_confirmed_per"
                                     v-bind:name="place.country"
+                                    v-bind:dest="'country'"
                                     v-bind:flag="place.url"></today-data>
                 </div>
                 <div class="box">
@@ -53,6 +56,7 @@ Vue.component('today-display', {
                                     v-bind:a="place.new_deaths"
                                     v-bind:b="place.new_deaths_per"
                                     v-bind:name="place.country"
+                                    v-bind:dest="'country'"
                                     v-bind:flag="place.url"></today-data>
                 </div>
             </center>
@@ -78,6 +82,7 @@ Vue.component('today-display', {
                                     v-bind:a="place.new_confirmed"
                                     v-bind:b="place.new_confirmed_per"
                                     v-bind:name="place.state"
+                                    v-bind:dest="'state'"
                                     v-bind:flag="place.url"></today-data>
                 </div>
                 <div class="box">
@@ -87,6 +92,7 @@ Vue.component('today-display', {
                                     v-bind:a="place.new_deaths"
                                     v-bind:b="place.new_deaths_per"
                                     v-bind:name="place.state"
+                                    v-bind:dest="'state'"
                                     v-bind:flag="place.url"></today-data>
                 </div>
             </center>
