@@ -5,18 +5,57 @@ Vue.component('today-data', {
    <div class="flex">
         <div class="wrapper33">
             <a :href="'index.html#/' + dest + '/' + name">
-                <img height="20" width="30"
-                    style="cursor: pointer;"
+                <img height="20" width="30" style="cursor: pointer;"
                     v-bind:title="name"
                     v-bind:src="flag"/>
             </a>
         </div>
         <div class="wrapper33">{{commas(a)}}</div>
-        <div class="wrapper33">
-            {{Number.parseFloat(b).toFixed(2)}}%
-        </div>
+        <div class="wrapper33">{{Number.parseFloat(b).toFixed(2)}}%</div>
    </div>
    `
+});
+
+Vue.component('today-margin', {
+    props: ['url', 'data_confirmed', 'data_deaths', 'stats', 'loc', 'dest'],
+    template:
+    `
+    <div class="col-sm-6">
+        <center>
+            <div class="box">
+            <b>{{loc}}</b>
+            <div class="smargin"></div>
+            <img height="40" width="60" v-bind:src="url"/>
+            <div class="smargin"></div>
+            {{commas(stats.new_confirmed)}} New Confirmed Cases<br>
+            {{commas(stats.new_deaths)}} New Deaths
+            <div class="smargin"></div>
+            {{commas(stats.confirmed)}} Total Confirmed Cases<br>
+            {{commas(stats.deaths)}} Total Deaths<br>
+            </div>
+            <div class="box">
+                <b>New Confirmed Cases ({{loc}})</b>
+                <div class="smargin"></div>
+                <today-data     v-for="place in data_confirmed"
+                                v-bind:a="place.new_confirmed"
+                                v-bind:b="place.new_confirmed_per"
+                                v-bind:name="place[dest]"
+                                v-bind:dest="dest"
+                                v-bind:flag="place.url"></today-data>
+            </div>
+            <div class="box">
+                <b>New Deaths ({{loc}})</b>
+                <div class="smargin"></div>
+                <today-data     v-for="place in data_deaths"
+                                v-bind:a="place.new_deaths"
+                                v-bind:b="place.new_deaths_per"
+                                v-bind:name="place[dest]"
+                                v-bind:dest="dest"
+                                v-bind:flag="place.url"></today-data>
+            </div>
+        </center>
+    </div>
+    `
 });
 
 Vue.component('today-display', {
@@ -25,78 +64,20 @@ Vue.component('today-display', {
     template:
     `
     <span>
-        <div class="col-sm-6">
-            <center>
-                <div class="box">
-                <b>World</b>
-                <div class="smargin"></div>
-                <img height="40" width="60"
-                    src="https://smallfolio.bitnamiapp.com/flags/GLOBAL.PNG"/>
-                <div class="smargin"></div>
-                {{commas(global_stats.new_confirmed)}} New Confirmed Cases<br>
-                {{commas(global_stats.new_deaths)}} New Deaths
-                <div class="smargin"></div>
-                {{commas(global_stats.confirmed)}} Total Confirmed Cases<br>
-                {{commas(global_stats.deaths)}} Total Deaths<br>
-                </div>
-                <div class="box">
-                    <b>New Confirmed Cases (World)</b>
-                    <div class="smargin"></div>
-                    <today-data     v-for="place in global_confirmed"
-                                    v-bind:a="place.new_confirmed"
-                                    v-bind:b="place.new_confirmed_per"
-                                    v-bind:name="place.country"
-                                    v-bind:dest="'country'"
-                                    v-bind:flag="place.url"></today-data>
-                </div>
-                <div class="box">
-                    <b>New Deaths (World)</b>
-                    <div class="smargin"></div>
-                    <today-data     v-for="place in global_deaths"
-                                    v-bind:a="place.new_deaths"
-                                    v-bind:b="place.new_deaths_per"
-                                    v-bind:name="place.country"
-                                    v-bind:dest="'country'"
-                                    v-bind:flag="place.url"></today-data>
-                </div>
-            </center>
-        </div>
-        <div class="col-sm-6">
-            <center>
-                <div class="box">
-                <b>United States</b>
-                <div class="smargin"></div>
-                <img height="40" width="60"
-                    src="https://smallfolio.bitnamiapp.com/flags/US.PNG"/>
-                <div class="smargin"></div>
-                {{commas(us_stats.new_confirmed)}} New Confirmed Cases<br>
-                {{commas(us_stats.new_deaths)}} New Deaths
-                <div class="smargin"></div>
-                {{commas(us_stats.confirmed)}} Total Confirmed Cases<br>
-                {{commas(us_stats.deaths)}} Total Deaths<br>
-                </div>
-                <div class="box">
-                    <b>New Confirmed Cases (US)</b>
-                    <div class="smargin"></div>
-                    <today-data     v-for="place in us_confirmed"
-                                    v-bind:a="place.new_confirmed"
-                                    v-bind:b="place.new_confirmed_per"
-                                    v-bind:name="place.state"
-                                    v-bind:dest="'state'"
-                                    v-bind:flag="place.url"></today-data>
-                </div>
-                <div class="box">
-                    <b>New Deaths (US)</b>
-                    <div class="smargin"></div>
-                    <today-data     v-for="place in us_deaths"
-                                    v-bind:a="place.new_deaths"
-                                    v-bind:b="place.new_deaths_per"
-                                    v-bind:name="place.state"
-                                    v-bind:dest="'state'"
-                                    v-bind:flag="place.url"></today-data>
-                </div>
-            </center>
-        </div>
+        <today-margin :loc="'World'"
+            :dest="'country'"
+            :data_confirmed="global_confirmed"
+            :data_deaths="global_deaths"
+            :stats="global_stats"
+            :url="'https://smallfolio.bitnamiapp.com/flags/GLOBAL.PNG'">
+        </today-margin>
+        <today-margin :loc="'United States'"
+            :dest="'state'"
+            :data_confirmed="us_confirmed"
+            :data_deaths="us_deaths"
+            :stats="us_stats"
+            :url="'https://smallfolio.bitnamiapp.com/flags/US.PNG'">
+        </today-margin>
     </span>
     `
 });
@@ -106,7 +87,6 @@ const today = new Vue({
     data: {
         nav: 'today',
         url: 'https://smallfolio.bitnamiapp.com/covid-19/today',
-        //url: 'http://127.0.0.1:8000/today/',
         globalStats: [],
         usStats: [],
         globalConfirmed: [],

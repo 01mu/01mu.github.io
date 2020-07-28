@@ -51,7 +51,6 @@ const countries = new Vue({
     data: {
         nav: 'countries',
         url: 'https://smallfolio.bitnamiapp.com/covid-19/countries',
-        //url: 'http://127.0.0.1:8000/countries/',
         visible: false,
         isInit: false,
         countries: [],
@@ -102,7 +101,6 @@ const states = new Vue({
     data: {
         nav: 'states',
         url: 'https://smallfolio.bitnamiapp.com/covid-19/states',
-        //url: 'http://127.0.0.1:8000/states/',
         visible: false,
         isInit: false,
         states: [],
