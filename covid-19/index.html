@@ -32,12 +32,18 @@ bootstrap.min.js"></script>
         <case-table :case_list="countries"
                     :sort_option="sortOption"
                     :col="'Country'"
+                    :show_l="show_l"
+                    :show_r="show_r"
+                    :picked="picked"
                     :opt=this></case-table>
     </div>
     <div id="states" v-if="visible" v-cloak class="body">
         <case-table :case_list="states"
                     :sort_option="sortOption"
                     :col="'State'"
+                    :show_l="show_l"
+                    :show_r="show_r"
+                    :picked="picked"
                     :opt=this></case-table>
     </div>
     <div id="single" v-if="visible" v-cloak class="body">
