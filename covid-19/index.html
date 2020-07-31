@@ -12,6 +12,9 @@
 jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/
 bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/luxon@1.15.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@0.1.1"></script>
 <link rel="icon" href="https://smallfolio.bitnamiapp.com/flags/GLOBAL.PNG" type="image/x-icon"/>
 <link rel="stylesheet" href="css/covid.css">
 <title>COVID-19</title>
@@ -47,6 +50,7 @@ bootstrap.min.js"></script>
                     :opt=this></case-table>
     </div>
     <div id="single" v-if="visible" v-cloak class="body">
+        <singlechart></singlechart>
         <single-display :place="place"
                         :icon="icon"
                         :data="data"></single-display>
@@ -56,7 +60,7 @@ bootstrap.min.js"></script>
     </div>
 </html>
 <script src="scripts/functions.js"></script>
-<script src="scripts/single.js"></script>
 <script src="scripts/today.js"></script>
 <script src="scripts/countries.js"></script>
+<script src="scripts/single.js"></script>
 <script src="scripts/navigation.js"></script>

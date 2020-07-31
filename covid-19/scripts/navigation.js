@@ -60,6 +60,8 @@ const head = new Vue({router,
                 if(e == show) head.active[e.nav] = 'nav_selection active';
                 else head.active[e.nav] = 'nav_selection';
             });
+
+            if(show == single) single.visible = true;
         },
         setRoute: function() {
             var split = this.$router.history.current.path.split('/');

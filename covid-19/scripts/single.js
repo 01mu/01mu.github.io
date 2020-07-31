@@ -1,3 +1,12 @@
+Vue.component('singlechart', {
+    template:
+    `
+    <div>
+        <canvas id="coinChart"></canvas>
+    </div>
+    `
+});
+
 Vue.component('single-display', {
     props: ['data', 'place', 'icon'],
     template:
@@ -49,6 +58,40 @@ const single = new Vue({
         visible: false
     },
     methods: {
+        gett: function() {
+            dataset = [];
+
+            document.getElementById('coinChart').outerHTML =
+                '<canvas id="coinChart"></canvas>';
+
+            var ctx = document.getElementById('coinChart').getContext('2d');
+
+            var options = {
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            display:false
+                        }
+                    }],
+                    yAxes: [{
+                        gridLines: {
+                            display:false
+                        }
+                    }]
+                }
+            };
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: '',
+                        data: dataset
+                    }]
+                },
+                options: options
+            });
+        },
         update: function() {
             $.getJSON(this.url + this.type + '/' + this.place + '/0',
             function (json) {
@@ -58,8 +101,8 @@ const single = new Vue({
                 }
 
                 single.data = json;
-                single.visible = true;
                 single.getIcon();
+                single.gett();
             });
         },
         getIcon: function() {

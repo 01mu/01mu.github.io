@@ -17,7 +17,8 @@ Vue.component('case-data', {
 });
 
 Vue.component('case-table', {
-    props: ['case_list', 'sort_option', 'opt', 'col', 'show_l', 'show_r', 'picked'],
+    props: ['case_list', 'sort_option', 'opt', 'col', 'show_l', 'show_r',
+        'picked'],
     template:
     `
     <span>
