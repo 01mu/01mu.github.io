@@ -1,8 +1,37 @@
 Vue.component('singlechart', {
+    props: ['picked', 'single'],
     template:
     `
     <div>
-        <canvas id="coinChart"></canvas>
+        <canvas id="chart"></canvas>
+        <div class="box">
+            <form>
+                <label class="radio-inline">
+                    <input type="radio" id="one" value="TC"
+                        v-model="picked"
+                        v-on:click="single.generateChart('confirmed')">
+                        Total Confirmed
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" id="one" value="TD"
+                        v-model="picked"
+                        v-on:click="single.generateChart('deaths')">
+                        Total Deaths
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" id="two" value="NC"
+                        v-model="picked"
+                        v-on:click="single.generateChart('new_confirmed')">
+                        New Confirmed
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" id="two" value="ND"
+                        v-model="picked"
+                        v-on:click="single.generateChart('new_deaths')">
+                        New Deaths
+                </label>
+            </form>
+        </div>
     </div>
     `
 });
@@ -55,20 +84,38 @@ const single = new Vue({
         type: '',
         data: [],
         icon: '',
+        picked: 'TC',
         visible: false
     },
     methods: {
-        gett: function() {
-            dataset = [];
+        generateChart: function(type) {
+            dataset = [[], []];
 
-            document.getElementById('coinChart').outerHTML =
-                '<canvas id="coinChart"></canvas>';
+            this.data.forEach(function(p) {
+                dataset[0].push(getTimeString(p['timestamp']));
+                dataset[1].push(p[type]);
+            });
 
-            var ctx = document.getElementById('coinChart').getContext('2d');
+            document.getElementById('chart').outerHTML =
+                '<canvas id="chart"></canvas>';
+
+            var ctx = document.getElementById('chart');
 
             var options = {
+                elements: {
+                    point:{
+                        radius: 0
+                    }
+                },
+                tooltips: {
+                    mode: 'x-axis'
+                },
                 scales: {
                     xAxes: [{
+                        ticks: {
+                            autoSkip: true,
+                            maxTicksLimit: 10
+                        },
                         gridLines: {
                             display:false
                         }
@@ -84,9 +131,12 @@ const single = new Vue({
             new Chart(ctx, {
                 type: 'line',
                 data: {
+                    labels: dataset[0],
                     datasets: [{
-                        label: '',
-                        data: dataset
+                        backgroundColor: "#d9edff",
+                        fill: true,
+                        label: 'COVID-19',
+                        data: dataset[1]
                     }]
                 },
                 options: options
@@ -102,7 +152,8 @@ const single = new Vue({
 
                 single.data = json;
                 single.getIcon();
-                single.gett();
+
+                if(single.place != 'Global') single.generateChart('confirmed');
             });
         },
         getIcon: function() {

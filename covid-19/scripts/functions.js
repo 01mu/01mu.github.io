@@ -287,3 +287,13 @@ function timeConverter(UNIX_timestamp){
     var time = date + ' ' + month + ' ' + year;
     return time;
 }
+
+function getTimeString(date) {
+    var date = new Date(date * 1000);
+
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+
+    return month + '/' + day + '/' + year;
+}

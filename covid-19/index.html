@@ -50,10 +50,11 @@ bootstrap.min.js"></script>
                     :opt=this></case-table>
     </div>
     <div id="single" v-if="visible" v-cloak class="body">
-        <singlechart></singlechart>
         <single-display :place="place"
                         :icon="icon"
                         :data="data"></single-display>
+        <singlechart    :single="this"
+                        :picked="picked"></singlechart>
     </div>
     <div class="footer">
         <noscript>You need to enable JavaScript to run this app.</noscript>
