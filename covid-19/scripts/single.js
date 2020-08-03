@@ -1,13 +1,13 @@
 Vue.component('singlechart', {
-    props: ['picked', 'single'],
+    props: ['picked', 'single', 'chart_loaded'],
     template:
     `
     <div>
         <canvas id="chart"></canvas>
-        <div class="box">
+        <div class="box" v-if="chart_loaded" v-cloak>
             <form>
                 <label class="radio-inline">
-                    <input type="radio" id="one" value="TC"
+                    <input type="radio" value="TC"
                         v-model="picked"
                         v-on:click="single.generateChart('confirmed')">
                         Total Confirmed
@@ -85,17 +85,12 @@ const single = new Vue({
         data: [],
         icon: '',
         picked: 'TC',
-        visible: false
+        visible: false,
+        chart: null,
+        chartLoaded: false
     },
     methods: {
-        generateChart: function(type) {
-            dataset = [[], []];
-
-            this.data.forEach(function(p) {
-                dataset[0].push(getTimeString(p['timestamp']));
-                dataset[1].push(p[type]);
-            });
-
+        initChart: function() {
             document.getElementById('chart').outerHTML =
                 '<canvas id="chart"></canvas>';
 
@@ -128,19 +123,51 @@ const single = new Vue({
                 }
             };
 
-            new Chart(ctx, {
+            single.chart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: dataset[0],
+                    labels: [],
                     datasets: [{
                         backgroundColor: "#d9edff",
                         fill: true,
                         label: 'COVID-19',
-                        data: dataset[1]
+                        data: []
                     }]
                 },
                 options: options
             });
+
+            single.chartLoaded = true;
+        },
+        generateChart: function(type) {
+            var label = '';
+            dataset = [[], []];
+
+            this.data.forEach(function(p) {
+                dataset[0].push(getTimeString(p['timestamp']));
+                dataset[1].push(p[type]);
+            });
+
+            switch(type) {
+                case 'confirmed':
+                    label = 'Total Confirmed';
+                    break;
+                case 'deaths':
+                    label = 'Total Deaths';
+                    break;
+                case 'new_confirmed':
+                    label = 'New Confirmed';
+                    break;
+                default:
+                    label = 'New Deaths';
+            };
+
+            console.log(label);
+
+            this.chart.data.labels = dataset[0];
+            this.chart.data.datasets[0].label = label;
+            this.chart.data.datasets[0].data = dataset[1];
+            this.chart.update();
         },
         update: function() {
             $.getJSON(this.url + this.type + '/' + this.place + '/0',
@@ -153,7 +180,10 @@ const single = new Vue({
                 single.data = json;
                 single.getIcon();
 
-                if(single.place != 'Global') single.generateChart('confirmed');
+                if(single.place != 'Global') {
+                    single.initChart();
+                    single.generateChart('confirmed');
+                }
             });
         },
         getIcon: function() {
