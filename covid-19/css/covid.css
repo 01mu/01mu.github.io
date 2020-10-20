@@ -8,8 +8,16 @@ body {background: #ff; font-size: 18px; sbackground-color: #fafbfc; }
 .flex { display: flex; }
 .wrapper20 { padding: 2px; width: 20%; }
 .wrapper33 { padding: 2px; width: 33%; }
-.wrapper50 { padding: 2px; width: 50%; }
-.wrapper25 { padding: 2px; width: 25%; }
+.wrapper50 { padding: 2px; width: 50%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;}
+.wrapper25 { padding: 2px; width: 25%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}
 .footer { margin: 20px; text-align: center; }
 .navbar-static-top { border-color: #b8b2b2; }
 .selected {font-weight: bold}
@@ -18,15 +26,20 @@ a {cursor: pointer; color: black; }
 .box, .boxn {
 background: #fcfcfc;
 border: 1px solid #b8b2b2;
-margin-top: 15px;
 margin-bottom: 15px;
 }
 .box {
 text-align: center;
-padding: 10px;
+padding: 15px;
 }
 .boxn {
 padding: 20px;
 }
 .smargin { margin-bottom: 12px; margin-top: 12px; }
 .boldtitle { font-weight: bold; text-align: center; }
+
+@media only screen and (max-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}

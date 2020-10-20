@@ -34,7 +34,7 @@ Vue.component('today-margin', {
             {{commas(stats.deaths)}} Total Deaths<br>
             </div>
             <div class="box">
-                <b>New Confirmed Cases ({{loc}})</b>
+                <b>New Confirmed Cases<br>({{loc}})</b>
                 <div class="smargin"></div>
                 <today-data     v-for="place in data_confirmed"
                                 v-bind:a="place.new_confirmed"
@@ -44,7 +44,7 @@ Vue.component('today-margin', {
                                 v-bind:flag="place.url"></today-data>
             </div>
             <div class="box">
-                <b>New Deaths ({{loc}})</b>
+                <b>New Deaths<br>({{loc}})</b>
                 <div class="smargin"></div>
                 <today-data     v-for="place in data_deaths"
                                 v-bind:a="place.new_deaths"
@@ -78,6 +78,7 @@ Vue.component('today-display', {
             :stats="us_stats"
             :url="'https://smallfolio.bitnamiapp.com/flags/US.PNG'">
         </today-margin>
+        <bottom></bottom>
     </span>
     `
 });

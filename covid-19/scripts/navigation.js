@@ -4,10 +4,18 @@ Vue.component('navbar', {
     `
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand titletext" style="color: black;">
-                    COVID-19
-                </a>
+             <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed"
+                        data-toggle="collapse"
+                        data-target="#app-navbar-collapse">
+                        <span class="sr-only">Toggle Navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand titletext" style="color: black;">
+                        <b>COVID-19</b>
+                    </a>
             </div>
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <ul class="nav navbar-nav" style="color:black;">
@@ -55,13 +63,20 @@ const head = new Vue({router,
             var head = this;
 
             this.vues.forEach(function(e) {
-                if(e != show) e.visible = false;
+                if(e != show) {
+                    e.visible = false;
+                }
 
-                if(e == show) head.active[e.nav] = 'nav_selection active';
-                else head.active[e.nav] = 'nav_selection';
+                if(e == show) {
+                    head.active[e.nav] = 'nav_selection active';
+                } else {
+                    head.active[e.nav] = 'nav_selection';
+                }
             });
 
-            if(show == single) single.visible = true;
+            if(show == single) {
+                single.visible = true;
+            }
         },
         setRoute: function() {
             var split = this.$router.history.current.path.split('/');
@@ -80,13 +95,13 @@ const head = new Vue({router,
                     states.init();
                     break;
                 case 'country':
-                    single.place = split[2];
+                    single.place = split[2].replaceAll("%20", " ");
                     single.type = 'country';
                     this.toggle(single);
                     single.update();
                     break;
                 case 'state':
-                    single.place = split[2];
+                    single.place = split[2].replaceAll("%20", " ");
                     single.type = 'us';
                     this.toggle(single);
                     single.update();
@@ -96,6 +111,9 @@ const head = new Vue({router,
                     today.init();
                     break;
             };
+
+            countries.countries = [...countries.hold];
+            states.states = [...states.hold];
         }
     },
     watch: {

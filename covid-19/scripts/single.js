@@ -4,33 +4,35 @@ Vue.component('singlechart', {
     `
     <div>
         <canvas id="chart"></canvas>
-        <div class="box" v-if="chart_loaded" v-cloak>
-            <form>
-                <label class="radio-inline">
-                    <input type="radio" value="TC"
-                        v-model="picked"
-                        v-on:click="single.generateChart('confirmed')">
-                        Total Confirmed
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" id="one" value="TD"
-                        v-model="picked"
-                        v-on:click="single.generateChart('deaths')">
-                        Total Deaths
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" id="two" value="NC"
-                        v-model="picked"
-                        v-on:click="single.generateChart('new_confirmed')">
-                        New Confirmed
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" id="two" value="ND"
-                        v-model="picked"
-                        v-on:click="single.generateChart('new_deaths')">
-                        New Deaths
-                </label>
-            </form>
+        <div class="col-sm-12">
+            <div class="box" v-if="chart_loaded" v-cloak>
+                <form>
+                    <label class="radio-inline">
+                        <input type="radio" value="TC"
+                            v-model="picked"
+                            v-on:click="single.generateChart('confirmed')">
+                            Total Confirmed
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" id="one" value="TD"
+                            v-model="picked"
+                            v-on:click="single.generateChart('deaths')">
+                            Total Deaths
+                    </label><br>
+                    <label class="radio-inline">
+                        <input type="radio" id="two" value="NC"
+                            v-model="picked"
+                            v-on:click="single.generateChart('new_confirmed')">
+                            New Confirmed
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" id="two" value="ND"
+                            v-model="picked"
+                            v-on:click="single.generateChart('new_deaths')">
+                            New Deaths
+                    </label>
+                </form>
+            </div>
         </div>
     </div>
     `
@@ -102,6 +104,7 @@ const single = new Vue({
                         radius: 0
                     }
                 },
+                maintainAspectRatio: false ,
                 tooltips: {
                     mode: 'x-axis'
                 },
@@ -162,7 +165,11 @@ const single = new Vue({
                     label = 'New Deaths';
             };
 
-            console.log(label);
+            if(screen.width <= 600) {
+                this.chart.canvas.parentNode.style.height = '400px';
+            } else {
+                this.chart.canvas.parentNode.style.height = '500px';
+            }
 
             this.chart.data.labels = dataset[0];
             this.chart.data.datasets[0].label = label;
@@ -171,7 +178,8 @@ const single = new Vue({
         },
         update: function() {
             $.getJSON(this.url + this.type + '/' + this.place + '/0',
-            function (json) {
+                function (json) {
+
                 if(json.length == 0) {
                     single.place = "Invalid location";
                     return;

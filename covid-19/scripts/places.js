@@ -18,50 +18,60 @@ Vue.component('case-data', {
 
 Vue.component('case-table', {
     props: ['case_list', 'sort_option', 'opt', 'col', 'show_l', 'show_r',
-        'picked'],
+        'picked', 'search'],
     template:
     `
     <span>
-        <div class="box">
-            <form>
-                <label class="radio-inline">
-                    <input type="radio" id="one" value="Total"
-                        v-model="picked"
-                        v-on:click="opt.setType('total')">
-                        Total Confirmed / Total Deaths
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" id="two" value="New"
-                        v-model="picked"
-                        v-on:click="opt.setType('new')">
-                        New Confirmed / New Deaths
-                </label>
-            </form>
+        <div class="col-sm-12">
+            <div class="box">
+                <form>
+                    <label class="radio-inline">
+                        <input type="radio" id="one" value="Total"
+                            v-model="picked"
+                            v-on:click="opt.setType('total')">
+                            Total Confirmed / Total Deaths
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" id="two" value="New"
+                            v-model="picked"
+                            v-on:click="opt.setType('new')">
+                            New Confirmed / New Deaths
+                    </label>
+                </form>
+                <div class="smargin"></div>
+                <center>
+                    <input type="text"  @input="opt.updateSearch"
+                                        @change="opt.updateSearch">
+                </center>
+            </div>
         </div>
         <div class="smargin"></div>
-        <div class="flex">
-            <div class="wrapper50">
-                <a  v-bind:class="sort_option['loc']"
-                    v-on:click="opt.sort('loc')">{{col}}</a>
-                <div class="smargin"></div>
+        <div class="col-sm-12">
+            <div class="flex">
+                <div class="wrapper50">
+                    <a  v-bind:class="sort_option['loc']"
+                        v-on:click="opt.sort('loc')">{{col}}</a>
+                    <div class="smargin"></div>
+                </div>
+                <div class="wrapper25">
+                    <a  v-bind:class="sort_option[show_l[1]]"
+                        v-on:click="opt.sort(show_l[1])">{{show_l[0]}}</a>
+                    <div class="smargin"></div>
+                </div>
+                <div class="wrapper25">
+                    <a  v-bind:class="sort_option[show_r[1]]"
+                        v-on:click="opt.sort(show_r[1])">{{show_r[0]}}</a>
+                    <div class="smargin"></div>
+                </div>
             </div>
-            <div class="wrapper25">
-                <a  v-bind:class="sort_option[show_l[1]]"
-                    v-on:click="opt.sort(show_l[1])">{{show_l[0]}}</a>
-                <div class="smargin"></div>
-            </div>
-            <div class="wrapper25">
-                <a  v-bind:class="sort_option[show_r[1]]"
-                    v-on:click="opt.sort(show_r[1])">{{show_r[0]}}</a>
-                <div class="smargin"></div>
-            </div>
+            <case-data v-for="place in case_list"
+                v-bind:dest="col.toLowerCase()"
+                v-bind:show_l="show_l[1]"
+                v-bind:show_r="show_r[1]"
+                v-bind:place="place">
+                </case-data>
+        <bottom></bottom>
         </div>
-        <case-data v-for="place in case_list"
-            v-bind:dest="col.toLowerCase()"
-            v-bind:show_l="show_l[1]"
-            v-bind:show_r="show_r[1]"
-            v-bind:place="place">
-            </case-data>
     </span>
     `
 });
@@ -74,6 +84,7 @@ const countries = new Vue({
         visible: false,
         isInit: false,
         countries: [],
+        hold: [],
         sortOption: {},
         show_l: ['Confirmed', 'confirmed'],
         show_r: ['Deaths', 'deaths'],
@@ -91,6 +102,7 @@ const countries = new Vue({
                 countries.countries = json;
                 countries.format();
                 countries.visible = true;
+                countries.hold = [...countries.countries];
             });
 
             this.sortOption['confirmed'] = 'selected';
@@ -118,6 +130,21 @@ const countries = new Vue({
                 this.sort('confirmed');
             }
         },
+        updateSearch: function({type, target}) {
+            var idx = 0;
+            var z = [];
+            var t = target.value.toLowerCase();
+
+            this.hold.forEach(function(p) {
+                if(p.country.toLowerCase().includes(t) == true) {
+                    z.push(p);
+                }
+
+                idx++;
+            });
+
+            this.countries = z;
+        },
         sort: function(type) {
             if(!this.sortToggle) z = (a, b) => (a[type] > b[type]) ? 1 : -1;
             else z = (a, b) => (a[type] < b[type]) ? 1 : -1;
@@ -138,11 +165,13 @@ const countries = new Vue({
 const states = new Vue({
     el: '#states',
     data: {
+        meme: '',
         nav: 'states',
         url: 'https://smallfolio.bitnamiapp.com/covid-19/states',
         visible: false,
         isInit: false,
         states: [],
+        hold: [],
         sortOption: {},
         show_l: ['Confirmed', 'confirmed'],
         show_r: ['Deaths', 'deaths'],
@@ -160,6 +189,7 @@ const states = new Vue({
                 states.states = json;
                 states.format();
                 states.visible = true;
+                states.hold = [...states.states];
             });
 
             this.sortOption['confirmed'] = 'selected';
@@ -187,6 +217,21 @@ const states = new Vue({
                 this.sortToggle = 1;
                 this.sort('confirmed');
             }
+        },
+        updateSearch: function({type, target}) {
+            var idx = 0;
+            var z = [];
+            var t = target.value.toLowerCase();
+
+            this.hold.forEach(function(p) {
+                if(p.state.toLowerCase().includes(t) == true) {
+                    z.push(p);
+                }
+
+                idx++;
+            });
+
+            this.states = z;
         },
         sort: function(type) {
             if(!this.sortToggle) z = (a, b) => (a[type] > b[type]) ? 1 : -1;

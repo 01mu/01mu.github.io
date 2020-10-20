@@ -62,7 +62,21 @@ bootstrap.min.js"></script>
     </div>
 </html>
 <script src="scripts/functions.js"></script>
+<script src="scripts/footer.js"></script>
 <script src="scripts/today.js"></script>
 <script src="scripts/places.js"></script>
 <script src="scripts/single.js"></script>
 <script src="scripts/navigation.js"></script>
+<script>
+$(document).ready(function() {
+    $('.navbar-nav>li>a').on('click', function() {
+        if(this.className == 'linkCol') {
+            $('.navbar-collapse').collapse('hide');
+        }
+    });
+
+    $('.dropdown-menu>li>a').on('click', function() {
+        $('.navbar-collapse').collapse('hide');
+    });
+});
+</script>
