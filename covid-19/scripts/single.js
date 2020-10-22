@@ -18,7 +18,7 @@ Vue.component('singlechart', {
                             v-model="picked"
                             v-on:click="single.generateChart('deaths')">
                             Total Deaths
-                    </label><br>
+                    </label>
                     <label class="radio-inline">
                         <input type="radio" id="two" value="NC"
                             v-model="picked"
@@ -51,25 +51,25 @@ Vue.component('single-display', {
         </div>
         <div class="col-sm-6">
             <div class="box">
-            New Confirmed Cases<br>{{commas(data[data.length-1].new_confirmed)}}
+            <b>New Confirmed Cases</b><br>{{commas(data[data.length-1].new_confirmed)}}
             ({{data[data.length-1].new_confirmed_per.toFixed(2)}}%)
             <div class="smargin"></div>
-            New Confirmed Deaths<br>{{commas(data[data.length-1].new_deaths)}}
+            <b>New Confirmed Deaths</b><br>{{commas(data[data.length-1].new_deaths)}}
             ({{data[data.length-1].new_deaths_per.toFixed(2)}}%)
             <div class="smargin"></div>
-            New Confirmed Recoveries<br>{{commas(data[data.length-1].new_recovered)}}
+            <b>New Confirmed Recoveries</b><br>{{commas(data[data.length-1].new_recovered)}}
             ({{data[data.length-1].new_recovered_per.toFixed(2)}}%)
             </div>
         </div>
         <div class="col-sm-6">
             <div class="box">
-            Total Confirmed Cases<br>{{commas(data[data.length-1].confirmed)}}
+            <b>Total Confirmed Cases</b><br>{{commas(data[data.length-1].confirmed)}}
             ({{data[data.length-1].confirmed_per.toFixed(2)}}%)
             <div class="smargin"></div>
-            Total Confirmed Deaths<br>{{commas(data[data.length-1].deaths)}}
+            <b>Total Confirmed Deaths</b><br>{{commas(data[data.length-1].deaths)}}
             ({{data[data.length-1].deaths_per.toFixed(2)}}%)
             <div class="smargin"></div>
-            Total Confirmed Recoveries<br>{{commas(data[data.length-1].recovered)}}
+            <b>Total Confirmed Recoveries</b><br>{{commas(data[data.length-1].recovered)}}
             ({{data[data.length-1].recovered_per.toFixed(2)}}%)
             </div>
         </div>
@@ -81,10 +81,16 @@ const single = new Vue({
     el: '#single',
     data: {
         nav: 'single',
+        //url: 'http:/127.0.0.1:8000/',
         url: 'https://smallfolio.bitnamiapp.com/covid-19/',
         place: '',
         type: '',
-        data: [],
+        data: [{'new_confirmed': 0, 'new_confirmed_per': 0,
+            'new_deaths': 0, 'new_deaths_per': 0,
+            'new_recovered': 0, 'new_recovered_per': 0,
+            'confirmed': 0, 'confirmed_per': 0,
+            'deaths': 0, 'deaths_per': 0,
+            'recovered': 0, 'recovered_per': 0}],
         icon: '',
         picked: 'TC',
         visible: false,
@@ -92,6 +98,10 @@ const single = new Vue({
         chartLoaded: false
     },
     methods: {
+        resetIcon: function() {
+            this.icon = 'https://smallfolio.bitnamiapp.com/state-flags/' +
+                'grand-princess.png';
+        },
         initChart: function() {
             document.getElementById('chart').outerHTML =
                 '<canvas id="chart"></canvas>';
@@ -144,7 +154,7 @@ const single = new Vue({
         },
         generateChart: function(type) {
             var label = '';
-            dataset = [[], []];
+            var dataset = [[], []];
 
             this.data.forEach(function(p) {
                 dataset[0].push(getTimeString(p['timestamp']));
@@ -177,9 +187,9 @@ const single = new Vue({
             this.chart.update();
         },
         update: function() {
-            $.getJSON(this.url + this.type + '/' + this.place + '/0',
-                function (json) {
+            var url = this.url + this.type + '/' + this.place + '/0';
 
+            $.getJSON(url, function (json) {
                 if(json.length == 0) {
                     single.place = "Invalid location";
                     return;
@@ -192,16 +202,27 @@ const single = new Vue({
                     single.initChart();
                     single.generateChart('confirmed');
                 }
+
+                single.data.forEach(function(e) {
+                    if(e.new_confirmed < 0) {
+                        e.new_confirmed = 0;
+                    }
+
+                    if(e.new_deaths < 0) {
+                        e.new_deaths = 0;
+                    }
+                });
             });
         },
         getIcon: function() {
-            if(single.type == 'country')
+            if(single.type == 'country') {
                 single.icon = 'https://smallfolio.bitnamiapp.com/' +
                     'flags/' + countryCode(single.place) + '.PNG';
-            else
+            } else {
                 single.icon = 'https://smallfolio.bitnamiapp.com/' +
                     'state-flags/' +
                     replaceAll(single.place.toLowerCase(), " ", "-") + '.png';
+            }
         }
     }
 });

@@ -64,7 +64,7 @@ Vue.component('today-display', {
     template:
     `
     <span>
-        <today-margin :loc="'World'"
+        <today-margin :loc="'Global'"
             :dest="'country'"
             :data_confirmed="global_confirmed"
             :data_deaths="global_deaths"
@@ -78,7 +78,6 @@ Vue.component('today-display', {
             :stats="us_stats"
             :url="'https://smallfolio.bitnamiapp.com/flags/US.PNG'">
         </today-margin>
-        <bottom></bottom>
     </span>
     `
 });
@@ -87,6 +86,7 @@ const today = new Vue({
     el: '#today',
     data: {
         nav: 'today',
+        //url: 'http:/127.0.0.1:8000/today',
         url: 'https://smallfolio.bitnamiapp.com/covid-19/today',
         globalStats: [],
         usStats: [],

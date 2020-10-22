@@ -70,7 +70,7 @@ Vue.component('case-table', {
                 v-bind:show_r="show_r[1]"
                 v-bind:place="place">
                 </case-data>
-        <bottom></bottom>
+        <div class="smargin"></div>
         </div>
     </span>
     `
@@ -80,6 +80,7 @@ const countries = new Vue({
     el: '#countries',
     data: {
         nav: 'countries',
+        //url: 'http:/127.0.0.1:8000/countries',
         url: 'https://smallfolio.bitnamiapp.com/covid-19/countries',
         visible: false,
         isInit: false,
@@ -158,6 +159,7 @@ const countries = new Vue({
 
             this.sortToggle ^= 1;
             this.countries.sort(z);
+            this.hold.sort(z);
         },
     }
 });
@@ -167,6 +169,7 @@ const states = new Vue({
     data: {
         meme: '',
         nav: 'states',
+        //url: 'http:/127.0.0.1:8000/states',
         url: 'https://smallfolio.bitnamiapp.com/covid-19/states',
         visible: false,
         isInit: false,
@@ -246,6 +249,7 @@ const states = new Vue({
 
             this.sortToggle ^= 1;
             this.states.sort(z);
+            this.hold.sort(z);
         },
     }
 });

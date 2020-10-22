@@ -14,7 +14,10 @@ Vue.component('navbar', {
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand titletext" style="color: black;">
-                        <b>COVID-19</b>
+                        <a style="color:black; text-decoration: none;"
+                            href="index.html#/today">
+                            <b>COVID-19</b>
+                        </a>
                     </a>
             </div>
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -67,16 +70,28 @@ const head = new Vue({router,
                     e.visible = false;
                 }
 
-                if(e == show) {
-                    head.active[e.nav] = 'nav_selection active';
+
+                if(show != single) {
+                    if(e == show) {
+                        head.active[e.nav] = 'nav_selection active';
+                    } else {
+                        head.active[e.nav] = 'nav_selection';
+                    }
                 } else {
-                    head.active[e.nav] = 'nav_selection';
+                    if(head.active[e.nav] == 'nav_selection active') {
+                       head.active[e.nav] = 'nav_selection active';
+                    }
+
+                    single.visible = true;
                 }
             });
-
-            if(show == single) {
-                single.visible = true;
-            }
+        },
+        setSingle: function(split, type) {
+            single.resetIcon();
+            single.place = split[2].replaceAll("%20", " ");
+            single.type = type;
+            this.toggle(single);
+            single.update();
         },
         setRoute: function() {
             var split = this.$router.history.current.path.split('/');
@@ -95,16 +110,10 @@ const head = new Vue({router,
                     states.init();
                     break;
                 case 'country':
-                    single.place = split[2].replaceAll("%20", " ");
-                    single.type = 'country';
-                    this.toggle(single);
-                    single.update();
+                    this.setSingle(split, 'country');
                     break;
                 case 'state':
-                    single.place = split[2].replaceAll("%20", " ");
-                    single.type = 'us';
-                    this.toggle(single);
-                    single.update();
+                    this.setSingle(split, 'us');
                     break;
                 default:
                     this.toggle(today);

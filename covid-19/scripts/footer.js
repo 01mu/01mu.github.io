@@ -2,7 +2,6 @@ Vue.component('bottom', {
     template:
     `
     <span>
-        <br>
         <center>
             <a href="https://01mu.github.io/covid-19">
                 01mu.github.io/covid-19
