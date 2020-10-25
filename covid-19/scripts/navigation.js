@@ -121,6 +121,10 @@ const head = new Vue({router,
                     break;
             };
 
+            $(document).ready(function(){
+                $(this).scrollTop(0);
+            });
+
             countries.countries = [...countries.hold];
             states.states = [...states.hold];
         }
