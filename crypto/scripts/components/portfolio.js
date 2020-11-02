@@ -21,12 +21,13 @@ Vue.component('portfoliotable', {
                 <th class="hidden-xs" scope="col">Percentage</th>
                 <th class="hidden-xs" scope="col">Value</th>
                 <th scope="col">Price</th>
-                <th scope="col"></th>
+                <th class="hidden-xs" scope="col"></th>
             </tr>
         </thead>
         <tbody>
             <template v-for="(coin, index) in coins">
-                <tr class="portfoliorow">
+                <tr :class="{'r0': index % 2 === 0, 'r1': index % 2 !== 0 }"
+                    v-on:click="portfolio.displayXS(coin.symbol)">
                     <td>
                         <a :href="'index.html#/single/' + coin.symbol">
                             <img height="20" width="20"
@@ -43,7 +44,7 @@ Vue.component('portfoliotable', {
                     <td class="hidden-xs">{{ coin.percentage }}</td>
                     <td class="hidden-xs">{{ coin.value }}</td>
                     <td>{{ coin.price }}</td>
-                    <td>
+                    <td class="hidden-xs">
                         <button class="button-green"
                             v-on:click="portfolio.setEdit(coin.symbol)">
                             Edit
@@ -61,7 +62,7 @@ Vue.component('portfoliotable', {
 });
 
 Vue.component('portfoliofooter', {
-    props: ['showedit', 'notice', 'portfolio'],
+    props: ['showedit', 'notice', 'portfolio', 'xsvisible'],
     template:
     `
     <span>
@@ -78,6 +79,16 @@ Vue.component('portfoliofooter', {
                 placeholder="New amount" v-model="portfolio.newAmount">
             <button class="button-blue" v-on:click="portfolio.makeEdit()">
                 Edit {{ portfolio.toEdit }}
+            </button>
+        </span>
+        <span v-if="xsvisible" class="visible-xs">
+            <button class="button-green"
+                v-on:click="portfolio.setEdit(portfolio.toEdit)">
+                Edit {{ portfolio.toEdit }}
+            </button>
+            <button class="button-red"
+                v-on:click="portfolio.removeCoin(portfolio.toDelete)">
+                Delete {{ portfolio.toDelete }}
             </button>
         </span>
         <b>{{ notice }}</b>

@@ -1,8 +1,8 @@
 Vue.component('performers', {
-    props: ['performer'],
+    props: ['performer', 'index'],
     template:
     `
-    <div class="flex perfthing">
+    <div :class="{'flex r0 perfthing': index % 2 === 0, 'flex r1 perfthing': index % 2 !== 0 }">
         <div class="wrapper50 overflow">
             <a :href="'index.html#/single/' + performer.symbol">
                 <img height="20" width="20"
@@ -31,12 +31,12 @@ Vue.component('performerstable', {
             <div class="perfheader">1 Hour Change</div>
             <div class="flex">
                 <div class="wrapper50">
-                    <performers v-for="p in performers['change_1h_desc']"
-                        v-bind:performer="p"></performers>
+                    <performers v-for="(p, index) in performers['change_1h_desc']"
+                        v-bind:performer="p" v-bind:index="index"></performers>
                 </div>
                 <div class="wrapper50">
-                    <performers v-for="p in performers['change_1h_asc']"
-                        v-bind:performer="p"></performers>
+                    <performers v-for="(p, index) in performers['change_1h_asc']"
+                        v-bind:performer="p" v-bind:index="index"></performers>
                 </div>
             </div>
         </div>
@@ -44,12 +44,12 @@ Vue.component('performerstable', {
             <div class="perfheader">24 Hour Change</div>
             <div class="flex">
                 <div class="wrapper50">
-                    <performers v-for="p in performers['change_24h_desc']"
-                        v-bind:performer="p"></performers>
+                    <performers v-for="(p, index) in performers['change_24h_desc']"
+                        v-bind:performer="p" v-bind:index="index"></performers>
                 </div>
                 <div class="wrapper50">
-                    <performers  v-for="p in performers['change_24h_asc']"
-                        v-bind:performer="p"></performers>
+                    <performers  v-for="(p, index) in performers['change_24h_asc']"
+                        v-bind:performer="p" v-bind:index="index"></performers>
                 </div>
             </div>
         </div>
@@ -57,12 +57,12 @@ Vue.component('performerstable', {
             <div class="perfheader">7 Day Change</div>
             <div class="flex">
                 <div class="wrapper50">
-                    <performers v-for="p in performers['change_7d_desc']"
-                        v-bind:performer="p"></performers>
+                    <performers v-for="(p, index) in performers['change_7d_desc']"
+                        v-bind:performer="p" v-bind:index="index"></performers>
                 </div>
                 <div class="wrapper50">
-                    <performers v-for="p in performers['change_7d_asc']"
-                        v-bind:performer="p"></performers>
+                    <performers v-for="(p, index) in performers['change_7d_asc']"
+                        v-bind:performer="p" v-bind:index="index"></performers>
                 </div>
             </div>
         </div>

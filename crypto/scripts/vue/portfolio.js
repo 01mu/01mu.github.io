@@ -12,10 +12,26 @@ var portfolio = new Vue({
         notice: '',
         showEdit: false,
         toEdit: '',
+        toDelete: '',
+        xsVisible: false,
         newAmount: 0,
         visible: false
     },
     methods: {
+        displayXS: function(a) {
+            if(screen.width <= 600) {
+                window.scrollTo(0, document.body.scrollHeight);
+
+                if(this.xsVisible && a === this.toEdit) {
+                    this.xsVisible = false;
+                } else {
+                    this.xsVisible = true;
+                }
+
+                this.toEdit = a;
+                this.toDelete = a;
+            }
+        },
         update: function(a) {
             localStorage.setItem('portfolio', JSON.stringify(a));
             this.updateValue();
@@ -40,11 +56,13 @@ var portfolio = new Vue({
 
             a[this.toEdit] = this.newAmount;
             this.update(a);
+            this.xsVisible = false;
         },
         removeCoin: function(symbol) {
             var a = JSON.parse(this.coinTable);
             delete a[symbol];
             this.update(a);
+            this.xsVisible = false;
         },
         confirmCoin: function() {
             var url = 'https://min-api.cryptocompare.com/data/price?fsym='

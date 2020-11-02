@@ -59,8 +59,21 @@ var single = new Vue({
             var ctx = document.getElementById('coinChart').getContext('2d');
 
             var options = {
+                elements: {
+                    point:{
+                        radius: 0
+                    }
+                },
+                maintainAspectRatio: false ,
+                tooltips: {
+                    mode: 'x-axis'
+                },
                 scales: {
                     xAxes: [{
+                        ticks: {
+                            autoSkip: true,
+                            maxTicksLimit: 10
+                        },
                         gridLines: {
                             display:false
                         }
@@ -73,7 +86,7 @@ var single = new Vue({
                 }
             };
 
-            new Chart(ctx, {
+            var ch = new Chart(ctx, {
                 type: 'candlestick',
                 data: {
                     datasets: [{
@@ -83,6 +96,12 @@ var single = new Vue({
                 },
                 options: options
             });
+
+            if(screen.width <= 600) {
+                ch.canvas.parentNode.style.height = '400px';
+            } else {
+                ch.canvas.parentNode.style.height = '500px';
+            }
         },
         upaux: function(url, type) {
             $.getJSON(url, function (json) {

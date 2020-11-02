@@ -37,7 +37,7 @@ var coins = new Vue({
                 element.change_1h = element.change_1h.toFixed(2) + '%';
                 element.change_24h = element.change_24h.toFixed(2) + '%';
                 element.change_7d = element.change_7d.toFixed(2) + '%';
-                element.rank = '#' + element.rank;
+                //element.rank = '#' + element.rank;
 
                 element.market_cap = numWord(element.market_cap);
                 element.market_cap_percent =

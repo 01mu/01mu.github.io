@@ -1,8 +1,8 @@
 Vue.component('coins', {
-    props: ['coin'],
+    props: ['coin', 'index'],
     template:
     `
-    <div class="flex coinpad">
+    <div :class="{'flex r0 coinpad': index % 2 === 0, 'flex r1 coinpad': index % 2 !== 0 }">
         <div class="wrapper5s">{{ coin.rank }}</div>
         <div class="wrapper15s overflow">
             <a :href="'index.html#/single/' + coin.symbol">
@@ -46,7 +46,7 @@ Vue.component('cointable', {
             <div class="wrapper10 hidden-xs">24 Hour Volume</div>
             <div class="wrapper6p5 hidden-xs">%</div>
         </div>
-        <coins v-for="coin in coins" v-bind:coin="coin"></coins>
+        <coins v-for="(coin, index) in coins" v-bind:coin="coin" v-bind:index="index"></coins>
     </span>
     `
 });
