@@ -23,3 +23,17 @@
     </div>
 </html>
 <script src="script.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('.navbar-nav>li>a').on('click', function() {
+        if(this.className == 'nav-link') {
+            $('.navbar-collapse').collapse('hide');
+        }
+    });
+
+    $('.dropdown-menu>a').on('click', function() {
+        $('.navbar-collapse').collapse('hide');
+    });
+});
+</script>

@@ -24,6 +24,8 @@ var portfolio = new Vue({
 
                 if(this.xsVisible && a === this.toEdit) {
                     this.xsVisible = false;
+                    this.showEdit = false;
+                    this.notice = '';
                 } else {
                     this.xsVisible = true;
                 }
@@ -57,12 +59,16 @@ var portfolio = new Vue({
             a[this.toEdit] = this.newAmount;
             this.update(a);
             this.xsVisible = false;
+            this.showEdit = false;
+            this.notice = '';
         },
         removeCoin: function(symbol) {
             var a = JSON.parse(this.coinTable);
             delete a[symbol];
             this.update(a);
             this.xsVisible = false;
+            this.showEdit = false;
+            this.notice = '';
         },
         confirmCoin: function() {
             var url = 'https://min-api.cryptocompare.com/data/price?fsym='

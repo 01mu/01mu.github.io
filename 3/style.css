@@ -26,6 +26,7 @@ body { font-size: 18px; }
 .wrapper10 { width: 10%; }
 .wrapper15 { width: 15%; }
 .wrapper6p5 { width: 6.5%; }
+.wrapper33 { width: 33%; }
 
 .bigger { margin: 0 auto; max-width: 90%; }
 
@@ -40,4 +41,11 @@ body { font-size: 18px; }
     body, .body { font-size: 16px; }
     .body { font-size: 16px; margin-right: 8px; margin-left: 8px; }
     .centersm { text-align: center; }
-    .bigger { max-width: 100%; }
+    .bigger { max-width: 100%; margin-right: 8px; margin-left: 8px; }
+    .wrapper5 { width: 10%; }
+    .wrapper20 { width: 45%; }
+    .wrapper33 { width: 50%; }
+    .wrapper10 { width: 45%; text-align: center; }
+}
+.ave { text-align: center; }
+

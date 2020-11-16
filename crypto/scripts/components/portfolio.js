@@ -67,21 +67,40 @@ Vue.component('portfoliofooter', {
     `
     <span>
         <br>
-        <input v-on:keyup.enter="portfolio.confirmCoin()"
-            placeholder="Symbol" v-model="portfolio.coinSymbol"></input>
-        <input v-on:keyup.enter="portfolio.confirmCoin()"
-            placeholder="Amount" v-model="portfolio.coinAmount"></input>
-        <button class="button-blue" v-on:click="portfolio.confirmCoin()">
-            Add coin
-        </button>
-        <span v-if="showedit">
-            <input v-on:keyup.enter="portfolio.makeEdit()"
-                placeholder="New amount" v-model="portfolio.newAmount">
-            <button class="button-blue" v-on:click="portfolio.makeEdit()">
-                Edit {{ portfolio.toEdit }}
+        <span class="hidden-xs">
+            <input v-on:keyup.enter="portfolio.confirmCoin()"
+                placeholder="Symbol" v-model="portfolio.coinSymbol"></input>
+            <input v-on:keyup.enter="portfolio.confirmCoin()"
+                placeholder="Amount" v-model="portfolio.coinAmount"></input>
+            <button class="button-blue" v-on:click="portfolio.confirmCoin()">
+                Add coin
             </button>
+            <span v-if="showedit">
+                <input v-on:keyup.enter="portfolio.makeEdit()"
+                    placeholder="New amount" v-model="portfolio.newAmount">
+                <button class="button-blue" v-on:click="portfolio.makeEdit()">
+                    Edit {{ portfolio.toEdit }}
+                </button>
+            </span>
+        </span>
+        <span class="visible-xs">
+            <input v-on:keyup.enter="portfolio.confirmCoin()"
+                placeholder="Symbol" v-model="portfolio.coinSymbol"></input><br>
+            <input v-on:keyup.enter="portfolio.confirmCoin()"
+                placeholder="Amount" v-model="portfolio.coinAmount"></input><br>
+            <button class="button-blue" v-on:click="portfolio.confirmCoin()">
+                Add coin
+            </button>
+            <span v-if="showedit"><br><br>
+                <input v-on:keyup.enter="portfolio.makeEdit()"
+                    placeholder="New amount" v-model="portfolio.newAmount"><br>
+                <button class="button-blue" v-on:click="portfolio.makeEdit()">
+                    Edit {{ portfolio.toEdit }}
+                </button>
+            </span>
         </span>
         <span v-if="xsvisible" class="visible-xs">
+            <br>
             <button class="button-green"
                 v-on:click="portfolio.setEdit(portfolio.toEdit)">
                 Edit {{ portfolio.toEdit }}

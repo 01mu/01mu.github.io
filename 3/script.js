@@ -71,12 +71,15 @@ const topbar = {
           <li class="nav-item active">
             <a class="nav-link" href="index.html#/coins">Coins <span class="sr-only">(current)</span></a>
           </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="index.html#/heatmap">Heat Map <span class="sr-only">(current)</span></a>
+          </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle active " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Mentions
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">/biz/</a>
+            <a class="dropdown-item" href="index.html#/biz">/biz/</a>
             </div>
           </li>
         </ul>
@@ -452,14 +455,14 @@ const Coins = {
             <div class="wrapper5">#</div>
             <div class="wrapper20">Coin</div>
             <div class="wrapper10">USD Price</div>
-            <div class="wrapper15 hidden-xs">BTC Price</div>
-            <div class="wrapper10 hidden-xs">Market Cap</div>
-            <div class="wrapper10 hidden-xs">%</div>
-            <div class="wrapper10 hidden-xs">24 Hour Vol.</div>
-            <div class="wrapper10 hidden-xs">%</div>
-            <div class="wrapper5 hidden-xs">1H Δ</div>
-            <div class="wrapper5 hidden-xs">24H Δ</div>
-            <div class="wrapper5 hidden-xs">7D Δ</div>
+            <div class="wrapper15 d-none d-sm-block">BTC Price</div>
+            <div class="wrapper10 d-none d-sm-block">Market Cap</div>
+            <div class="wrapper10 d-none d-sm-block">%</div>
+            <div class="wrapper10 d-none d-sm-block">24 Hour Vol.</div>
+            <div class="wrapper10 d-none d-sm-block">%</div>
+            <div class="wrapper5 d-none d-sm-block">1H Δ</div>
+            <div class="wrapper5 d-none d-sm-block">24H Δ</div>
+            <div class="wrapper5 d-none d-sm-block">7D Δ</div>
         </div>
             <template v-for="(coin, index) in coins">
                 <div class="flex" style="margin-top: 16px; margin-bottom: 16px;">
@@ -476,14 +479,14 @@ const Coins = {
                         </a>
                     </div>
                     <div class="wrapper10">{{ coin.price_usd }}</div>
-                    <div class="wrapper15 hidden-xs">{{ coin.price_btc }}</div>
-                    $<div class="wrapper10 hidden-xs overflow">{{ coin.market_cap }}</div>
-                    <div class="wrapper10 hidden-xs">{{ coin.market_cap_percent }}</div>
-                    $<div class="wrapper10 hidden-xs overflow">{{ coin.volume_24h }}</div>
-                    <div class="wrapper10 hidden-xs">{{ coin.volume_24h_percent }}</div>
-                    <div class="wrapper5 hidden-xs">{{ coin.change_1h }}</div>
-                    <div class="wrapper5 hidden-xs">{{ coin.change_24h }}</div>
-                    <div class="wrapper5 hidden-xs">{{ coin.change_7d }}</div>
+                    <div class="wrapper15 d-none d-sm-block">{{ coin.price_btc }}</div>
+                    <div class="wrapper10 d-none d-sm-block overflow">{{ coin.market_cap }}</div>
+                    <div class="wrapper10 d-none d-sm-block">{{ coin.market_cap_percent }}</div>
+                    <div class="wrapper10 d-none d-sm-block overflow">{{ coin.volume_24h }}</div>
+                    <div class="wrapper10 d-none d-sm-block">{{ coin.volume_24h_percent }}</div>
+                    <div class="wrapper5 d-none d-sm-block">{{ coin.change_1h }}</div>
+                    <div class="wrapper5 d-none d-sm-block">{{ coin.change_24h }}</div>
+                    <div class="wrapper5 d-none d-sm-block">{{ coin.change_7d }}</div>
                 </div>
             </template>
         <span style="margin: 16px">
@@ -536,11 +539,11 @@ const Coins = {
                 element.change_7d = element.change_7d.toFixed(2) + '%';
                 //element.rank = '#' + element.rank;
 
-                element.market_cap = numWord(element.market_cap);
+                element.market_cap = '$' + numWord(element.market_cap);
                 element.market_cap_percent =
                     element.market_cap_percent.toFixed(2) + '%';
 
-                element.volume_24h = numWord(element.volume_24h);
+                element.volume_24h = '$' + numWord(element.volume_24h);
                 element.volume_24h_percent =
                     element.volume_24h_percent.toFixed(2) + '%';
             });
@@ -618,7 +621,7 @@ const Performers = {
         </div>
         <div class="input-group">
             <input v-on:keyup.enter="updateRank()"
-                placeholder="Rank limit" v-model="rank" class="form-control"></input>&nbsp;
+                placeholder="Rank limit" v-model="rank" class="form-control">&nbsp;
             <button class="btn btn-outline-primary" v-on:click="updateRank()">
                 Set rank limit
             </button>
@@ -757,11 +760,367 @@ const Performers = {
     }
 }
 
+const HeatMap = {
+    template: `
+    <table class="body">
+        <thead>
+            <tr>
+                <th></th>
+                <template v-for="(date, index) in dates">
+                        <th v-if="small && index > 16">{{ date.date }}</th>
+                        <th v-else-if="!small">{{ date.date }}</th>
+                </template>
+            </tr>
+        </thead>
+        <tbody class="table">
+            <template v-for="(hm, index) in heatmap">
+                <tr>
+                    <td style="text-align:center;">
+                        <a>
+                            <img height="20" width="20"
+                                style="cursor: pointer;"
+                                v-bind:src="hm[0].icon"/>
+                            </a>
+                    </td>
+                    <template v-for="(coin, index) in hm">
+                        <td v-if="small && index > 16" v-bind:style="coin.color">
+                            {{ coin.difference }}
+                        </td>
+                        <td v-else-if="!small" v-bind:style="coin.color">
+                            {{ coin.difference }}
+                        </td>
+                    </template>
+                </tr>
+            </template>
+            <tr class="ave" v-if="showAve">
+                <td class="ave"><b>μ</b></td>
+                <template v-for="(ave, index) in averages">
+                        <td v-if="small && index > 16" style="background-color: #b3e0ff;">
+                            {{ ave }}
+                        </td>
+                        <td v-else-if="!small" style="background-color: #b3e0ff;">
+                            {{ ave }}
+                        </td>
+                </template>
+            </tr>
+        </tbody>
+    </table>
+    <div style="margin: 16px">
+        <button class="btn btn-block btn-outline-primary" v-on:click="loadMore()">
+            {{ loadingText }}
+        </button>
+    </div>
+    `,
+    data() {
+        return {
+            nav: 'heatmap',
+            url: 'https://smallfolio.bitnamiapp.com/crypto/heatmap/',
+            heatmap: [],
+            page: 0,
+            dates: [],
+            lastUpdated: '',
+            loadingText: 'Load more',
+            visible: false,
+            isInit: false,
+            small: false,
+            averages: [],
+            showAve: false,
+            hide: 'd-none d-sm-block'
+        }
+    },
+    components: {
+
+    },
+    methods: {
+        init: function() {
+            if(this.isInit) {
+                return;
+            }
+
+            const heatmap = this;
+
+            $.getJSON(this.url + this.page, function (json) {
+                json['heat_map'][0].forEach(function(element) {
+                    date = new Date(element.time * 1000);
+                    d = (date.getMonth() + 1) + '/' + date.getDate();
+                    heatmap.dates.push({'date': d, 'style': 'hidden-xs'});
+                });
+
+                heatmap.getAverages(json['heat_map']);
+                heatmap.formatHM(json['heat_map']);
+                heatmap.setColors(json['heat_map']);
+                heatmap.heatmap = json['heat_map'];
+
+                heatmap.lastUpdated =
+                    'Last updated ' +
+                    since(json.last_update_heat_map.input_value);
+            });
+
+            this.isInit = true;
+        },
+        formatHM: function(hm) {
+            hm.forEach(function(coin) {
+                coin[0].icon = 'https://smallfolio.bitnamiapp.com/' +
+                    'crypto_icons/color/' + coin[0].symbol.toLowerCase() +
+                    '.png';
+            });
+
+            hm.forEach(function(coin) {
+                coin.forEach(function(element) {
+                    element.difference = element.difference.toFixed(2);
+                });
+            });
+        },
+        getColor: function(diff) {
+            switch(true) {
+                case(diff < 0 && diff > -.5): color = '#ffc2b3;'; break;
+                case(diff <= -.5 && diff > -1): color = '#ffad99;'; break;
+                case(diff <= -1 && diff > -2): color = '#ff9980;'; break;
+                case(diff <= -2 && diff > -3): color = '#ff8566;'; break;
+                case(diff <= -3): color = '#ff704d;'; break;
+                case(diff >= 0 && diff < .5): color = '#b3ffcc;'; break;
+                case(diff >= .5 && diff < 1): color = '#99ffbb;'; break;
+                case(diff >= 1 && diff < 2): color = '#80ffaa;'; break;
+                case(diff >= 2 && diff < 3): color = '#66ff99;'; break;
+                default: color = '#4dff88;';
+            }
+
+            return 'background-color:' + color;
+        },
+        setColors: function(hm) {
+            const heatmap = this;
+
+            hm.forEach(function(coin) {
+                coin.forEach(function(element) {
+                    var difference = element.difference;
+                    element.color = heatmap.getColor(difference);
+                });
+            });
+        },
+        loadMore: function() {
+            this.loadingText = 'Loading...';
+            const heatmap = this;
+
+            $.getJSON(this.url + ++this.page, function (json) {
+                heatmap.loadingText = 'Load more';
+                heatmap.getAverages(json['heat_map']);
+                heatmap.formatHM(json['heat_map']);
+                heatmap.setColors(json['heat_map']);
+                heatmap.heatmap = heatmap.heatmap.concat(json['heat_map']);
+            });
+        },
+        getAverages: function(hm) {
+            var totals = [];
+
+            for(var i = 0; i < 21; i++) {
+                totals[i] = 0;
+            }
+
+            hm.forEach(function(coin) {
+                for(var i = 0; i < coin.length; i++) {
+                    totals[i] += coin[i].difference;
+                }
+            });
+
+            for(var i = 0; i < 21; i++) {
+                totals[i] = (totals[i] / 21).toFixed(2);
+            }
+
+            this.averages = totals;
+            this.showAve = true;
+        }
+    },
+    created() {
+        if(screen.width <= 600) {
+            this.small = true;
+        }
+
+        this.init();
+
+        this.$watch(() => this.$route.params,
+            (toParams, previousParams) => {
+
+            }
+        )
+    }
+}
+
+const Biz = {
+    template: `
+    <div class="body">
+        <div class="flex coinheader">
+            <div class="wrapper33">Coin</div>
+            <div class="wrapper33 d-none d-sm-block">24 Hour Change</div>
+            <div class="wrapper33 overflow">Name Mentions (24 Hours)</div>
+        </div>
+            <template v-for="(count, index) in bizCounts">
+            <div class="flex" style="margin-top: 16px; margin-bottom: 16px;">
+            <div class="wrapper33 overflow">
+                <a :href="'index.html#/single/' + count.symbol">
+                    <img height="20" width="20"
+                        style="cursor: pointer;"
+                        v-on:click="head.showSingle(count.symbol)"
+                        :src="count.url"/>
+                </a>&nbsp;
+                <a :href="'index.html#/single/' + count.symbol">
+                    {{ count.name }}
+                </a>
+            </div>
+            <div class="wrapper33 d-none d-sm-block">{{ count.name_diff }}</div>
+            <div class="wrapper33">{{ count.name_count }}</div>
+            </div>
+            </template>
+        <div v-if="noticeVisible" class="alert alert-danger" role="alert">
+            <b>{{ notice }}</b>
+        </div>
+        <div class="input-group">
+            <input v-on:keyup.enter="updateRank()"
+                placeholder="Rank limit" v-model="rank" class="form-control">&nbsp;
+            <button class="btn btn-outline-primary" v-on:click="updateRank()">
+                Set rank limit
+            </button>
+        </div>
+    </div>
+    `,
+    data() {
+        return {
+            nav: 'mentions',
+            url: 'https://smallfolio.bitnamiapp.com/crypto/biz/',
+            rank: 50,
+            bizCounts: [],
+            lastUpdated: '',
+            visible: false,
+            noticeVisible: false,
+            isInit: false,
+            notice: '',
+            st: 0
+        }
+    },
+    components: {
+
+    },
+    methods: {
+        showError (text) {
+            const p = this;
+            this.notice = text;
+            this.noticeVisible = 1;
+            clearInterval(this.timer);
+            this.timer = setTimeout(function() { p.noticeVisible = 0; }, 1500);
+        },
+        sort: function(type) {
+            switch(type) {
+                case 'name':
+                    if(!biz.st)
+                        z = (a, b) => (a.name_count > b.name_count) ? 1 : -1;
+                    else
+                        z = (a, b) => (a.name_count < b.name_count) ? 1 : -1;
+                    break;
+                default:
+                    if(!biz.st)
+                        z = (a, b) => (a.name_diff > b.name_diff) ? 1 : -1;
+                    else
+                        z = (a, b) => (a.name_diff < b.name_diff) ? 1 : -1;
+                    break;
+                }
+
+            this.st ^= 1;
+            this.bizCounts.sort(z);
+        },
+        load: function() {
+            var limit = localStorage.getItem('biz_rank');
+
+            if(limit == null) {
+                this.rank = 50;
+            } else {
+                this.rank = limit;
+            }
+
+            var url = this.url + this.rank + '/0';
+            const biz = this;
+
+            $.getJSON(url, function (json) {
+                biz.formatCounts(json['biz']);
+                biz.bizCounts = json['biz'];
+
+                biz.lastUpdated =
+                    'Last updated ' +
+                    since(json.last_update_biz.input_value);
+            });
+        },
+        updateRank: function() {
+            if(this.rank <= 0 || this.rank > 500 || isNaN(this.rank)) {
+                this.showError('Range: 1 to 500');
+            } else {
+                localStorage.setItem('biz_rank', this.rank);
+
+                this.page = 0;
+                this.load();
+            }
+        },
+        formatCounts: function(counts) {
+            counts.map(function(element) {
+                element.url = 'https://smallfolio.bitnamiapp.com/' +
+                    'crypto_icons/color/' + element.symbol.toLowerCase() +
+                    '.png';
+
+                element.name_diff =
+                    Math.abs(element.name_count - element.name_count_prev);
+
+                if(element.name_count < element.name_count_prev)
+                    element.name_diff *= -1
+            });
+        },
+        init: function() {
+            if(!this.isInit) {
+                this.load();
+            }
+
+            this.isInit = true;
+        }
+    },
+    created() {
+        this.init();
+
+        this.$watch(() => this.$route.params,
+            (toParams, previousParams) => {
+
+            }
+        )
+    }
+}
+
+/*
+const t = {
+    template: `
+
+    `,
+    data() {
+        return {
+        }
+    },
+    components: {
+
+    },
+    methods: {
+
+    },
+    created() {
+        this.$watch(() => this.$route.params,
+            (toParams, previousParams) => {
+
+            }
+        )
+    }
+}
+*/
+
 const routes = [
   { path: '/', component: Portfolio },
   { path: '/portfolio', component: Portfolio },
   { path: '/coins', component: Coins },
   { path: '/performers', component: Performers },
+  { path: '/heatmap', component: HeatMap },
+  { path: '/biz', component: Biz },
 ]
 
 const router = VueRouter.createRouter({
