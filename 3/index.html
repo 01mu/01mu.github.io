@@ -1,153 +1,25 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>-->
 <script src="https://unpkg.com/vue@next"></script>
-
-<div id="counter">
-  Counter: {{ counter }}
-</div>
-<div id="bind-attribute">
-  <span v-bind:title="message">
-    Hover your mouse over me for a few seconds to see my dynamically bound
-    title!
-  </span>
-</div>
-<div id="event-handling">
-  <p>{{ message }}</p>
-  <button v-on:click="reverseMessage">Reverse Message</button>
-</div>
-<div id="two-way-binding">
-  <p>{{ message }}</p>
-  <input v-model="message" />
-</div>
-<div id="conditional-rendering">
-  <span v-if="seen">Now you see me</span>
-</div>
-<div id="list-rendering">
-  <ol>
-    <li v-for="todo in todos">
-      {{ todo.text }}
-    </li>
-  </ol>
-</div>
-<div id="todo-list-app">
-  <ol>
-    <!--
-      Now we provide each todo-item with the todo object
-      it's representing, so that its content can be dynamic.
-      We also need to provide each component with a "key",
-      which will be explained later.
-    -->
-    <todo-item
-      v-for="item in groceryList"
-      v-bind:todo="item"
-      v-bind:key="item.id"
-    ></todo-item>
-  </ol>
-</div>
-<script>
-    const Counter = {
-        data() {
-            return {
-                counter: 0
-            }
-        },
-        mounted() {
-            setInterval(() => {
-                this.counter++
-            }, 1000)
-        }
-    }
-
-const AttributeBinding = {
-  data() {
-    return {
-      message: 'You loaded this page on ' + new Date().toLocaleString()
-    }
-  }
-}
-
-Vue.createApp(AttributeBinding).mount('#bind-attribute')
-
-    Vue.createApp(Counter).mount('#counter')
-
-const EventHandling = {
-  data() {
-    return {
-      message: 'Hello Vue.js!'
-    }
-  },
-  methods: {
-    reverseMessage() {
-      this.message = this.message
-        .split('')
-        .reverse()
-        .join('');
-        ConditionalRendering.methods.a();
-    }
-  }
-}
-
-Vue.createApp(EventHandling).mount('#event-handling')
-
-const TwoWayBinding = {
-  data() {
-    return {
-      message: 'Hello Vue!'
-    }
-  }
-}
-
-Vue.createApp(TwoWayBinding).mount('#two-way-binding')
-const ConditionalRendering = {
-  data() {
-    return {
-      seen: true
-    }
-  },
-  methods: {
-    a() {
-        this.seen = 0;
-    }
-  }
-}
-
-Vue.createApp(ConditionalRendering).mount('#conditional-rendering')
-
-const ListRendering = {
-  data() {
-    return {
-      todos: [
-        { text: 'Learn JavaScript' },
-        { text: 'Learn Vue' },
-        { text: 'Build something awesome' }
-      ]
-    }
-  }
-}
-
-Vue.createApp(ListRendering).mount('#list-rendering')
-
-const TodoList = {
-  data() {
-    return {
-      groceryList: [
-        { id: 0, text: 'Vegetables' },
-        { id: 1, text: 'Cheese' },
-        { id: 2, text: 'Whatever else humans are supposed to eat' }
-      ]
-    }
-  },
-  methods: {
-    a() {
-        console.log(1);
-    }
-}
-}
-const app = Vue.createApp(TodoList)
-
-app.component('todo-item', {
-  props: ['todo'],
-  template: `<li>{{ todo.text }}</li>`
-})
-
-const g = app.mount('#todo-list-app');
-//app.unmount('#todo-list-app');
-</script>
+<script src="https://unpkg.com/vue-router@next"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="style.css">
+<title>Crypto</title>
+<html>
+    <div id="topbar"></div>
+    <div id="app">
+        <router-view></router-view>
+    </div>
+    <div class="body centerns">
+        <noscript>You need to enable JavaScript to run this app.</noscript>
+    </div>
+</html>
+<script src="script.js"></script>

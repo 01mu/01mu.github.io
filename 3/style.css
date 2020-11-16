@@ -1,0 +1,43 @@
+body { font-size: 18px; }
+.body { margin: 0 auto; max-width: 800px; }
+
+.box { border: 1px solid #bec3cc; padding: 8px; border-radius: 5px;
+    margin-top: 16px; background-color: #fafafa}
+.mbottom { margin-bottom: 16px; }
+
+.flex { display: flex; }
+
+.coinheader { text-align: left; font-weight: bold; padding: 10px;
+    margin-bottom: 10px; border-bottom: solid 1px #ccc; }
+
+.wrapper100 { width: 100%; }
+.wrapper90 { width: 97%; }
+.wrapper75 { width: 75%; margin-right: 10px; }
+.wrapper50 { width: 50%; }
+.wrapper33 { width: 33%; }
+.wrapper33e { width: 33%; text-align: right; }
+.wrapper25 { width: 25%; }
+.wrapper5 { width: 5%; }
+.wrapper9 { width: 9%; }
+.wrapper40 { width: 40%; }
+.wrapper20 { width: 20%; }
+.wrapper60 { width: 60%; }
+.wrapper30 { width: 30%; }
+.wrapper10 { width: 10%; }
+.wrapper15 { width: 15%; }
+.wrapper6p5 { width: 6.5%; }
+
+.bigger { margin: 0 auto; max-width: 90%; }
+
+.overflow { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.perfheader { text-align: center; font-weight: bold; padding: 10px;
+    margin-bottom: 10px; border-bottom: solid 1px #ccc; }
+
+.centerns { text-align: center; margin-top: 16px; }
+
+@media only screen and (max-width: 600px) {
+    body, .body { font-size: 16px; }
+    .body { font-size: 16px; margin-right: 8px; margin-left: 8px; }
+    .centersm { text-align: center; }
+    .bigger { max-width: 100%; }
