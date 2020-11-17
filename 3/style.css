@@ -49,3 +49,4 @@ body { font-size: 18px; }
 }
 .ave { text-align: center; }
 
+.tb { table-layout: fixed; width: 100%; }

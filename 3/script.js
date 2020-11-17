@@ -234,7 +234,8 @@ const Portfolio = {
                 this.toEdit = symbol;
                 this.toDelete = symbol;
 
-                window.scrollTo(0, document.body.scrollHeight);
+                $('html, body').animate({scrollTop:$(document).height()},
+                    'slow');
             }
         },
         addCoin: function() {
@@ -767,7 +768,7 @@ const HeatMap = {
             <tr>
                 <th></th>
                 <template v-for="(date, index) in dates">
-                        <th v-if="small && index > 16">{{ date.date }}</th>
+                        <th v-if="small && index > 15">{{ date.date }}</th>
                         <th v-else-if="!small">{{ date.date }}</th>
                 </template>
             </tr>
@@ -783,7 +784,7 @@ const HeatMap = {
                             </a>
                     </td>
                     <template v-for="(coin, index) in hm">
-                        <td v-if="small && index > 16" v-bind:style="coin.color">
+                        <td v-if="small && index > 15" v-bind:style="coin.color">
                             {{ coin.difference }}
                         </td>
                         <td v-else-if="!small" v-bind:style="coin.color">
@@ -795,7 +796,7 @@ const HeatMap = {
             <tr class="ave" v-if="showAve">
                 <td class="ave"><b>μ</b></td>
                 <template v-for="(ave, index) in averages">
-                        <td v-if="small && index > 16" style="background-color: #b3e0ff;">
+                        <td v-if="small && index > 15" style="background-color: #b3e0ff;">
                             {{ ave }}
                         </td>
                         <td v-else-if="!small" style="background-color: #b3e0ff;">
