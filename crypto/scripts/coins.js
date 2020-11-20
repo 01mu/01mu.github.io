@@ -1,6 +1,6 @@
 const Coins = {
     template: `
-    <div class="bigger">
+    <div class="bigger" style="margin-left: 16px; margin-right: 16px;">
         <div class="flex coinheader">
             <div class="wrapper5 overflow">#</div>
             <div class="wrapper25 overflow">Coin</div>

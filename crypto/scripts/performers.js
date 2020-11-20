@@ -1,5 +1,7 @@
 const Performers = {
     template: `
+    <div style="margin-left: 8px; margin-right: 8px;">
+
     <div class="bigger row fm">
         <div class="col-sm-4">
             <div class="perfheader">1 Hour Change</div>
@@ -57,6 +59,8 @@ const Performers = {
                 {{ loadingText }}
             </button>
         </span>
+    </div>
+
     </div>
     `,
     data() {

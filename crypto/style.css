@@ -1,5 +1,5 @@
 body { font-size: 18px; }
-.body { margin: 0 auto; max-width: 800px; }
+.body, .heatmap { margin: 0 auto; max-width: 800px; }
 
 .box { border: 1px solid #bec3cc; padding: 8px; border-radius: 5px;
     margin-top: 16px; background-color: #fafafa}
@@ -42,6 +42,7 @@ body { font-size: 18px; }
 .hm { margin: 0 auto; max-width: 90%;  }
 
 @media only screen and (max-width: 600px) {
+    .heatmap { width: 85%; }
     body, .body { font-size: 16px; }
     .body { font-size: 16px; margin-right: 8px; margin-left: 8px; }
     .centersm { text-align: center; }

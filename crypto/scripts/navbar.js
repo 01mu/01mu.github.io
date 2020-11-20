@@ -12,28 +12,24 @@ const topbar = {
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
             <a class="nav-link active"
-                v-on:click="setActive('portfolio')"
                 href="index.html#/portfolio">
                 <img src="nav/portfolio.png" height="16" width="16">
                 Portfolio <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link active"
-            v-on:click="setActive('performers')"
             href="index.html#/performers">
             <img src="nav/performers.png" height="16" width="16">
             Performers <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link active"
-            v-on:click="setActive('coins')"
             href="index.html#/coins">
             <img src="nav/coins.png" height="16" width="16">
             Coins <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link active"
-            v-on:click="setActive('heatmap')"
             href="index.html#/heatmap">
             <img src="nav/hm.png" height="16" width="16">
             Heat Map <span class="sr-only">(current)</span></a>
@@ -41,7 +37,6 @@ const topbar = {
           <li class="nav-item dropdown">
 
         <a class="nav-link dropdown-toggle active"
-        v-on:click="setActive('mentions')"
         href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <img src="nav/mentions.png" height="16" width="16">
             Mentions

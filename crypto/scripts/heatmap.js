@@ -1,6 +1,7 @@
 const HeatMap = {
     template: `
-    <table class="body">
+    <div>
+    <table class="heatmap">
         <thead>
             <tr>
                 <th></th>
@@ -47,6 +48,7 @@ const HeatMap = {
         <button class="btn btn-block btn-outline-primary" v-on:click="loadMore()">
             {{ loadingText }}
         </button>
+    </div>
     </div>
     `,
     data() {

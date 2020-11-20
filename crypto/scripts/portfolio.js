@@ -2,11 +2,11 @@ const Portfolio = {
     template: `
     <div class="body">
         <div class="centersm">
-            <h1><b>{{ value }}</b></h1>
+            <h1>{{ value }}</h1>
             <h5>{{ btcValue }}</h5>
         </div>
         <table class="table">
-            <thead>
+            <thead class="thead">
                 <tr>
                     <th scope="col">Symbol</th>
                     <th scope="col">Amount</th>
@@ -60,6 +60,8 @@ const Portfolio = {
                 </template>
             </tbody>
         </table>
+
+        <div style="margin: 0 auto; max-width: 90%">
 
         <span class="d-none d-sm-block">
             <div v-if="noticeVisible" class="alert alert-danger" role="alert">
@@ -126,6 +128,8 @@ const Portfolio = {
                 </div>
             </div>
         </span>
+
+        </div>
     </div>
     `,
     methods: {
