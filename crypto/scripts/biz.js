@@ -1,5 +1,7 @@
 const Biz = {
     template: `
+    <comp :destination="navbar"></comp>
+    <loadingbar :showbar="showBar"></loadingbar>
     <div class="body">
         <div class="flex coinheader">
             <div class="bizl">Coin</div>
@@ -42,6 +44,7 @@ const Biz = {
     `,
     data() {
         return {
+            showBar: true,
             nav: 'mentions',
             url: 'https://smallfolio.bitnamiapp.com/crypto/biz/',
             rank: 50,
@@ -103,6 +106,7 @@ const Biz = {
                 biz.lastUpdated =
                     'Last updated ' +
                     since(json.last_update_biz.input_value);
+                biz.showBar = false;
             });
         },
         updateRank: function() {
@@ -142,6 +146,7 @@ const Biz = {
     created() {
         this.init();
 
+        this.navbar = getNavbar('mentions');
         this.$watch(() => this.$route.params,
             (toParams, previousParams) => {
 

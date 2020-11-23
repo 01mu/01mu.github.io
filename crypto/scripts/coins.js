@@ -1,6 +1,8 @@
 const Coins = {
     template: `
-    <div class="bigger" style="margin-left: 16px; margin-right: 16px;">
+    <comp :destination="navbar"></comp>
+    <loadingbar :showbar="showBar"></loadingbar>
+    <div class="bigger">
         <div class="flex coinheader">
             <div class="wrapper5 overflow">#</div>
             <div class="wrapper25 overflow">Coin</div>
@@ -44,6 +46,7 @@ const Coins = {
     `,
     data() {
         return {
+            showBar: true,
             nav: 'coins',
             url: 'https://smallfolio.bitnamiapp.com/crypto/coins/',
             coins: [],
@@ -68,6 +71,7 @@ const Coins = {
                     since(json.last_update_coins.input_value);
 
                 coins.formatCoins(coins.coins);
+                coins.showBar = false;
             });
 
             this.isInit = true;
@@ -110,6 +114,7 @@ const Coins = {
     created() {
         this.init();
 
+        this.navbar = getNavbar('coins');
         this.$watch(() => this.$route.params,
             (toParams, previousParams) => {
 

@@ -1,5 +1,7 @@
 const Single = {
     template: `
+    <comp :destination="navbar"></comp>
+    <loadingbar :showbar="showBar"></loadingbar>
     <div class="hm">
         <div class="row">
             <div class="col-sm-10">
@@ -96,6 +98,7 @@ const Single = {
     `,
     data() {
         return {
+        showBar: true,
         coinHistoryDisplay: 6,
         visible: false,
         coin: 'BTC',
@@ -272,6 +275,7 @@ const Single = {
                 single.setChart(dataset, type);
                 single.updateCoinHistory();
                 single.setRecentCoins();
+                single.showBar = false;
             });
         },
         setCoinInfo: function(highest, lowest) {
@@ -375,6 +379,7 @@ const Single = {
     created() {
         this.coin = this.$route.params.id;
 
+        this.navbar = getNavbar('coins');
         if(localStorage.getItem('chart_limit') == undefined) {
             this.limit = 30;
         } else {

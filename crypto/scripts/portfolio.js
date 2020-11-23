@@ -1,5 +1,7 @@
 const Portfolio = {
     template: `
+    <comp :destination="navbar"></comp>
+    <loadingbar :showbar="showBar"></loadingbar>
     <div class="body">
         <div class="centersm">
             <h1>{{ value }}</h1>
@@ -61,7 +63,7 @@ const Portfolio = {
             </tbody>
         </table>
 
-        <div style="margin: 0 auto; max-width: 90%">
+        <div class="portfoliobottom">
 
         <span class="d-none d-sm-block">
             <div v-if="noticeVisible" class="alert alert-danger" role="alert">
@@ -185,6 +187,9 @@ const Portfolio = {
             } else {
                 this.showEdit = true;
             }
+
+            $('html, body').animate({scrollTop:$(document).height()},
+                'slow');
 
             this.toEdit = symbol;
             this.toDelete = symbol;
@@ -330,11 +335,13 @@ const Portfolio = {
                 }
 
                 portfolio.coinDisplay = newDisplay;
+                portfolio.showBar = false;
             });
         },
     },
     data() {
         return {
+            showBar: true,
             noticeVisible: false,
             nav: 'portfolio',
             value: '',
@@ -355,6 +362,8 @@ const Portfolio = {
     created() {
         const portfolio = this;
         this.coinTable = new Map();
+
+        this.navbar = getNavbar('portfolio');
 
         portfolio.updateValue();
         setInterval(function() { portfolio.updateValue(); }, 60000);

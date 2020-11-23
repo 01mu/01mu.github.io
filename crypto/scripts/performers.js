@@ -1,5 +1,7 @@
 const Performers = {
     template: `
+    <comp :destination="navbar"></comp>
+    <loadingbar :showbar="showBar"></loadingbar>
     <div style="margin-left: 8px; margin-right: 8px;">
 
     <div class="bigger row fm">
@@ -65,6 +67,7 @@ const Performers = {
     `,
     data() {
         return {
+            showBar: true,
             nav: 'performers',
             url: 'https://smallfolio.bitnamiapp.com/crypto/performers/',
             performers: [],
@@ -133,6 +136,7 @@ const Performers = {
                 performers.lastUpdated =
                     'Last updated ' +
                     since(json.last_update_coins.input_value);
+                performers.showBar = false;
             });
         },
         updateRank: function() {
@@ -181,6 +185,8 @@ const Performers = {
     },
     created() {
         this.init();
+
+        this.navbar = getNavbar('performers');
 
         this.$watch(() => this.$route.params,
             (toParams, previousParams) => {

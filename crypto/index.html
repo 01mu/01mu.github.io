@@ -19,7 +19,6 @@
 <link rel="icon" type="image/x-icon"/>
 <title>Crypto</title>
 <html>
-    <div id="topbar"></div>
     <div id="app">
         <router-view></router-view>
     </div>
@@ -27,6 +26,23 @@
         <noscript>You need to enable JavaScript to run this app.</noscript>
     </div>
 </html>
+
+<script>
+
+function getNavbar(dest) {
+    var nav = {'portfolio': 'nav-link', 'performers': 'nav-link',
+        'coins': 'nav-link', 'heatmap': 'nav-link', 'mentions': 'nav-link dropdown-toggle'}
+    if(dest != 'mentions') {
+        nav[dest] = 'nav-link active';
+    } else {
+        nav[dest] = 'nav-link dropdown-toggle active';
+    }
+
+    return nav;
+}
+
+
+</script>
 
 <script src="scripts/functions.js"></script>
 <script src="scripts/biz.js"></script>
@@ -68,6 +84,17 @@
     })
 
     const app = Vue.createApp({})
+
+    app.component('comp', {
+        props: ['destination'],
+        template: navtemplate
+    })
+
+    app.component('loadingbar', {
+        props: ['showbar'],
+        template: bartemplate
+    })
+
     app.use(router)
     app.mount('#app')
 </script>

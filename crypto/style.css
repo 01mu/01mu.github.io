@@ -42,6 +42,9 @@ body { font-size: 18px; }
 .hm { margin: 0 auto; max-width: 90%;  }
 
 @media only screen and (max-width: 600px) {
+    .portfoliobottom {
+    margin: 0 auto; max-width: 85%
+    }
     .heatmap { width: 85%; }
     body, .body { font-size: 16px; }
     .body { font-size: 16px; margin-right: 8px; margin-left: 8px; }
@@ -50,7 +53,7 @@ body { font-size: 18px; }
     .hm { max-width: 90%; margin-right: 8px; margin-left: 8px; }
     .wrapper5 { width: 10%; }
     .wrapper25 { width: 45%; }
-    .wrapper10 { width: 45%; margin-left: 32px; text-align: left; }
+    .wrapper10 { width: 50%; }
     .fm { margin-left: -2px; margin-right: -2px; }
     .bizl, .bizr { width: 50%; }
     .bizl { margin-left: 8px; }
@@ -62,4 +65,8 @@ body { font-size: 18px; }
 .singleinfo { border-bottom: 1px solid #bec3cc; padding: 10px; text-align: center;}
 
 .navborder { border-bottom: 1px solid #cfcfcf; }
-active { border-bottom: solid; border-width: 2px; border-color: #a69a12; }
+.active { border-bottom: solid; border-width: 2px; border-color: blue; }
+
+tr:hover {
+    background-color: #fafafa;
+}
