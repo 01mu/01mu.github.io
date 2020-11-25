@@ -66,3 +66,18 @@ function setLink(link) {
         }
     });
 }
+
+function getNavbar(dest) {
+    var nav = {'portfolio': 'navpad nav-link', 'performers': 'navpad nav-link',
+        'coins': 'navpad nav-link', 'heatmap': 'navpad nav-link',
+        'mentions': 'navpad nav-link dropdown-toggle'};
+
+    if(dest != 'mentions') {
+        nav[dest] = 'navpad nav-link active';
+    } else {
+        nav[dest] = 'navpad nav-link dropdown-toggle active';
+    }
+
+    return nav;
+}
+

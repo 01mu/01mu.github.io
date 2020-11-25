@@ -14,7 +14,7 @@
 <script src="https://cdn.jsdelivr.net/npm/luxon@1.15.0"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@0.1.1"></script>
-<script src="../old_crypto/scripts/financial.js"></script>
+<script src="scripts/financial.js"></script>
 <link rel="stylesheet" href="style.css">
 <link rel="icon" type="image/x-icon"/>
 <title>Crypto</title>
@@ -27,23 +27,6 @@
     </div>
 </html>
 
-<script>
-
-function getNavbar(dest) {
-    var nav = {'portfolio': 'nav-link', 'performers': 'nav-link',
-        'coins': 'nav-link', 'heatmap': 'nav-link', 'mentions': 'nav-link dropdown-toggle'}
-    if(dest != 'mentions') {
-        nav[dest] = 'nav-link active';
-    } else {
-        nav[dest] = 'nav-link dropdown-toggle active';
-    }
-
-    return nav;
-}
-
-
-</script>
-
 <script src="scripts/functions.js"></script>
 <script src="scripts/biz.js"></script>
 <script src="scripts/coins.js"></script>
@@ -52,7 +35,6 @@ function getNavbar(dest) {
 <script src="scripts/performers.js"></script>
 <script src="scripts/portfolio.js"></script>
 <script src="scripts/single.js"></script>
-<script src="script.js"></script>
 
 <script>
     $(document).ready(function() {

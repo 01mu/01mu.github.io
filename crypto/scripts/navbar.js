@@ -113,8 +113,9 @@ const topbar = {
 
 const navtemplate =
 `
-<nav class="navbar navbar-expand-lg navbar-light bg-light navborder">
-<a class="navbar-brand" href="#"><b>Crypto</b></a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light navborder"
+style="padding-bottom: 0px; padding-top: 0px;">
+<a class="navpad navbar-brand" href="#"><b>Crypto</b></a>
 
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 <span class="navbar-toggler-icon"></span>
@@ -169,8 +170,9 @@ Portfolio <span class="sr-only">(current)</span></a>
 const bartemplate =
 `
 <div v-if="showbar" class="progress">
-  <div style="background-color:dodgerblue !important;"
-  class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+  <div style="background-color:dodgerblue !important; width: 100%"
+  class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
+
 <div style="margin-bottom: 16px"></div>
 `;

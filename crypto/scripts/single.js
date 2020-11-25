@@ -98,6 +98,7 @@ const Single = {
     `,
     data() {
         return {
+        coinChart: null,
         showBar: true,
         coinHistoryDisplay: 6,
         visible: false,
@@ -174,55 +175,60 @@ const Single = {
             localStorage.setItem('chart_mode', 'month');
         },
         setChart: function(dataset, type) {
-            document.getElementById('coinChart').outerHTML =
-                '<canvas id="coinChart"></canvas>';
+            if(this.coinChart == null) {
+                const single = this;
+                var ctx = document.getElementById('coinChart').getContext('2d');
 
-            const single = this;
-            var ctx = document.getElementById('coinChart').getContext('2d');
-
-            var options = {
-                elements: {
-                    point:{
-                        radius: 0
+                var options = {
+                    elements: {
+                        point:{
+                            radius: 0
+                        }
+                    },
+                    maintainAspectRatio: false ,
+                    tooltips: {
+                        mode: 'x-axis'
+                    },
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: true,
+                                maxTicksLimit: 10
+                            },
+                            gridLines: {
+                                display:false
+                            }
+                        }],
+                        yAxes: [{
+                            gridLines: {
+                                display:false
+                            }
+                        }]
                     }
-                },
-                maintainAspectRatio: false ,
-                tooltips: {
-                    mode: 'x-axis'
-                },
-                scales: {
-                    xAxes: [{
-                        ticks: {
-                            autoSkip: true,
-                            maxTicksLimit: 10
-                        },
-                        gridLines: {
-                            display:false
-                        }
-                    }],
-                    yAxes: [{
-                        gridLines: {
-                            display:false
-                        }
-                    }]
+                };
+
+                var ch = new Chart(ctx, {
+                    type: 'candlestick',
+                    data: {
+                        datasets: [{
+                            label: single.coin + ' ' + type,
+                            data: dataset
+                        }]
+                    },
+                    options: options
+                });
+
+                if(screen.width <= 600) {
+                    ch.canvas.parentNode.style.height = '400px';
+                } else {
+                    ch.canvas.parentNode.style.height = '500px';
                 }
-            };
 
-            var ch = new Chart(ctx, {
-                type: 'candlestick',
-                data: {
-                    datasets: [{
-                        label: single.coin + ' ' + type,
-                        data: dataset
-                    }]
-                },
-                options: options
-            });
-
-            if(screen.width <= 600) {
-                ch.canvas.parentNode.style.height = '400px';
+                this.coinChart = ch;
             } else {
-                ch.canvas.parentNode.style.height = '500px';
+                this.coinChart.data.datasets[0].label = this.coin + ' ' + type;
+                this.coinChart.data.datasets[0].data = dataset;
+                this.coinChart.update();
             }
         },
         upaux: function(url, type) {

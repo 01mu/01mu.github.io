@@ -65,7 +65,9 @@ body { font-size: 18px; }
 .singleinfo { border-bottom: 1px solid #bec3cc; padding: 10px; text-align: center;}
 
 .navborder { border-bottom: 1px solid #cfcfcf; }
-.active { border-bottom: solid; border-width: 2px; border-color: blue; }
+.active { border-bottom: solid; border-width: 2px; border-color: blue; background-color: #f0f0f0; }
+
+.navpad { padding-top: 12px; padding-bottom: 12px; }
 
 tr:hover {
     background-color: #fafafa;
