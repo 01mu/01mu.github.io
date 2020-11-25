@@ -1,8 +1,8 @@
 const Coins = {
     template: `
-    <comp :destination="navbar"></comp>
+    <comp :destination="navbar" :info="navInfo"></comp>
     <loadingbar :showbar="showBar"></loadingbar>
-    <div class="bigger">
+    <div v-if="fullVisible" class="bigger">
         <div class="flex coinheader">
             <div class="wrapper5 overflow">#</div>
             <div class="wrapper25 overflow">Coin</div>
@@ -46,6 +46,8 @@ const Coins = {
     `,
     data() {
         return {
+            navInfo: [],
+            fullVisible: false,
             showBar: true,
             nav: 'coins',
             url: 'https://smallfolio.bitnamiapp.com/crypto/coins/',
@@ -72,6 +74,7 @@ const Coins = {
 
                 coins.formatCoins(coins.coins);
                 coins.showBar = false;
+                coins.fullVisible = true;
             });
 
             this.isInit = true;
@@ -113,7 +116,7 @@ const Coins = {
     },
     created() {
         this.init();
-
+        navbarInfo(this.navInfo)
         this.navbar = getNavbar('coins');
         this.$watch(() => this.$route.params,
             (toParams, previousParams) => {

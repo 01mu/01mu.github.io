@@ -53,10 +53,11 @@ body { font-size: 18px; }
     .hm { max-width: 90%; margin-right: 8px; margin-left: 8px; }
     .wrapper5 { width: 10%; }
     .wrapper25 { width: 45%; }
-    .wrapper10 { width: 50%; }
+    .wrapper10 { width: 50%; text-align: center; }
     .fm { margin-left: -2px; margin-right: -2px; }
     .bizl, .bizr { width: 50%; }
     .bizl { margin-left: 8px; }
+    .bizr { text-align: center; }
 }
 
 .ave { text-align: center; }

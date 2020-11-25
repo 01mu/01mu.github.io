@@ -1,8 +1,8 @@
 const HeatMap = {
     template: `
-    <comp :destination="navbar"></comp>
+    <comp :destination="navbar" :info="navInfo"></comp>
     <loadingbar :showbar="showBar"></loadingbar>
-    <div>
+    <div v-if="fullVisible">
     <table class="heatmap">
         <thead>
             <tr>
@@ -21,7 +21,7 @@ const HeatMap = {
                             <img height="20" width="20"
                                 style="cursor: pointer;"
                                 v-bind:src="hm[0].icon"/>
-                            <a>
+                            </a>
 
                     </td>
                     <template v-for="(coin, index) in hm">
@@ -56,6 +56,8 @@ const HeatMap = {
     `,
     data() {
         return {
+            navInfo: [],
+            fullVisible: false,
             showBar: true,
             nav: 'heatmap',
             url: 'https://smallfolio.bitnamiapp.com/crypto/heatmap/',
@@ -99,6 +101,7 @@ const HeatMap = {
                     'Last updated ' +
                     since(json.last_update_heat_map.input_value);
                 heatmap.showBar = false;
+                heatmap.fullVisible = true;
             });
 
             this.isInit = true;
@@ -182,6 +185,7 @@ const HeatMap = {
 
         this.init();
         this.navbar = getNavbar('heatmap');
+        navbarInfo(this.navInfo)
 
         this.$watch(() => this.$route.params,
             (toParams, previousParams) => {

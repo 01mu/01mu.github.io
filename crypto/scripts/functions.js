@@ -81,3 +81,37 @@ function getNavbar(dest) {
     return nav;
 }
 
+function nf(text, val) {
+    return text + numWord(parseFloat(val).toFixed(2));
+}
+
+var navInfo  = [];
+
+function navbarInfo(nv) {
+    if(navInfo.length == 0) {
+        var i = {};
+
+        $.getJSON('https://smallfolio.bitnamiapp.com/crypto/info', function (json) {
+            json.forEach(function(element) {
+                i[element.input_key] = element.input_value;
+            });
+
+            //i.total_coins = head.cf('Coins: ', i.total_coins);
+            //i.total_markets = head.cf('Markets: ', i.total_markets);
+            i.tmc = nf('Market Cap: $', i.total_market_cap);
+            i.tv = nf('24 Hour Volume: $', i.total_volume_24h);
+
+            //head.info.push({'value': i.total_coins});
+            //head.info.push({'value': i.total_markets});
+            //nv.push({'value': i.tmc});
+            //nv.push({'value': i.tv});
+
+            nv[0] = i.tmc;
+            nv[1] = i.tv;
+            navInfo = nv;
+        });
+    } else {
+        nv[0] = navInfo[0];
+        nv[1] = navInfo[1];
+    }
+}

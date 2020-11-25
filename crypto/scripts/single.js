@@ -1,11 +1,11 @@
 const Single = {
     template: `
-    <comp :destination="navbar"></comp>
+    <comp :destination="navbar" :info="navInfo"></comp>
     <loadingbar :showbar="showBar"></loadingbar>
     <div class="hm">
         <div class="row">
             <div class="col-sm-10">
-                <div class="singleinfo">
+                <div v-if="fullVisible" class="singleinfo">
                     <img height="20" width="20"
                     onerror="this.style.display='none'"
                     v-bind:src="this.coinInfo['icon']"/>&nbsp;
@@ -14,7 +14,7 @@ const Single = {
                 <schart></schart>
                 <div style="margin: 16px;"></div>
 
-                <div class="d-none d-sm-block">
+                <div v-if="fullVisible" class="d-none d-sm-block">
                     <div class="input-group">
                         <button class="btn btn-outline-primary" v-on:click="setMinute()">
                         Minutes</button>&nbsp;
@@ -34,7 +34,7 @@ const Single = {
                     </div>
                 </div>
 
-                <div class="d-block d-sm-none">
+                <div v-if="fullVisible" class="d-block d-sm-none">
                     <div style="text-align: center;">
                     <button class="btn btn-outline-primary" v-on:click="setMinute()">
                     Minutes</button>&nbsp;
@@ -57,7 +57,7 @@ const Single = {
                     </div>
                 </div>
             </div>
-            <div class="col-sm-2">
+            <div v-if="fullVisible" class="col-sm-2">
                 <div class="singleinfo"><b>Info</b></div>
                 <div class="singleinfo">
                         <img src="nav/cmc.png" height="16" width="16">
@@ -98,6 +98,8 @@ const Single = {
     `,
     data() {
         return {
+        navInfo: [],
+        fullVisible: false,
         coinChart: null,
         showBar: true,
         coinHistoryDisplay: 6,
@@ -282,6 +284,7 @@ const Single = {
                 single.updateCoinHistory();
                 single.setRecentCoins();
                 single.showBar = false;
+                single.fullVisible = true;
             });
         },
         setCoinInfo: function(highest, lowest) {
@@ -392,6 +395,7 @@ const Single = {
             this.limit = localStorage.getItem('chart_limit');
         }
 
+        navbarInfo(this.navInfo)
         this.update();
 
         this.$watch(() => this.$route.params,

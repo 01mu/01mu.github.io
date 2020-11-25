@@ -1,8 +1,8 @@
 const Portfolio = {
     template: `
-    <comp :destination="navbar"></comp>
+    <comp :destination="navbar" :info="navInfo"></comp>
     <loadingbar :showbar="showBar"></loadingbar>
-    <div class="body">
+    <div v-if="fullVisible" class="body">
         <div class="centersm">
             <h1>{{ value }}</h1>
             <h5>{{ btcValue }}</h5>
@@ -260,7 +260,8 @@ const Portfolio = {
                 this.coinTable = new Map();
             }
 
-            if(this.coinTable.size == 0) {
+            if(isEmpty(this.coinTable)) {
+                portfolio.showBar = false;
                 return;
             }
 
@@ -336,11 +337,14 @@ const Portfolio = {
 
                 portfolio.coinDisplay = newDisplay;
                 portfolio.showBar = false;
+                portfolio.fullVisible = true;
             });
         },
     },
     data() {
         return {
+            navInfo: [],
+            fullVisible: false,
             showBar: true,
             noticeVisible: false,
             nav: 'portfolio',
@@ -362,6 +366,14 @@ const Portfolio = {
     created() {
         const portfolio = this;
         this.coinTable = new Map();
+
+        navbarInfo(this.navInfo)
+
+        if(localStorage.getItem('loaded') == null) {
+            localStorage.setItem('loaded', 1);
+            localStorage.setItem('portfolio',
+                JSON.stringify({'BTC': 0, 'ETH': 0, 'XRP': 0}));
+        }
 
         this.navbar = getNavbar('portfolio');
 

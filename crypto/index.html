@@ -15,9 +15,11 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@0.1.1"></script>
 <script src="scripts/financial.js"></script>
+
 <link rel="stylesheet" href="style.css">
 <link rel="icon" type="image/x-icon"/>
 <title>Crypto</title>
+
 <html>
     <div id="app">
         <router-view></router-view>
@@ -40,14 +42,14 @@
     $(document).ready(function() {
         $('.navbar-nav>li>a').on('click', function() {
             if(this.className == 'nav-link active') {
-                $('.navbar-collapse').collapse('hide');
+                $('.navbar-collapse').collapse('hide')
             }
-        });
+        })
 
         $('.dropdown-menu>a').on('click', function() {
             $('.navbar-collapse').collapse('hide');
-        });
-    });
+        })
+    })
 
     const routes = [
       { path: '/', component: Portfolio },
@@ -65,10 +67,14 @@
         routes,
     })
 
-    const app = Vue.createApp({})
+
+    const app = Vue.createApp({
+        created() {
+            //navbarInfo();
+    }})
 
     app.component('comp', {
-        props: ['destination'],
+        props: ['destination', 'info'],
         template: navtemplate
     })
 

@@ -1,8 +1,8 @@
 const Performers = {
     template: `
-    <comp :destination="navbar"></comp>
+    <comp :destination="navbar" :info="navInfo"></comp>
     <loadingbar :showbar="showBar"></loadingbar>
-    <div style="margin-left: 8px; margin-right: 8px;">
+    <div v-if="fullVisible" style="margin-left: 8px; margin-right: 8px;">
 
     <div class="bigger row fm">
         <div class="col-sm-4">
@@ -67,6 +67,8 @@ const Performers = {
     `,
     data() {
         return {
+            navInfo: [],
+            fullVisible: false,
             showBar: true,
             nav: 'performers',
             url: 'https://smallfolio.bitnamiapp.com/crypto/performers/',
@@ -121,7 +123,7 @@ const Performers = {
             var limit = localStorage.getItem('performers_rank');
 
             if(limit == null) {
-                this.rank = 50;
+                this.rank = 10;
             } else {
                 this.rank = limit;
             }
@@ -137,6 +139,7 @@ const Performers = {
                     'Last updated ' +
                     since(json.last_update_coins.input_value);
                 performers.showBar = false;
+                performers.fullVisible = true;
             });
         },
         updateRank: function() {
@@ -186,6 +189,7 @@ const Performers = {
     created() {
         this.init();
 
+        navbarInfo(this.navInfo)
         this.navbar = getNavbar('performers');
 
         this.$watch(() => this.$route.params,

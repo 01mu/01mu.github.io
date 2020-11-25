@@ -127,7 +127,7 @@ style="padding-bottom: 0px; padding-top: 0px;">
         <a :class="destination['portfolio']"
             href="index.html#/portfolio">
             <img src="nav/portfolio.png" height="16" width="16">
-Portfolio <span class="sr-only">(current)</span></a>
+Portfolio<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a :class="destination['performers']"
@@ -161,6 +161,18 @@ Portfolio <span class="sr-only">(current)</span></a>
       </li>
     </ul>
     <ul class="navbar-nav navbar-right">
+        <li class="nav-item">
+            <a>
+                <img src="nav/cmc.png" height="16" width="16">
+                {{ info[0] }}&nbsp;&nbsp;
+            </a>
+        </li>
+        <li class="nav-item">
+            <a>
+                <img src="nav/cmc.png" height="16" width="16">
+                {{ info[1] }}&nbsp;&nbsp;
+            </a>
+        </li>
 
     </ul>
   </div>
