@@ -104,7 +104,7 @@ function make() {
                 if(this.quoteQuery === "") {
                     this.showError("Empty query")
                 } else {
-                    window.location.href = "/quotes/index.html#/search/quote/"
+                    window.location.href = "file:///home/daniel/Git/01mu.github.io/quotes/index.html#/search/quote/"
                         + this.quoteQuery;
                 }
 
@@ -199,7 +199,7 @@ function make() {
 
             this.$watch(() => this.$route.params,
                 (toParams, previousParams) => {
-                    this.init();
+                    //this.init();
                 }
             )
         }
