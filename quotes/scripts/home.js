@@ -101,9 +101,12 @@ function make() {
                 else this.$router.push('/search/author/' + this.authorQuery);
             },
             quoteSearch: function() {
-                if(this.quoteQuery === "") this.showError("Empty query")
-                else window.location.href = "/quotes/index.html#/search/quote/"
-                    + this.quoteQuery;
+                if(this.quoteQuery === "") {
+                    this.showError("Empty query")
+                } else {
+                    window.location.href = "/quotes/index.html#/search/quote/"
+                        + this.quoteQuery;
+                }
 
                 //this.$router.push('/search/quote/' + this.quoteQuery);
             },
