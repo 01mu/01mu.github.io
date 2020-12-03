@@ -82,7 +82,7 @@ const single = new Vue({
     data: {
         nav: 'single',
         //url: 'http:/127.0.0.1:8000/',
-        url: 'https://smallfolio.bitnamiapp.com/covid-19/',
+        url: 'https://www.01mu.bitnamiapp.com/covid-19/',
         place: '',
         type: '',
         data: [{'new_confirmed': 0, 'new_confirmed_per': 0,
@@ -99,7 +99,7 @@ const single = new Vue({
     },
     methods: {
         resetIcon: function() {
-            this.icon = 'https://smallfolio.bitnamiapp.com/state-flags/' +
+            this.icon = 'https://www.01mu.bitnamiapp.com/graphics/states/' +
                 'grand-princess.png';
         },
         initChart: function() {
@@ -216,11 +216,11 @@ const single = new Vue({
         },
         getIcon: function() {
             if(single.type == 'country') {
-                single.icon = 'https://smallfolio.bitnamiapp.com/' +
-                    'flags/' + countryCode(single.place) + '.PNG';
+                single.icon = 'https://www.01mu.bitnamiapp.com/' +
+                    'graphics/countries/' + countryCode(single.place) + '.PNG';
             } else {
-                single.icon = 'https://smallfolio.bitnamiapp.com/' +
-                    'state-flags/' +
+                single.icon = 'https://www.01mu.bitnamiapp.com/' +
+                    'graphics/states' +
                     replaceAll(single.place.toLowerCase(), " ", "-") + '.png';
             }
         }

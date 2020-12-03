@@ -17,7 +17,8 @@ Vue.component('today-data', {
 });
 
 Vue.component('today-margin', {
-    props: ['url', 'data_confirmed', 'data_deaths', 'stats', 'loc', 'dest'],
+    props: ['url', 'data_confirmed', 'data_deaths', 'stats', 'loc', 'dest',
+        'updated'],
     template:
     `
     <div class="col-sm-6">
@@ -53,6 +54,9 @@ Vue.component('today-margin', {
                                 v-bind:dest="dest"
                                 v-bind:flag="place.url"></today-data>
             </div>
+            <div class="smalltext">
+                {{ loc }} last updated on {{ timeConverter(updated) }}
+            </div>
         </center>
     </div>
     `
@@ -69,14 +73,16 @@ Vue.component('today-display', {
             :data_confirmed="global_confirmed"
             :data_deaths="global_deaths"
             :stats="global_stats"
-            :url="'https://smallfolio.bitnamiapp.com/flags/GLOBAL.PNG'">
+            :updated="last_update['global']"
+            :url="'https://www.01mu.bitnamiapp.com/graphics/countries/GLOBAL.PNG'">
         </today-margin>
         <today-margin :loc="'United States'"
             :dest="'state'"
             :data_confirmed="us_confirmed"
             :data_deaths="us_deaths"
             :stats="us_stats"
-            :url="'https://smallfolio.bitnamiapp.com/flags/US.PNG'">
+            :updated="last_update['us']"
+            :url="'https://www.01mu.bitnamiapp.com/graphics/countries/US.PNG'">
         </today-margin>
     </span>
     `
@@ -87,7 +93,7 @@ const today = new Vue({
     data: {
         nav: 'today',
         //url: 'http:/127.0.0.1:8000/today',
-        url: 'https://smallfolio.bitnamiapp.com/covid-19/today',
+        url: 'https://www.01mu.bitnamiapp.com/covid-19/today',
         globalStats: [],
         usStats: [],
         globalConfirmed: [],
@@ -123,15 +129,15 @@ const today = new Vue({
         formatCountries: function() {
             [this.globalConfirmed, this.globalDeaths].map(function(a) {
                 a.map(function(element) {
-                    element.url = 'https://smallfolio.bitnamiapp.com/' +
-                        'flags/' + countryCode(element.country) + '.PNG';
+                    element.url = 'https://www.01mu.bitnamiapp.com/' +
+                        'graphics/countries/' + countryCode(element.country) + '.PNG';
                 });
             });
 
             [this.usConfirmed, this.usDeaths].map(function(a) {
                 a.map(function(element) {
-                    element.url = 'https://smallfolio.bitnamiapp.com/' +
-                    'state-flags/' +
+                    element.url = 'https://www.01mu.bitnamiapp.com/' +
+                    'graphics/states/' +
                     replaceAll(element.state.toLowerCase(), " ", "-") + '.png';
                 });
             });

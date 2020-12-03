@@ -50,7 +50,7 @@ const Coins = {
             fullVisible: false,
             showBar: true,
             nav: 'coins',
-            url: 'https://smallfolio.bitnamiapp.com/crypto/coins/',
+            url: 'https://01mu.bitnamiapp.com/crypto/coins/',
             coins: [],
             page: 0,
             lastUpdated: '',
@@ -81,8 +81,8 @@ const Coins = {
         },
         formatCoins: function(coins) {
             coins.map(function(element) {
-                element.url = 'https://smallfolio.bitnamiapp.com/' +
-                    'crypto_icons/color/' + element.symbol.toLowerCase() +
+                element.url = 'https://01mu.bitnamiapp.com/' +
+                    'graphics/crypto/' + element.symbol.toLowerCase() +
                     '.png';
 
                 element.price_usd = '$' + commas(element.price_usd.toFixed(2));

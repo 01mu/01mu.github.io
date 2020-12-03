@@ -60,7 +60,7 @@ const HeatMap = {
             fullVisible: false,
             showBar: true,
             nav: 'heatmap',
-            url: 'https://smallfolio.bitnamiapp.com/crypto/heatmap/',
+            url: 'https://01mu.bitnamiapp.com/crypto/heatmap/',
             heatmap: [],
             page: 0,
             dates: [],
@@ -108,8 +108,8 @@ const HeatMap = {
         },
         formatHM: function(hm) {
             hm.forEach(function(coin) {
-                coin[0].icon = 'https://smallfolio.bitnamiapp.com/' +
-                    'crypto_icons/color/' + coin[0].symbol.toLowerCase() +
+                coin[0].icon = 'https://01mu.bitnamiapp.com/' +
+                    'graphics/crypto/' + coin[0].symbol.toLowerCase() +
                     '.png';
             });
 

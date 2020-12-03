@@ -324,8 +324,8 @@ const Single = {
             const single = this;
 
             this.recentCoins.forEach(function(element) {
-                var icon = 'https://smallfolio.bitnamiapp.com/' +
-                    'crypto_icons/color/' + element.toLowerCase() +
+                var icon = 'https://01mu.bitnamiapp.com/' +
+                    'graphics/crypto/' + element.toLowerCase() +
                     '.png';
 
                 single.recentIcons.push(icon);
@@ -365,8 +365,8 @@ const Single = {
             localStorage.setItem('chart_limit', this.limit);
 
             this.coinInfo['icon'] =
-                'https://smallfolio.bitnamiapp.com/' +
-                'crypto_icons/color/' + this.coin.toLowerCase() +
+                'https://01mu.bitnamiapp.com/' +
+                'graphics/crypto/' + this.coin.toLowerCase() +
                 '.png';
 
             switch(localStorage.getItem('chart_mode')) {

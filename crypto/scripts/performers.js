@@ -71,7 +71,7 @@ const Performers = {
             fullVisible: false,
             showBar: true,
             nav: 'performers',
-            url: 'https://smallfolio.bitnamiapp.com/crypto/performers/',
+            url: 'https://01mu.bitnamiapp.com/crypto/performers/',
             performers: [],
             performerTypes: ['change_1h_asc', 'change_1h_desc',
                 'change_24h_asc', 'change_24h_desc',
@@ -162,8 +162,8 @@ const Performers = {
         formatPerformers: function(json) {
             this.performerTypes.forEach(function(p) {
                 json[p].map(function(element) {
-                    element.url = 'https://smallfolio.bitnamiapp.com/' +
-                        'crypto_icons/color/' + element.symbol.toLowerCase() +
+                    element.url = 'https://01mu.bitnamiapp.com/' +
+                        'graphics/crypto/' + element.symbol.toLowerCase() +
                         '.png';
                 });
             });

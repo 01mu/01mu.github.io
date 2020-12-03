@@ -1,0 +1,74 @@
+const nav_template = `
+<nav class="navbar navbar-expand-lg navbar-light navborder"
+    style="padding-bottom: 6px; padding-top: 6px; background-color: #ddded1;">
+
+    <a class="navpad navbar-brand" href="#"><b>Quotes</b></a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li v-if="h.viewingAuthor" :class="h.nav['quotes']">
+                <a :href="'index.html#/author/quotes/' + h.currentAuthor">
+                    {{ h.currentAuthor }}'s Quotes
+                </a>
+            </li>
+            <li v-if="h.viewingAuthor" :class="h.nav['relations']">
+                <a :href="'index.html#/author/relations/' + h.currentAuthor">
+                    {{ h.currentAuthor }}'s Relations
+                </a>
+            </li>
+            <li class="navpad nav-link"><a>&nbsp;</a></li>
+        </ul>
+        <ul class="navbar-nav navbar-right">
+            <li class="nav-item">
+                <span class="form-inline">
+                    <input class="form-control mr-sm-2"
+                        v-model="h.authorQuery"
+                        type="search"
+                        v-on:keyup.enter="h.authorSearch()"
+                        placeholder="Search for an author" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0"
+                        type="submit"
+                        v-on:click="h.authorSearch()">
+                        Search
+                    </button>
+                </span>
+            </li>
+            &nbsp;&nbsp;&nbsp;
+            <li class="nav-item">
+                <span class="form-inline">
+                    <input class="form-control mr-sm-2"
+                        v-model="h.quoteQuery"
+                        type="search"
+                        v-on:keyup.enter="h.quoteSearch()"
+                        placeholder="Search for a quote" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0"
+                        type="submit"
+                        v-on:click="h.quoteSearch()">
+                        Search
+                    </button>
+                </span>
+            </li>
+        </ul>
+    </div>
+</nav>
+`;
+
+const bottom =
+`
+<div class="cent">
+    <p>Quotes are from <a href="https://en.wikiquote.org"><b>Wikiquote</b></a> and author relations are from <a href="https://en.wikipedia.org"><b>Wikipedia</b></a></p>
+</div>
+`;
+
+const loading_template =
+`
+<div v-if="h.showLoading" class="progress">
+  <div style="background-color:#ddded1 !important; width: 100%"
+  class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<div style="margin-bottom: 16px"></div>
+`;

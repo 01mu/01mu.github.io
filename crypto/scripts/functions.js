@@ -91,7 +91,7 @@ function navbarInfo(nv) {
     if(navInfo.length == 0) {
         var i = {};
 
-        $.getJSON('https://smallfolio.bitnamiapp.com/crypto/info', function (json) {
+        $.getJSON('https://01mu.bitnamiapp.com/crypto/info', function (json) {
             json.forEach(function(element) {
                 i[element.input_key] = element.input_value;
             });

@@ -304,8 +304,8 @@ const Portfolio = {
                         per = '- '
                     }
 
-                    var icon = 'https://smallfolio.bitnamiapp.com/' +
-                        'crypto_icons/color/' + element.toLowerCase()  + '.png';
+                    var icon = 'https://01mu.bitnamiapp.com/' +
+                        'graphics/crypto/' + element.toLowerCase()  + '.png';
 
                     show['symbol'] = element;
                     show['amount'] = parseFloat(amount, 10).toFixed(4);

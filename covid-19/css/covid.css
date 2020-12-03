@@ -1,4 +1,4 @@
-body { background: #ff; font-size: 18px; sbackground-color: #fafbfc; }
+body { background: #ff; font-size: 18px; background-color: #ffffff; }
 a { cursor: pointer; color: black; text-decoration: none; }
 
 [v-cloak] { display: none; }
@@ -39,3 +39,5 @@ a { cursor: pointer; color: black; text-decoration: none; }
 @media only screen and (max-width: 600px) {
     body { font-size: 16px; }
 }
+
+.smalltext { text-align: center; font-size: 14px; margin-bottom: 8px; }

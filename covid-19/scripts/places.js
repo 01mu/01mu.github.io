@@ -81,7 +81,7 @@ const countries = new Vue({
     data: {
         nav: 'countries',
         //url: 'http:/127.0.0.1:8000/countries',
-        url: 'https://smallfolio.bitnamiapp.com/covid-19/countries',
+        url: 'https://www.01mu.bitnamiapp.com/covid-19/countries',
         visible: false,
         isInit: false,
         countries: [],
@@ -112,8 +112,8 @@ const countries = new Vue({
         format: function() {
             this.countries.map(function(element) {
                 element.loc = element.country;
-                element.url = 'https://smallfolio.bitnamiapp.com/' +
-                    'flags/' + countryCode(element.country) + '.PNG';
+                element.url = 'https://www.01mu.bitnamiapp.com/' +
+                    'graphics/countries/' + countryCode(element.country) + '.PNG';
             });
         },
         setType: function(type) {
@@ -170,7 +170,7 @@ const states = new Vue({
         meme: '',
         nav: 'states',
         //url: 'http:/127.0.0.1:8000/states',
-        url: 'https://smallfolio.bitnamiapp.com/covid-19/states',
+        url: 'https://www.01mu.bitnamiapp.com/covid-19/states',
         visible: false,
         isInit: false,
         states: [],
@@ -201,8 +201,8 @@ const states = new Vue({
         format: function() {
             this.states.map(function(element) {
                 element.loc = element.state;
-                element.url = 'https://smallfolio.bitnamiapp.com/' +
-                    'state-flags/' +
+                element.url = 'https://www.01mu.bitnamiapp.com/' +
+                    'graphics/states/' +
                     replaceAll(element.state.toLowerCase(), " ", "-") + '.png';
             });
         },

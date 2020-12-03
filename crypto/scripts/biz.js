@@ -48,7 +48,7 @@ const Biz = {
             fullVisible: false,
             showBar: true,
             nav: 'mentions',
-            url: 'https://smallfolio.bitnamiapp.com/crypto/biz/',
+            url: 'https://01mu.bitnamiapp.com/crypto/biz/',
             rank: 50,
             bizCounts: [],
             lastUpdated: '',
@@ -124,8 +124,8 @@ const Biz = {
         },
         formatCounts: function(counts) {
             counts.map(function(element) {
-                element.url = 'https://smallfolio.bitnamiapp.com/' +
-                    'crypto_icons/color/' + element.symbol.toLowerCase() +
+                element.url = 'https://01mu.bitnamiapp.com/' +
+                    'graphics/crypto/' + element.symbol.toLowerCase() +
                     '.png';
 
                 element.name_diff =

@@ -1,7 +1,7 @@
 Vue.component('bottom', {
     template:
     `
-    <span>
+    <div>
         <center>
             <a href="https://01mu.github.io/covid-19">
                 01mu.github.io/covid-19
@@ -10,7 +10,7 @@ Vue.component('bottom', {
                 Case data from JHU CSSE.
             </a>
         </center>
-    </span>
+    </div>
     `
 });
 

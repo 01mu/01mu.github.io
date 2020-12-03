@@ -1,0 +1,19 @@
+body { overflow-y: scroll; line-height: 1.6; font-size: 22px;
+    font-family: Georgia, serif; }
+
+.body { white-space: wrap; text-overflow: ellipses; overflow: hidden;
+    margin: 0 auto; max-width: 90%; }
+
+.quote { cursor: pointer; border: 1px solid #ccc; padding: 20px;
+    background-color: #f5f3ed; margin-bottom: 16px; }
+
+.quote:hover { background: #ffffff; }
+
+a {color: #000000;}
+a:hover { color: #000000; text-decoration: none; }
+
+.navborder { border-bottom: 1px solid #cfcfcf; }
+.active { background-color: #f0f0f0; }
+.navpad { }
+.cent { text-align: center; margin-top: 16px; font-size: 16px; }
+.overflow { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
