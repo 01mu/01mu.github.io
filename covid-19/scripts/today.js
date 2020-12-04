@@ -74,7 +74,7 @@ Vue.component('today-display', {
             :data_deaths="global_deaths"
             :stats="global_stats"
             :updated="last_update['global']"
-            :url="'https://www.01mu.bitnamiapp.com/graphics/countries/GLOBAL.PNG'">
+            :url="'https://01mu.bitnamiapp.com/graphics/countries/GLOBAL.PNG'">
         </today-margin>
         <today-margin :loc="'United States'"
             :dest="'state'"
@@ -82,7 +82,7 @@ Vue.component('today-display', {
             :data_deaths="us_deaths"
             :stats="us_stats"
             :updated="last_update['us']"
-            :url="'https://www.01mu.bitnamiapp.com/graphics/countries/US.PNG'">
+            :url="'https://01mu.bitnamiapp.com/graphics/countries/US.PNG'">
         </today-margin>
     </span>
     `
@@ -93,7 +93,7 @@ const today = new Vue({
     data: {
         nav: 'today',
         //url: 'http:/127.0.0.1:8000/today',
-        url: 'https://www.01mu.bitnamiapp.com/covid-19/today',
+        url: 'https://01mu.bitnamiapp.com/covid-19/today',
         globalStats: [],
         usStats: [],
         globalConfirmed: [],
@@ -129,14 +129,14 @@ const today = new Vue({
         formatCountries: function() {
             [this.globalConfirmed, this.globalDeaths].map(function(a) {
                 a.map(function(element) {
-                    element.url = 'https://www.01mu.bitnamiapp.com/' +
+                    element.url = 'https://01mu.bitnamiapp.com/' +
                         'graphics/countries/' + countryCode(element.country) + '.PNG';
                 });
             });
 
             [this.usConfirmed, this.usDeaths].map(function(a) {
                 a.map(function(element) {
-                    element.url = 'https://www.01mu.bitnamiapp.com/' +
+                    element.url = 'https://01mu.bitnamiapp.com/' +
                     'graphics/states/' +
                     replaceAll(element.state.toLowerCase(), " ", "-") + '.png';
                 });

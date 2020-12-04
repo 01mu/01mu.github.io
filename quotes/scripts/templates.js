@@ -30,11 +30,11 @@ const nav_template = `
                         type="search"
                         v-on:keyup.enter="h.authorSearch()"
                         placeholder="Search for an author" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0"
+                    <div class="btn btn-outline-secondary my-2 my-sm-0"
                         type="submit"
                         v-on:click="h.authorSearch()">
                         Search
-                    </button>
+                    </div>
                 </span>
             </li>
             &nbsp;&nbsp;&nbsp;
@@ -45,11 +45,11 @@ const nav_template = `
                         type="search"
                         v-on:keyup.enter="h.quoteSearch()"
                         placeholder="Search for a quote" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0"
+                    <div class="btn btn-outline-secondary my-2 my-sm-0"
                         type="submit"
                         v-on:click="h.quoteSearch()">
                         Search
-                    </button>
+                    </div>
                 </span>
             </li>
         </ul>
@@ -60,15 +60,20 @@ const nav_template = `
 const bottom =
 `
 <div class="cent">
-    <p>Quotes are from <a href="https://en.wikiquote.org"><b>Wikiquote</b></a> and author relations are from <a href="https://en.wikipedia.org"><b>Wikipedia</b></a></p>
+    <p>Quotes are from <a href="https://en.wikiquote.org"><b>Wikiquote</b></a>
+    and author relations are from <a href="https://en.wikipedia.org">
+    <b>Wikipedia</b></a></p>
 </div>
 `;
 
 const loading_template =
 `
 <div v-if="h.showLoading" class="progress">
-  <div style="background-color:#ddded1 !important; width: 100%"
-  class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+    <div style="background-color:#ddded1 !important; width: 100%;
+    border-bottom: 1px solid #000000;"
+    class="progress-bar progress-bar-striped progress-bar-animated"
+    role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+    </div>
 </div>
-<div style="margin-bottom: 16px"></div>
+<div style="margin-bottom: 16px;"></div>
 `;

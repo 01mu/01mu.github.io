@@ -4,7 +4,7 @@ body { overflow-y: scroll; line-height: 1.6; font-size: 22px;
 .body { white-space: wrap; text-overflow: ellipses; overflow: hidden;
     margin: 0 auto; max-width: 90%; }
 
-.quote { cursor: pointer; border: 1px solid #ccc; padding: 20px;
+.quote { cursor: pointer; border: 1px solid #000000; padding: 20px;
     background-color: #f5f3ed; margin-bottom: 16px; }
 
 .quote:hover { background: #ffffff; }
@@ -12,8 +12,10 @@ body { overflow-y: scroll; line-height: 1.6; font-size: 22px;
 a {color: #000000;}
 a:hover { color: #000000; text-decoration: none; }
 
-.navborder { border-bottom: 1px solid #cfcfcf; }
+.author:hover { text-decoration: underline; }
+.navborder { border-bottom: 1px solid #000000; }
 .active { background-color: #f0f0f0; }
 .navpad { }
 .cent { text-align: center; margin-top: 16px; font-size: 16px; }
-.overflow { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.overflow { /*white-space: nowrap;*/ overflow: hidden; text-overflow: ellipsis;
+    word-wrap: break-word; }
