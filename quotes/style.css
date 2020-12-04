@@ -17,5 +17,5 @@ a:hover { color: #000000; text-decoration: none; }
 .active { background-color: #f0f0f0; }
 .navpad { }
 .cent { text-align: center; margin-top: 16px; font-size: 16px; }
-.overflow { /*white-space: nowrap;*/ overflow: hidden; text-overflow: ellipsis;
+.overflow { white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     word-wrap: break-word; }
