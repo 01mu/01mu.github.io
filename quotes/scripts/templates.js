@@ -9,19 +9,26 @@ const nav_template = `
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div  v-if="h.viewingAuthor" class="sborder"></div>
         <ul class="navbar-nav mr-auto">
             <li v-if="h.viewingAuthor" :class="h.nav['quotes']">
-                <a :href="'index.html#/author/quotes/' + h.currentAuthor">
+                <a style="display:block;"
+                    :href="'index.html#/author/quotes/' + h.currentAuthor">
                     {{ h.currentAuthor }}'s Quotes
                 </a>
             </li>
+            <div class="sborder"></div>
             <li v-if="h.viewingAuthor" :class="h.nav['relations']">
-                <a :href="'index.html#/author/relations/' + h.currentAuthor">
+                <a style="display:block;"
+                    :href="'index.html#/author/relations/' + h.currentAuthor">
                     {{ h.currentAuthor }}'s Relations
                 </a>
             </li>
-            <li class="navpad nav-link"><a>&nbsp;</a></li>
+            <div class="d-none d-sm-block">
+                <li class="navpad nav-link"><a>&nbsp;</a></li>
+            </div>
         </ul>
+        <div  v-if="h.viewingAuthor" class="sborder"></div>
         <ul class="navbar-nav navbar-right">
             <li class="nav-item">
                 <span class="form-inline">
@@ -30,14 +37,15 @@ const nav_template = `
                         type="search"
                         v-on:keyup.enter="h.authorSearch()"
                         placeholder="Search for an author" aria-label="Search">
-                    <div class="btn btn-outline-secondary my-2 my-sm-0"
+                    <div class="btn btn-outline-secondary my-2 my-sm-0 mbutton"
                         type="submit"
                         v-on:click="h.authorSearch()">
                         Search
                     </div>
                 </span>
             </li>
-            &nbsp;&nbsp;&nbsp;
+            <div class="d-none d-sm-block">&nbsp;&nbsp;&nbsp;</div>
+            <div class="sborder"></div>
             <li class="nav-item">
                 <span class="form-inline">
                     <input class="form-control mr-sm-2"
@@ -45,7 +53,7 @@ const nav_template = `
                         type="search"
                         v-on:keyup.enter="h.quoteSearch()"
                         placeholder="Search for a quote" aria-label="Search">
-                    <div class="btn btn-outline-secondary my-2 my-sm-0"
+                    <div class="btn btn-outline-secondary my-2 my-sm-0 mbutton"
                         type="submit"
                         v-on:click="h.quoteSearch()">
                         Search
@@ -53,6 +61,7 @@ const nav_template = `
                 </span>
             </li>
         </ul>
+
     </div>
 </nav>
 `;

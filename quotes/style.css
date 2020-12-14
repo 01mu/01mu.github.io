@@ -15,11 +15,25 @@ a:hover { color: #000000; text-decoration: none; }
 .author:hover { text-decoration: underline; }
 .navborder { border-bottom: 1px solid #000000; }
 .active { background-color: #f0f0f0; }
-.navpad { }
 .cent { text-align: center; margin-top: 16px; font-size: 16px; }
-<<<<<<< HEAD
 .overflow {  overflow: hidden; text-overflow: ellipsis; word-wrap: break-word; }
-=======
-.overflow { white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    word-wrap: break-word; }
->>>>>>> abcb20cfada2d67a527446bc569959eb65582f81
+.author { font-size: 18px; }
+
+@media only screen and (max-width: 600px) {
+    body { font-size: 16px; }
+    .author { font-size: 16px; }
+    .nav-link { text-align: center; padding: 20px; }
+    .nav-item { text-align: center; padding-top: 10px;
+        padding-right: 20px; padding-left: 20px; }
+    .sborder { margin-top: 6px; margin-bottom: 6px;  border: 1px solid #000000;}
+    .mbutton { width: 100%; }
+}
+
+.alignleft {
+    float: left;
+}
+.alignright {
+    float: right;
+}
+
+.navpad { }

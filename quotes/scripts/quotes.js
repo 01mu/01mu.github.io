@@ -63,12 +63,19 @@ function make() {
                     <a :href="'index.html#/author/quotes/' + quote.author">
                         <div class="quote">
                             <div class="overflow" v-html="quote.quote"></div>
-                            <div class="overflow" style="margin-top: 10px;
-                                font-size: 18px;">
-                                – <a class="author"
-                                    v-bind:href=quote.w target="_blank">
-                                    <b>{{ quote.author }}</b>
-                                </a>
+
+                            <div class="overflow author" style="margin-top: 10px;">
+
+                                <div class="alignleft">
+                                    – <a class="author"
+                                        v-bind:href=quote.w target="_blank">
+                                        <b>{{ quote.author }}</b>
+                                    </a>
+                                </div>
+                                <div class="alignright">
+                                    <!--<img src="link.png" width="18"/>
+                                    <img src="copy.png" width="18"/>-->
+                                </div>
                                 <br>
                             </div>
                         </div>
