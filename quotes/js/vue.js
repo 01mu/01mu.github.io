@@ -109,8 +109,8 @@ function make() {
         $.getJSON(this.url, function(json) {
           var flag = 0
 
-          if(json.length == 0) home.showError("No results", 1)
-          if(json.length < 50) home.showButton = false
+          if (json.length == 0) home.showError("No results", 1)
+          if (json.length < 50) home.showButton = false
 
           for (i in json) {
             json[i].quote = '"' + json[i].quote + '"'
@@ -126,7 +126,7 @@ function make() {
 
             if (home.$route.params.relations) json[i].author = json[i].relation
 
-            if(home.$route.params.quoteSearch)
+            if (home.$route.params.quoteSearch)
               json[i].quote = highlight(json[i].quote,
                 home.$route.params.quoteSearch)
           }
@@ -177,9 +177,9 @@ function make() {
         const quoteSearch = this.$route.params.quoteSearch
 
         if (author) this.setViewingAuthor('quotes', author)
-        else if(relations) this.setViewingAuthor('relations', relations)
-        else if(authorSearch) this.setViewingSearch('author', authorSearch)
-        else if(quoteSearch) this.setViewingSearch('quote', quoteSearch)
+        else if (relations) this.setViewingAuthor('relations', relations)
+        else if (authorSearch) this.setViewingSearch('author', authorSearch)
+        else if (quoteSearch) this.setViewingSearch('quote', quoteSearch)
         else document.title = "Quotes"
 
       },

@@ -75,7 +75,7 @@ const loading_template =
   `
   <div v-if="quoteCtx.showLoading" class="progress">
     <div style="background-color:#ddded1 !important; width: 100%;
-      border-bottom: 1px solid #000000;"
+      border-bottom: 1px solid grey;"
       class="progress-bar progress-bar-striped progress-bar-animated"
       role="progressbar" aria-valuenow="75"
       aria-valuemin="0" aria-valuemax="100">
