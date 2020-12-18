@@ -1,241 +1,133 @@
-function make() {
-    return {
-        template:
-        `
-        <navbar :h="this"></navbar>
-        <loadingbar :h="this"></loadingbar>
-        <div v-if="showBody">
-            <div class="body">
-                <div v-if="noticeVisible" class="alert alert-secondary"
-                    role="alert">
-                    <b>{{ notice }}</b>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <column v-for="(p, index) in quotes[0]" :quote="p"
-                            :h="this"></column>
-                    </div>
-                    <div class="col-sm-4">
-                        <column v-for="(p, index) in quotes[1]" :quote="p"
-                            :h="this"></column>
-                    </div>
-                    <div class="col-sm-4">
-                        <column v-for="(p, index) in quotes[2]" :quote="p"
-                            :h="this"></column>
-                    </div>
-                </div>
-                <div style="margin-top: 8px"></div>
-                <div v-if="showButton"
-                    class="btn btn-block btn-outline-secondary"
-                    v-on:click="loadMore()">
-                    {{ loadingText }}
-                </div>
-            </div>
-            <bottom></bottom>
+const nav_template = `
+  <nav class="navbar navbar-expand-lg navbar-light navborder sticky-top"
+    style="padding-bottom: 6px; padding-top: 6px; background-color: #ddded1;">
+    <a class="navbar-brand" href="#"><b>Quotes</b></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div  v-if="quoteCtx.viewingAuthor" class="sborder"></div>
+      <ul class="navbar-nav mr-auto">
+        <li v-if="quoteCtx.viewingAuthor" :class="quoteCtx.nav['quotes']">
+            <a style="display:block;"
+              :href="'index.html#/author/quotes/' + quoteCtx.currentAuthor">
+              {{ quoteCtx.currentAuthor }}'s Quotes
+            </a>
+        </li>
+        <div class="sborder"></div>
+        <li v-if="quoteCtx.viewingAuthor" :class="quoteCtx.nav['relations']">
+            <a style="display:block;"
+              :href="'index.html#/author/relations/' + quoteCtx.currentAuthor">
+              {{ quoteCtx.currentAuthor }}'s Relations
+            </a>
+        </li>
+        <div class="d-none d-sm-block">
+            <li class="nav-link"><a>&nbsp;</a></li>
         </div>
-        `,
-        data() {
-            return {
-                noticeVisible: false,
-                notice: "",
-                showLoading: true,
-                showBody: false,
-                showButton: true,
-                currentAuthor: "",
-                nav: [],
-                quoteQuery: "",
-                authorQuery: "",
-                type: "quote",
-                loadingText: "Load more",
-                viewingAuthor: false,
-                url: 'https://01mu.bitnamiapp.com/quotes/quotes/all',
-                base: 'https://01mu.bitnamiapp.com/quotes',
-                quotes: null,
-                counter: 0,
-            }
-        },
-        components: {
-            column: {
-                props: ['quote', 'h'],
-                template:
-                `
-                <div @mouseover="" v-if="h.type == 'quote'">
-                    <a :href="'index.html#/author/quotes/' + quote.author">
-                        <div class="quote">
-                            <div class="overflow" v-html="quote.quote"></div>
+    </ul>
+    <div v-if="quoteCtx.viewingAuthor" class="sborder"></div>
+    <ul class="navbar-nav navbar-right">
+        <li class="nav-item">
+          <span class="form-inline">
+              <input class="form-control mr-sm-2" v-model="quoteCtx.authorQuery"
+                  type="search" v-on:keyup.enter="quoteCtx.authorSearch()"
+                  placeholder="Search for an author" aria-label="Search">
+              <div class="btn btn-outline-secondary my-2 my-sm-0 mbutton"
+                  type="submit" v-on:click="quoteCtx.authorSearch()">
+                  Search
+              </div>
+          </span>
+        </li>
+        <div class="d-none d-sm-block">&nbsp;&nbsp;&nbsp;</div>
+        <div class="sborder"></div>
+        <li class="nav-item">
+          <span class="form-inline">
+              <input class="form-control mr-sm-2" v-model="quoteCtx.quoteQuery"
+                  type="search" v-on:keyup.enter="quoteCtx.quoteSearch()"
+                  placeholder="Search for a quote" aria-label="Search">
+              <div class="btn btn-outline-secondary my-2 my-sm-0 mbutton"
+                  type="submit" v-on:click="quoteCtx.quoteSearch()">
+                  Search
+              </div>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  `
 
-                            <div class="overflow author" style="margin-top: 10px;">
+const bottom_template =
+  `
+  <div class="centered">
+    <p>
+      Quotes are from
+      <a href="https://en.wikiquote.org"><b>Wikiquote</b></a>
+      and author relations are from
+      <a href="https://en.wikipedia.org"><b>Wikipedia</b></a>
+    </p>
+  </div>
+  `
 
-                                <div class="alignleft">
-                                    – <a class="author"
-                                        v-bind:href=quote.w target="_blank">
-                                        <b>{{ quote.author }}</b>
-                                    </a>
-                                </div>
-                                <div class="alignright">
-                                    <!--<img src="link.png" width="18"/>
-                                    <img src="copy.png" width="18"/>-->
-                                </div>
-                                <br>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div v-if="h.type == 'author'">
-                    <a :href="'index.html#/author/quotes/' + quote.author">
-                        <div class="quote" style="text-align: center;">
-                            {{ quote.author }}
-                        </div>
-                    </a>
-                </div>
-                `
-            }
-        },
-        methods: {
-            showError (text, persist) {
-                const p = this;
-                this.notice = text;
-                this.noticeVisible = 1;
-                if(!persist) {
-                    clearInterval(this.timer);
-                    this.timer = setTimeout(function() { p.noticeVisible = 0; },
-                        1500);
-                }
-            },
-            authorSearch() {
-                if(this.authorQuery === "") {
-                    this.showError("Empty query", 0);
-                } else {
-                    this.$router.push('/search/author/' + this.authorQuery);
-                }
-            },
-            quoteSearch: function() {
-                if(this.quoteQuery === "") {
-                    this.showError("Empty query", 0);
-                } else {
-                    this.$router.push('/search/quote/' + this.quoteQuery);
-                }
-            },
-            loadMore() {
-                const home = this;
+const loading_template =
+  `
+  <div v-if="quoteCtx.showLoading" class="progress">
+    <div style="background-color:#ddded1 !important; width: 100%;
+      border-bottom: 1px solid #000000;"
+      class="progress-bar progress-bar-striped progress-bar-animated"
+      role="progressbar" aria-valuenow="75"
+      aria-valuemin="0" aria-valuemax="100">
+    </div>
+  </div>
+  <div style="margin-bottom: 16px;"></div>
+  `
 
-                home.loadingText = "Loading...";
-
-                $.getJSON(this.url, function(json) {
-                    var flag = 0;
-
-                    if(json.length == 0) {
-                        home.showError("No results", 1);
-                    }
-
-                    if(json.length < 50) {
-                        home.showButton = false;
-                    }
-
-                    for(var i = 0; i < json.length; i++) {
-                        json[i].w = 'https://en.wikipedia.org/wiki/' +
-                            json[i].author;
-
-                        json[i].quote = '"' + json[i].quote + '"';
-
-                        if(home.$route.params.quoteSearch != null) {
-                            json[i].quote = highlight(json[i].quote,
-                                home.$route.params.quoteSearch);
-                        }
-
-                        if(home.$route.params.relations != null) {
-                            json[i].author = json[i].relation;
-                        }
-
-                        home.quotes[flag++].push(json[i]);
-
-                        if(flag == 3) {
-                            flag = 0;
-                        }
-                    }
-
-                    home.counter++;
-                    home.format();
-                    home.showLoading = false;
-                    home.showBody = true;
-                    home.loadingText = "Load more";
-                });
-            },
-            getNavbar(dest) {
-                var nav = {'quotes': 'overflow navpad nav-link', 'relations':
-                    'overflow navpad nav-link'};
-
-                nav[dest] = 'overflow nav-link active';
-
-                this.nav = nav;
-            },
-            setViewingSearch(type, query) {
-                if(type == 'quote') {
-                    document.title = "Quote Search Results: " + query;
-                    this.type = "quote";
-                    this.url = this.base + '/quotes/search/' + query + '/' +
-                        this.counter;
-                } else {
-                    document.title = "Author Search Results: " + query;
-                    this.type = "author";
-                    this.url = this.base + '/authors/search/' + query + '/' +
-                        this.counter;
-                }
-            },
-            setViewingAuthor(nav, author) {
-                this.viewingAuthor = true;
-                this.getNavbar(nav);
-                this.currentAuthor = author;
-
-                if(nav == 'quotes') {
-                    document.title = this.currentAuthor + " Quotes";
-                    this.url = this.base + '/authors/quotes/' + author + '/' +
-                        this.counter;
-                } else {
-                    this.type = "author";
-                    document.title = this.currentAuthor + " Relations";
-                    this.url = this.base + '/relations/' + author + '/' +
-                        this.counter;
-                }
-            },
-            format() {
-                const author = this.$route.params.author;
-                const relations = this.$route.params.relations;
-                const authorSearch = this.$route.params.authorSearch;
-                const quoteSearch = this.$route.params.quoteSearch
-
-                if(author) {
-                    this.setViewingAuthor('quotes', author);
-                } else if(authorSearch) {
-                    this.setViewingSearch("author", authorSearch);
-                } else if(quoteSearch) {
-                    this.setViewingSearch("quote", quoteSearch);
-                } else if(relations) {
-                    this.setViewingAuthor('relations', relations);
-                } else {
-                    document.title = "Quotes";
-                }
-            },
-            init() {
-                this.showButton = true;
-                this.noticeVisible = false;
-                this.counter = 0;
-                this.quotes = [[], [], []];
-                this.format();
-                this.loadMore();
-            }
-        },
-        watch: {
-            '$route' (to, from) {
-                if (to.matched[0].path == from.matched[0].path) {
-                    this.showBody = false;
-                    this.showLoading = true;
-                    this.init();
-                }
-            }
-        },
-        created() {
-            this.init();
-        }
-    }
+function highlight(string, needle) {
+  return string.replace(new RegExp(needle, 'gi'), (str) => {
+    return '<span style="background-color:#fffa00;">' + str + '</span>'});
 }
+
+const routes = [
+  { path: '/', component: make() },
+  { path: '/author/relations/:relations', component: make() },
+  { path: '/author/quotes/:author', component: make() },
+  { path: '/search/author/:authorSearch', component: make() },
+  { path: '/search/quote/:quoteSearch', component: make() },
+]
+
+const router = VueRouter.createRouter({
+  history: VueRouter.createWebHashHistory(),
+  routes,
+})
+
+const app = Vue.createApp({})
+
+app.component('bottom', {
+  template: bottom_template
+})
+
+app.component('navbar', {
+  props: ['quoteCtx'],
+  template: nav_template
+})
+
+app.component('loadingbar', {
+  props: ['quoteCtx'],
+  template: loading_template
+})
+
+app.use(router)
+app.mount('#app')
+
+$(document).ready(function() {
+  $('.navbar-nav>li>a').on('click', function() {
+    if (this.className == 'nav-link active')
+      $('.navbar-collapse').collapse('hide')
+  })
+
+  $('.dropdown-menu>a').on('click', function() {
+    $('.navbar-collapse').collapse('hide');
+  })
+})

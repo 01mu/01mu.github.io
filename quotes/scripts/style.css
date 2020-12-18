@@ -1,39 +1,28 @@
 body { overflow-y: scroll; line-height: 1.6; font-size: 22px;
     font-family: Georgia, serif; }
-
 .body { white-space: wrap; text-overflow: ellipses; overflow: hidden;
     margin: 0 auto; max-width: 90%; }
-
 .quote { cursor: pointer; border: 1px solid #000000; padding: 20px;
     background-color: #f5f3ed; margin-bottom: 16px; }
-
 .quote:hover { background: #ffffff; }
-
-a {color: #000000;}
-a:hover { color: #000000; text-decoration: none; }
-
 .author:hover { text-decoration: underline; }
 .navborder { border-bottom: 1px solid #000000; }
 .active { background-color: #f0f0f0; }
-.cent { text-align: center; margin-top: 16px; font-size: 16px; }
+.centered { text-align: center; margin-top: 16px; font-size: 16px; }
 .overflow {  overflow: hidden; text-overflow: ellipsis; word-wrap: break-word; }
 .author { font-size: 18px; }
-
+.navpad { }
+.alignleft { float: left; }
+.alignright { float: right; }
+a {color: #000000;}
+a:hover { color: #000000; text-decoration: none; }
 @media only screen and (max-width: 600px) {
     body { font-size: 16px; }
     .author { font-size: 16px; }
     .nav-link { text-align: center; padding: 20px; }
+    .mbutton { width: 100%; }
     .nav-item { text-align: center; padding-top: 10px;
         padding-right: 20px; padding-left: 20px; }
-    .sborder { margin-top: 6px; margin-bottom: 6px;  border: 1px solid #000000;}
-    .mbutton { width: 100%; }
+    .sborder { margin-top: 6px; margin-bottom: 6px;
+        border-bottom: 1px solid #fafafa;}
 }
-
-.alignleft {
-    float: left;
-}
-.alignright {
-    float: right;
-}
-
-.navpad { }
