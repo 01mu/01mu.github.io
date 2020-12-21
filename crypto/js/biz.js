@@ -1,0 +1,131 @@
+const Biz = {
+  template:
+  `
+  <comp :destination="navbar" :info="navInfo"></comp>
+  <loadingbar :showbar="showBar"></loadingbar>
+  <div class="body" v-if="fullVisible">
+    <div class="flex coinheader">
+      <div class="bizl">Coin</div>
+      <div class="wrapper33 d-none d-sm-block">24 Hour Change</div>
+      <div class="bizr overflow">Name Mentions (24 Hours)</div>
+    </div>
+    <template v-for="(count, index) in bizCounts">
+      <div class="coinpadding flex">
+        <div class="bizl overflow">
+          <a :href="'index.html#/single/' + count.symbol">
+            <img height="20" width="20"
+              style="cursor: pointer;"
+              v-on:click="head.showSingle(count.symbol)"
+              :src="count.url"/>
+          </a>
+          &nbsp;
+          <a :href="'index.html#/single/' + count.symbol">
+            {{ count.name }} ({{ count.symbol }})
+          </a>
+        </div>
+        <div class="wrapper33 d-none d-sm-block">
+          {{ count.name_diff }}
+        </div>
+        <div class="bizr">
+          <span class="d-block d-sm-none">
+            {{ count.name_count }}&nbsp;({{ count.name_diff }})
+          </span>
+          <span class="d-none d-sm-block">
+            {{ count.name_count }}
+          </span>
+        </div>
+      </div>
+    </template>
+    <div v-if="noticeVisible" class="alert alert-danger" role="alert">
+      <b>{{ notice }}</b>
+    </div>
+    <div class="input-group" style="margin-top: 16px;">
+      <input v-on:keyup.enter="updateRank()"
+        placeholder="Rank limit" v-model="rank" class="form-control">&nbsp;
+      <button class="btn btn-outline-primary" v-on:click="updateRank()">
+        Set rank limit
+      </button>
+    </div>
+  </div>
+  `,
+  data() {
+    return {
+      navInfo: [],
+      fullVisible: false,
+      showBar: true,
+      url: 'https://01mu.bitnamiapp.com/crypto/biz/',
+      rank: 50,
+      bizCounts: [],
+      lastUpdated: '',
+      noticeVisible: false,
+      notice: '',
+      st: 0,
+    }
+  },
+  created() {
+    const ctx = this
+    const limit = localStorage.getItem('biz_rank')
+
+    if (limit == null) this.rank = 50
+    else this.rank = limit
+
+    document.title = 'Crypto | /biz/ Mentions'
+
+    $.getJSON(this.url + this.rank + '/0', (json) => {
+        ctx.formatCounts(json['biz'])
+        ctx.bizCounts = json['biz']
+        ctx.showBar = false
+        ctx.fullVisible = true
+        ctx.lastUpdated =
+            'Last updated ' +
+            since(json.last_update_biz.input_value)
+    })
+
+    navbarInfo(this.navInfo)
+    this.navbar = getNavbar('mentions')
+  },
+  methods: {
+    showError(text) {
+      const ctx = this
+      this.notice = text
+      this.noticeVisible = 1
+      clearInterval(this.timer)
+      this.timer = setTimeout(() => { ctx.noticeVisible = 0 }, 1500)
+    },
+    sort(type) {
+      switch (type) {
+        case 'name':
+          if (!biz.st) z = (a, b) => (a.name_count > b.name_count) ? 1 : -1
+          else z = (a, b) => (a.name_count < b.name_count) ? 1 : -1
+          break
+        default:
+          if (!biz.st) z = (a, b) => (a.name_diff > b.name_diff) ? 1 : -1
+          else z = (a, b) => (a.name_diff < b.name_diff) ? 1 : -1
+          break
+      }
+
+      this.st ^= 1
+      this.bizCounts.sort(z)
+    },
+    updateRank() {
+      if (this.rank <= 0 || this.rank > 500 || isNaN(this.rank))
+        this.showError('Range: 1 to 500')
+      else {
+        localStorage.setItem('biz_rank', this.rank)
+        this.page = 0
+        this.load()
+      }
+    },
+    formatCounts(counts) {
+      counts.map((e) => {
+        e.url = 'https://01mu.bitnamiapp.com/' +
+          'graphics/crypto/' + e.symbol.toLowerCase() + '.png'
+
+        e.name_diff = Math.abs(e.name_count - e.name_count_prev)
+
+        if (e.name_count < e.name_count_prev) e.name_diff *= -1
+        else e.name_diff = '+' + e.name_diff
+      })
+    },
+  },
+}

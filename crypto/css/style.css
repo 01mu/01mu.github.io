@@ -10,6 +10,12 @@ body { font-size: 18px; }
 .coinheader { text-align: left; font-weight: bold; padding: 10px;
     margin-bottom: 10px; border-bottom: solid 1px #ccc; }
 
+.hmtable {
+  table-layout: fixed;
+  width: 100%;
+  white-space: nowrap;
+}
+
 .wrapper100 { width: 100%; }
 .wrapper90 { width: 97%; }
 .wrapper75 { width: 75%; margin-right: 10px; }
@@ -33,7 +39,7 @@ body { font-size: 18px; }
 .bigger { margin: 0 auto; max-width: 90%; }
 
 .overflow { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
+.coinpadding { padding-top: 8px; padding-bottom: 8px; }
 .perfheader { text-align: center; font-weight: bold; padding: 10px;
     margin-bottom: 10px; border-bottom: solid 1px #ccc; }
 
@@ -47,9 +53,9 @@ body { font-size: 18px; }
     }
     .heatmap { width: 85%; }
     body, .body { font-size: 16px; }
-    .body { font-size: 16px; margin-right: 8px; margin-left: 8px; }
+    .body { font-size: 16px; margin-right: 16px; margin-left: 16px; }
     .centersm { text-align: center; }
-    .bigger { max-width: 100%; margin-right: 8px; margin-left: 8px; }
+    .bigger { max-width: 100%; margin-right: 16px; margin-left: 16px; }
     .hm { max-width: 90%; margin-right: 8px; margin-left: 8px; }
     .wrapper5 { width: 10%; }
     .wrapper25 { width: 45%; }
@@ -63,12 +69,14 @@ body { font-size: 18px; }
 .ave { text-align: center; }
 
 .tb { table-layout: fixed; width: 100%; }
-.singleinfo { border-bottom: 1px solid #bec3cc; padding: 10px; text-align: center;}
+.singleinfo { border-bottom: 1px solid #bec3cc; padding: 10px; }
 
 .navborder { border-bottom: 1px solid #cfcfcf; }
 .active { border-bottom: solid; border-width: 2px; border-color: blue; background-color: #f0f0f0; }
 .navpad { padding-top: 12px; padding-bottom: 12px; }
 
-tr:hover {
+tr:hover, .coinpadding:hover {
     background-color: #fafafa;
 }
+
+.centered { text-align: center; }
