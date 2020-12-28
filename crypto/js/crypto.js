@@ -1,7 +1,7 @@
 var navInfo  = []
 
 const routes = [
-  {path: '/', component: Portfolio },
+  {path: '/', component: Portfolio},
   {path: '/portfolio', component: Portfolio},
   {path: '/coins', component: Coins},
   {path: '/performers', component: Performers},
@@ -108,7 +108,7 @@ app.mount('#app')
 
 $(document).ready(() => {
   $('.navbar-nav>li>a').on('click', () => {
-    if(this.className == 'nav-link active')
+    if (this.className == 'nav-link active')
       $('.navbar-collapse').collapse('hide')
   })
 

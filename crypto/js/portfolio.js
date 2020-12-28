@@ -95,10 +95,17 @@ const Portfolio = {
         <div v-if="noticeVisible" class="alert alert-danger" role="alert">
           <b>{{ notice }}</b>
         </div>
-        <input class="form-control" v-on:keyup.enter="confirmCoin()"
-          placeholder="Symbol" v-model="coinSymbol"/>
-        <input class="form-control" v-on:keyup.enter="confirmCoin()"
-          placeholder="Amount" v-model="coinAmount"/><br>
+        <div class="flex">
+          <div class="wrapper50">
+            <input class="form-control" v-on:keyup.enter="confirmCoin()"
+              placeholder="Symbol" v-model="coinSymbol"/>
+          </div>&nbsp;
+          <div class="wrapper50">
+            <input class="form-control" v-on:keyup.enter="confirmCoin()"
+              placeholder="Amount" v-model="coinAmount"/>
+          </div>
+        </div>
+        <div style="margin-top: 8px;"></div>
         <button class="btn btn-block btn-outline-primary"
           v-on:click="confirmCoin()">
           Add coin
@@ -112,23 +119,22 @@ const Portfolio = {
           </button>
         </div>
       </div>
-      <span v-if="xsVisible" class="d-block d-sm-none">
+      <div v-if="xsVisible" class="d-block d-sm-none">
         <div class="flex">
-          <div class="wrapper50" style="padding-right: 8px;">
+          <div class="wrapper50">
             <button class="btn btn-block btn-outline-success"
               v-on:click="setEdit(toEdit)">
               Edit {{ toEdit }}
             </button>
-            <div style="padding-right: 4px;"></div>
-          </div>
-          <div class="wrapper50" style="padding-left: 4px;">
+          </div>&nbsp;
+          <div class="wrapper50">
             <button class="btn btn-block btn-outline-danger"
               v-on:click="removeCoin(toDelete)">
               Delete {{ toDelete }}
             </button>
           </div>
         </div>
-      </span>
+      </div>
     </div>
   </div>
   `,
@@ -150,15 +156,16 @@ const Portfolio = {
       toDelete: '',
       xsVisible: false,
       newAmount: '',
+      loaded: false,
     }
   },
   created() {
     const ctx = this
     this.coinTable = new Map()
-
+    this.loaded = localStorage.getItem('loaded')
     navbarInfo(this.navInfo)
 
-    if (!localStorage.getItem('loaded')) {
+    if (!this.loaded) {
       localStorage.setItem('loaded', 1)
       localStorage.setItem('portfolio',
         JSON.stringify({'BTC': 0, 'ETH': 0, 'XRP': 0}))
@@ -259,12 +266,13 @@ const Portfolio = {
       const ctx = this
       this.coinTable = localStorage.getItem('portfolio')
 
+      console.log(this.coinTable)
       if (this.coinTable == null) this.coinTable = new Map()
       else this.coinTable = JSON.parse(this.coinTable)
 
-      if (isEmpty(this.coinTable)) {
-          ctx.showBar = false
-          return
+      if (isEmpty(this.coinTable) && !this.loaded) {
+        ctx.showBar = false
+        return
       }
 
       const symbols = this.getSymbols()
