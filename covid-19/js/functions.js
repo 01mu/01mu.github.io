@@ -12,7 +12,7 @@ function commas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 }
 
-function countryCode (inputValue) {
+function countryCode(inputValue) {
   var nameCountries = {
     'Afghanistan' : 'AF',
     'Aland Islands' : 'AX',
@@ -299,4 +299,13 @@ function getTimeString(date) {
   var year = date.getFullYear()
 
   return month + '/' + day + '/' + year
+}
+
+function getNavbar(dest) {
+  var nav = {'today': 'navpad nav-link', 'countries': 'navpad nav-link',
+      'states': 'navpad nav-link'}
+
+  nav[dest] = 'navpad nav-link active'
+
+  return nav
 }

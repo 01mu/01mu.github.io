@@ -35,26 +35,31 @@ const Single = {
           </div>
         </div>
         <div v-if="fullVisible" class="d-block d-sm-none">
-          <div style="text-align: center;">
-          <button class="btn btn-outline-primary" v-on:click="setMinute()">
-            Minutes</button>&nbsp;
-          <button class="btn btn-outline-primary" v-on:click="setHourly()">
-            Hours</button>&nbsp;
-          <button class="btn btn-outline-primary" v-on:click="setDaily()">
-            Days</button>&nbsp;
-          <button class="btn btn-outline-primary" v-on:click="setWeekly()">
-            Weeks</button>&nbsp;
-          <button class="btn btn-outline-primary" v-on:click="setMonthly()">
-            Months</button>&nbsp;
-          </div>
-          <div style="margin: 16px;"></div>
-          <div class="input-group">
-            <input v-on:keyup.enter="update()" placeholder="Span"
-              v-model="limit"
-              class="form-control">&nbsp;
-            <button class="btn btn-outline-primary" v-on:click="update()">
-              Set span
-            </button>
+          <div class="col-sm-12" style="text-align: center;">
+            <button class="singlebutton btn btn-outline-primary"
+              v-on:click="setMinute()">
+              Minutes</button>
+            <button class="singlebutton btn btn-outline-primary"
+              v-on:click="setHourly()">
+              Hours</button>
+            <button class="singlebutton btn btn-outline-primary"
+              v-on:click="setDaily()">
+              Days</button>
+            <button class="singlebutton btn btn-outline-primary"
+              v-on:click="setWeekly()">
+              Weeks</button>
+            <button class="singlebutton btn btn-outline-primary"
+              v-on:click="setMonthly()">
+              Months</button>
+            <div style="margin: 8px;"></div>
+            <div class="input-group">
+              <input v-on:keyup.enter="update()" placeholder="Span"
+                v-model="limit"
+                class="form-control">&nbsp;
+              <button class="btn btn-outline-primary" v-on:click="update()">
+                Set span
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -103,27 +108,6 @@ const Single = {
   </div>
   `,
   components: {
-    optbuttons: {
-      props: ['hm'],
-      template:
-      `
-        <button class="btn btn-outline-primary" v-on:click="setMinute()">
-          Minutes
-        </button>&nbsp;
-        <button class="btn btn-outline-primary" v-on:click="setHourly()">
-          Hours
-        </button>&nbsp;
-        <button class="btn btn-outline-primary" v-on:click="setDaily()">
-          Days
-        </button>&nbsp;
-        <button class="btn btn-outline-primary" v-on:click="setWeekly()">
-          Weeks
-        </button>&nbsp;
-        <button class="btn btn-outline-primary" v-on:click="setMonthly()">
-          Months
-        </button>&nbsp;
-      `
-    },
     schart: {
       template:
       `<div style="display: block;"><canvas id="coinChart"></canvas></div>`
@@ -228,10 +212,10 @@ const Single = {
         const ch = new Chart(ctx, {
           type: 'candlestick',
           data: {
-              datasets: [{
-                  label: single.coin + ' ' + type,
-                  data: dataset
-              }]
+            datasets: [{
+              label: single.coin + ' ' + type,
+              data: dataset
+            }]
           },
           options: options
         })
@@ -245,6 +229,8 @@ const Single = {
         this.coinChart.data.datasets[0].data = dataset
         this.coinChart.update()
       }
+
+      $('html, body').animate({ scrollTop: 0 }, 'fast')
     },
     upaux(url, type) {
       const ctx = this
@@ -256,8 +242,8 @@ const Single = {
         var lowest = Number.MAX_SAFE_INTEGER
 
         if (response == 'Error')  {
-            ctx.coin = 'Error';
-            return;
+            ctx.coin = 'Error'
+            return
         }
 
         document.title  = 'Crypto | ' + ctx.coin
@@ -300,9 +286,11 @@ const Single = {
       var v = (Math.abs(current - previous) / previous) * 100
 
       if (current === previous || previous === 0) return 0
-      if (current < previous) v *= -1
 
-      return v.toFixed(2) + '%'
+      if (current < previous) v = v.toFixed(2) * -1
+      else v = '+' + v.toFixed(2)
+
+      return v + '%'
     },
     setRecentCoins() {
       const ctx = this

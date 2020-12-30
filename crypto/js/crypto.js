@@ -22,8 +22,8 @@ app.component('comp', {
   props: ['destination', 'info'],
   template:
   `
-  <nav class="navbar navbar-expand-lg navbar-light bg-light navborder"
-    style="padding-bottom: 0px; padding-top: 0px;">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light navborder
+    sticky-top" style="padding-bottom: 0px; padding-top: 0px;">
     <a class="navpad navbar-brand" href="#"><b>Crypto</b></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
         data-target="#navbarSupportedContent"

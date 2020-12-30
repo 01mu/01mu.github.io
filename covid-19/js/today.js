@@ -1,7 +1,7 @@
 const Today = {
   template:
   `
-  <comp></comp>
+  <comp :destination="navbar"></comp>
   <loadingbar :showbar="showBar"></loadingbar>
   <div v-if="fullVisible" class="body row">
     <tmargin :loc="'Global'"
@@ -20,6 +20,7 @@ const Today = {
       :updated="lastUpdate['us']"
       :url="'https://01mu.bitnamiapp.com/graphics/countries/US.PNG'">
     </tmargin>
+    <bottom></bottom>
   </div>
   `,
   components: {
@@ -61,7 +62,7 @@ const Today = {
                 :flag="place.url"></tdata>
         </div>
         <div class="smalltext">
-        {{ loc }} last updated on {{ updated }}
+        <p style="color: grey">{{ loc }} last updated on {{ updated }}</p>
         </div>
       </div>
       `,
@@ -72,7 +73,7 @@ const Today = {
          `
          <div class="flex">
             <div class="wrapper33">
-              <a :href="'index.html#/' + dest + '/' + name">
+              <a :href="'index.html#/single/' + dest + '/' + name">
                 <img height="20" width="30" style="cursor: pointer;"
                   :title="name"
                   :src="flag"/>
@@ -104,6 +105,9 @@ const Today = {
   },
   created() {
     const ctx = this
+
+    document.title = 'COVID-19 | Today'
+    this.navbar = getNavbar('today')
 
     $.getJSON(this.url, (json) => {
       ctx.globalStats = json.individual.global

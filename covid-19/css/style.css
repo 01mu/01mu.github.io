@@ -1,28 +1,36 @@
-body { background: #ff; font-size: 18px; background-color: #ffffff; }
+body { background: #ff; font-size: 18px; background-color: #ffffff;
+  overflow-y: scroll; }
+
 a { cursor: pointer; color: black; text-decoration: none; }
 
 [v-cloak] { display: none; }
 
 .nav_selection { cursor: pointer; }
 .nav_selection:hover { background-color: #f2f2f2; }
-.active { border-bottom: solid; border-width: 2px; border-color: #4f92ff; }
 .body { margin: 0 auto; max-width: 800px; }
 .bigger { margin: 0 auto; max-width: 90%; }
 .flex { display: flex; }
 .footer { margin: 20px; text-align: center; }
 .navbar-static-top { border-color: #b8b2b2; }
 .selected { font-weight: bold }
+.bgselected { background-color: #f7f7f7; }
 .not_selected { font-weight: normal }
 .smargin { margin-bottom: 12px; margin-top: 12px; }
+.smargin2 { margin-bottom: 3px; margin-top: 3px; }
 .boldtitle { font-weight: bold; text-align: center; }
 
+
+.lbox {  padding: 15px; }
 .box { text-align: center; padding: 15px; }
 .boxn { padding: 20px;}
 
-.box, .boxn {
+.box, .boxn, .lbox {
+    border-radius: 5px;
     background: #fcfcfc;
-    border: 1px solid #b8b2b2;
+    border: 1px solid #ab0a12;
     margin-bottom: 15px;
+    margin-left: 16px;
+    margin-right: 16px;
 }
 
 .wrapper50 { width: 50%;}
@@ -38,7 +46,14 @@ a { cursor: pointer; color: black; text-decoration: none; }
 
 @media only screen and (max-width: 600px) {
     body { font-size: 16px; }
+.navpad { padding-top: 12px; padding-bottom: 12px; text-align: center; }
 }
 
+
 .smalltext { text-align: center; font-size: 14px; margin-bottom: 8px; }
-.navborder { border-bottom: 1px solid grey; }
+.navborder { border-bottom: 1px solid #ab0a12; }
+
+.centered { text-align: center; }
+.active { background-color: #ebdde1; font-weight: bold; }
+
+.navpad { padding-top: 12px; padding-bottom: 12px; text-align: center; }

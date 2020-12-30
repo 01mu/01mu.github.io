@@ -1,6 +1,6 @@
 const nav_template = `
-  <nav class="navbar navbar-expand-lg navbar-light navborder sticky-top"
-    style="padding-bottom: 6px; padding-top: 6px; background-color: #ddded1;">
+  <nav class="navpad navbar navbar-expand-lg navbar-light navborder sticky-top"
+    style="background-color: #ddded1;">
     <a class="navbar-brand overflow" href="#">
       <!--<img src="img/favicon-32x32.png"/>&nbsp;--><b>Quotes</b>
     </a>

@@ -1,4 +1,4 @@
-body { font-size: 18px; }
+body { font-size: 18px; overflow-y: scroll; }
 .body, .heatmap { margin: 0 auto; max-width: 800px; }
 
 .box { border: 1px solid #bec3cc; padding: 8px; border-radius: 5px;
@@ -69,10 +69,12 @@ body { font-size: 18px; }
 .ave { text-align: center; }
 
 .tb { table-layout: fixed; width: 100%; }
-.singleinfo { border-bottom: 1px solid #bec3cc; padding: 10px; }
+.singleinfo { border-bottom: 1px solid #bec3cc; padding: 10px;
+  text-align: center; }
 
 .navborder { border-bottom: 1px solid #cfcfcf; }
-.active { border-bottom: solid; border-width: 2px; border-color: blue; background-color: #f0f0f0; }
+.active { border-bottom: solid; border-width: 2px; border-color: blue;
+  background-color: #f0f0f0; }
 .navpad { padding-top: 12px; padding-bottom: 12px; }
 
 tr:hover, .coinpadding:hover {
@@ -80,3 +82,4 @@ tr:hover, .coinpadding:hover {
 }
 
 .centered { text-align: center; }
+.singlebutton { width: 100%; margin-bottom: 4px; }
