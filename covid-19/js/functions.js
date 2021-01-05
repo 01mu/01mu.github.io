@@ -275,35 +275,34 @@ function replaceAll(string, search, replace) {
 }
 
 function timeConverter(UNIX_timestamp){
-  var a = new Date(UNIX_timestamp * 1000)
+  const a = new Date(UNIX_timestamp * 1000)
 
-  var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-    'August', 'September', 'October', 'November', 'December']
+  const months = ['January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December']
 
-  var year = a.getFullYear()
-  var month = months[a.getMonth()]
-  var date = a.getDate()
-  var hour = a.getHours()
-  var min = a.getMinutes()
-  var sec = a.getSeconds()
-  var time = date + ' ' + month + ' ' + year
+  const year = a.getFullYear()
+  const month = months[a.getMonth()]
+  const date = a.getDate()
+  const hour = a.getHours()
+  const min = a.getMinutes()
+  const sec = a.getSeconds()
+  const time = date + ' ' + month + ' ' + year
 
   return time
 }
 
-function getTimeString(date) {
-  var date = new Date(date * 1000)
-
-  var day = date.getDate()
-  var month = date.getMonth() + 1
-  var year = date.getFullYear()
+function getTimeString(str) {
+  const date = new Date(str * 1000)
+  const day = date.getDate()
+  const month = date.getMonth() + 1
+  const year = date.getFullYear()
 
   return month + '/' + day + '/' + year
 }
 
 function getNavbar(dest) {
   var nav = {'today': 'navpad nav-link', 'countries': 'navpad nav-link',
-      'states': 'navpad nav-link'}
+    'states': 'navpad nav-link'}
 
   nav[dest] = 'navpad nav-link active'
 

@@ -95,11 +95,11 @@ const Single = {
       place: '',
       type: '',
       data: [{'new_confirmed': 0, 'new_confirmed_per': 0,
-          'new_deaths': 0, 'new_deaths_per': 0,
-          'new_recovered': 0, 'new_recovered_per': 0,
-          'confirmed': 0, 'confirmed_per': 0,
-          'deaths': 0, 'deaths_per': 0,
-          'recovered': 0, 'recovered_per': 0}],
+        'new_deaths': 0, 'new_deaths_per': 0,
+        'new_recovered': 0, 'new_recovered_per': 0,
+        'confirmed': 0, 'confirmed_per': 0,
+        'deaths': 0, 'deaths_per': 0,
+        'recovered': 0, 'recovered_per': 0}],
       icon: '',
       picked: 'TC',
       chart: null,
@@ -110,65 +110,62 @@ const Single = {
     }
   },
   created() {
-    this.place = this.$route.params.place.replaceAll("%20", " ");
+    this.place = this.$route.params.place.replaceAll("%20", " ")
     this.type = this.$route.params.type
 
     if (this.$route.params.type == 'state') {
       this.type = 'us'
       this.navbar = getNavbar('states')
-    } else {
-      this.navbar = getNavbar('countries')
-    }
+    } else this.navbar = getNavbar('countries')
 
     document.title = 'COVID-19 | ' + this.place
     this.update()
   },
   methods: {
     generateChart(type) {
-      var label = '';
-      var dataset = [[], []];
+      var dataset = [[], []]
 
-      this.data.forEach(function(p) {
-        dataset[0].push(getTimeString(p['timestamp']));
-        dataset[1].push(p[type]);
-      });
+      for (p of this.data) {
+        dataset[0].push(getTimeString(p['timestamp']))
+        dataset[1].push(p[type])
+      }
 
       switch(type) {
         case 'confirmed':
-          label = 'Total Confirmed';
-          break;
+          label = 'Total Confirmed'
+          break
         case 'deaths':
-          label = 'Total Deaths';
-          break;
+          label = 'Total Deaths'
+          break
         case 'new_confirmed':
-          label = 'New Confirmed';
-          break;
+          label = 'New Confirmed'
+          break
         default:
-          label = 'New Deaths';
-      };
+          label = 'New Deaths'
+      }
 
       label += ' | ' + this.place
 
-      if(screen.width <= 600)
-        this.chart.canvas.parentNode.style.height = '400px';
+      if (screen.width <= 600)
+      this.chart.canvas.parentNode.style.height = '400px'
       else
-        this.chart.canvas.parentNode.style.height = '500px';
+        this.chart.canvas.parentNode.style.height = '500px'
 
-      this.chart.data.labels = dataset[0];
-      this.chart.data.datasets[0].label = label;
-      this.chart.data.datasets[0].data = dataset[1];
-      this.chart.update();
+      this.chart.data.labels = dataset[0]
+      this.chart.data.datasets[0].label = label
+      this.chart.data.datasets[0].data = dataset[1]
+      this.chart.update()
     },
     initChart() {
-      var ctx = document.getElementById('chart');
+      const ctx = document.getElementById('chart');
 
-      var options = {
+      const options = {
         elements: {
           point:{
             radius: 0
           }
         },
-        maintainAspectRatio: false ,
+        maintainAspectRatio: false,
         tooltips: {
           mode: 'x-axis'
         },
@@ -188,7 +185,7 @@ const Single = {
             }
           }]
         }
-      };
+      }
 
       this.chart = new Chart(ctx, {
           type: 'line',
@@ -208,9 +205,9 @@ const Single = {
             }]
           },
           options: options
-      });
+      })
 
-      this.chartLoaded = true;
+      this.chartLoaded = true
     },
     getIcon() {
       if (this.type == 'country')
@@ -222,35 +219,29 @@ const Single = {
     },
     update() {
       const ctx = this
-      var url = this.url + this.type + '/' + this.place + '/0';
 
-      $.getJSON(url, (json) => {
-        if(json.length == 0) {
-            ctx.place = "Invalid location";
-            return;
+      $.getJSON(this.url + this.type + '/' + this.place + '/0', (json) => {
+        if (json.length == 0) {
+          ctx.place = "Invalid location"
+          return
         }
 
-        ctx.data = json;
-        ctx.getIcon();
+        ctx.data = json
+        ctx.getIcon()
 
-        if(ctx.place != 'Global') {
-          ctx.initChart();
-          ctx.generateChart('confirmed');
+        if (ctx.place != 'Global') {
+          ctx.initChart()
+          ctx.generateChart('confirmed')
         }
 
-        ctx.data.forEach(function(e) {
-          if(e.new_confirmed < 0) {
-              e.new_confirmed = 0;
-          }
-
-          if(e.new_deaths < 0) {
-              e.new_deaths = 0;
-          }
-        });
+        for (e of ctx.data) {
+          if (e.new_confirmed < 0) e.new_confirmed = 0
+          if (e.new_deaths < 0) e.new_deaths = 0
+        }
 
         ctx.fullVisible = true
         ctx.showBar = false
-      });
+      })
     },
   }
 }

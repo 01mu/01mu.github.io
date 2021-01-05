@@ -9,15 +9,19 @@ const HeatMap = {
         <tr>
           <th></th>
           <template v-for="(date, index) in dates">
-            <th v-if="small && index > 16">{{ date.date }}</th>
-            <th v-else-if="!small">{{ date.date }}</th>
+            <th style="text-align: center;" v-if="small && index > 16">
+              {{ date.date }}
+            </th>
+            <th style="text-align: center;" v-else-if="!small && index > 4">
+              {{ date.date }}
+            </th>
           </template>
         </tr>
       </thead>
       <tbody class="table">
         <template v-for="(hm, index) in heatmap">
           <tr>
-            <td style="text-align:center;">
+            <td style="text-align: center;">
               <a :href="'index.html#/single/' + hm[0].symbol">
                 <img height="20" width="20"
                   style="cursor: pointer;"
@@ -25,10 +29,11 @@ const HeatMap = {
               </a>
             </td>
             <template v-for="(coin, index) in hm">
-              <td v-if="small && index > 16" :style="coin.color">
+              <td class="hmtd" v-if="small && index > 16" :style="coin.color">
                 {{ coin.difference }}
               </td>
-              <td v-else-if="!small" :style="coin.color">
+              <td class="hmtd" v-else-if="!small && index > 4"
+                :style="coin.color">
                 {{ coin.difference }}
               </td>
             </template>
@@ -40,7 +45,8 @@ const HeatMap = {
             <td v-if="small && index > 16" style="background-color: #b3e0ff;">
               {{ ave }}
             </td>
-            <td v-else-if="!small" style="background-color: #b3e0ff;">
+            <td v-else-if="!small && index > 4"
+              style="background-color: #b3e0ff;">
               {{ ave }}
             </td>
           </template>
@@ -109,6 +115,9 @@ const HeatMap = {
       hm.forEach((coin) => {
         coin.forEach((element) => {
           element.difference = element.difference.toFixed(2)
+
+          if (element.difference > 0)
+            element.difference = '+' + element.difference
         })
       })
     },

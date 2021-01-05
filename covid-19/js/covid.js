@@ -21,7 +21,10 @@ app.component('comp', {
   <nav class="navpad navbar navbar-expand-lg navbar-light bg-light navborder
     sticky-top"
     style="padding-bottom: 0px; padding-top: 0px;">
-    <a class="navpad navbar-brand" href="#"><b>COVID-19</b></a>
+    <a class="navpad navbar-brand" href="#">
+      <!--<img src="img/favicon.png" height="32" width="32">&nbsp;-->
+      <b>COVID-19</b>
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
         data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent"

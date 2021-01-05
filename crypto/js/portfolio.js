@@ -5,7 +5,7 @@ const Portfolio = {
   <loadingbar :showbar="showBar"></loadingbar>
   <div v-if="fullVisible" class="body">
     <div class="centersm">
-      <h1>{{ value }}</h1>
+      {{ value }}
       <h5>{{ btcValue }}</h5>
     </div>
     <table class="table">
