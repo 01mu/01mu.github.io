@@ -36,7 +36,8 @@ function numWord(labelValue) {
 function getNavbar(dest) {
   var nav = {'portfolio': 'navpad nav-link', 'performers': 'navpad nav-link',
     'coins': 'navpad nav-link', 'heatmap': 'navpad nav-link',
-    'mentions': 'navpad nav-link dropdown-toggle'}
+    'mentions': 'navpad nav-link dropdown-toggle',
+    'news': 'navpad nav-link' }
 
   if (dest != 'mentions') nav[dest] = 'navpad nav-link active'
   else nav[dest] = 'navpad nav-link dropdown-toggle active'
@@ -67,4 +68,21 @@ function navbarInfo(nv) {
     nv[0] = navInfo[0]
     nv[1] = navInfo[1]
   }
+}
+
+function timeConverter(UNIX_timestamp){
+  const a = new Date(UNIX_timestamp * 1000)
+
+  const months = ['January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December']
+
+  const year = a.getFullYear()
+  const month = months[a.getMonth()]
+  const date = a.getDate()
+  const hour = a.getHours()
+  const min = a.getMinutes()
+  const sec = a.getSeconds()
+  const time = date + ' ' + month + ' ' + year
+
+  return time
 }

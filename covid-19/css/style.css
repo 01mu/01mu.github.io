@@ -1,10 +1,7 @@
 body { background: #ff; font-size: 18px; background-color: #ffffff;
   overflow-y: scroll; }
-
 a { cursor: pointer; color: black; text-decoration: none; }
-
 [v-cloak] { display: none; }
-
 .nav_selection { cursor: pointer; }
 .nav_selection:hover { background-color: #f2f2f2; }
 .body { margin: 0 auto; max-width: 800px; }
@@ -18,42 +15,45 @@ a { cursor: pointer; color: black; text-decoration: none; }
 .smargin { margin-bottom: 12px; margin-top: 12px; }
 .smargin2 { margin-bottom: 3px; margin-top: 3px; }
 .boldtitle { font-weight: bold; text-align: center; }
-
-
+.flagmargin { margin-bottom: 6px; }
 .lbox {  padding: 15px; }
 .box { text-align: center; padding: 15px; }
+.newsbox {  padding: 5px; font-size: 16px; }
 .boxn { padding: 20px;}
-
-.box, .boxn, .lbox {
-    border-radius: 5px;
-    background: #fcfcfc;
-    border: 1px solid #ab0a12;
-    margin-bottom: 15px;
-    margin-left: 16px;
-    margin-right: 16px;
-}
-
+.overflow { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .wrapper50 { width: 50%;}
 .wrapper25 { width: 25%;}
 .wrapper33 { width: 33%;}
-
-.wrapper25, .wrapper50 {
-    padding: 2px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-@media only screen and (max-width: 600px) {
-    body { font-size: 16px; }
-.navpad { padding-top: 12px; padding-bottom: 12px; text-align: center; }
-}
-
-
 .smalltext { text-align: center; font-size: 14px; margin-bottom: 8px; }
 .navborder { border-bottom: 1px solid #ab0a12; }
-
 .centered { text-align: center; }
 .active { background-color: #ebdde1; font-weight: bold; }
-
 .navpad { padding-top: 12px; padding-bottom: 12px; text-align: center; }
+.box, .boxn, .lbox, .newsbox {
+  border-radius: 5px;
+  background: #fcfcfc;
+  border: 1px solid #ab0a12;
+  margin-bottom: 15px;
+  margin-left: 16px;
+  margin-right: 16px; }
+.wrapper25, .wrapper50 {
+  padding: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+.boxheader {
+  border-radius: 5px 5px 0px 0px;
+  background: #fcfcfc;
+  border: 1px hidden;
+  border-bottom: 1px solid #ab0a12;
+  background-color: #f2ebeb;
+  padding: 10px;
+  margin-bottom: 15px;
+  margin-top: -15px;
+  margin-left: -15px;
+  margin-right: -15px; }
+@media only screen and (max-width: 600px) {
+  body { font-size: 16px; }
+  .bigger { max-width: 100%;  }
+  .navpad { padding-top: 12px; padding-bottom: 12px; text-align: center; }
+}

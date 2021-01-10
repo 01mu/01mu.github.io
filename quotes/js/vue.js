@@ -39,7 +39,8 @@ function make() {
             <div class="overflow author">
               <div class="alignleft">
                 –
-                <a class="author" v-bind:href=quote.link>
+                <a style="color: #595454;" class="authortext"
+                  v-bind:href=quote.link>
                   {{ quote.author }}
                 </a>
               </div>
@@ -52,7 +53,7 @@ function make() {
         </div>
         <div v-if="ctx.type == 'author'">
           <a :href="'index.html#/author/quotes/' + quote.author">
-            <div class="quote" style="text-align: center;">
+            <div class="authorsearch" style="text-align: center;">
               {{ quote.author }}
             </div>
           </a>

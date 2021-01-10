@@ -31,9 +31,13 @@ const Today = {
       `
       <div class="col-sm-6">
         <div class="box">
-        <b>{{loc}}</b>
-        <div class="smargin"></div>
-        <img height="40" width="60" :src="url"/>
+        <div class="boxheader">
+          <div class="boldtitle">
+            <img style="margin-top: 5px;" height="40" width="60" :src="url"/>
+            <div class="flagmargin"></div>
+            {{ loc }}
+          </div>
+        </div>
         <div class="smargin"></div>
         {{ stats.new_confirmed }} New Confirmed Cases<br>
         {{ stats.new_deaths }} New Deaths
@@ -42,24 +46,24 @@ const Today = {
         {{ stats.deaths }} Total Deaths<br>
         </div>
         <div class="box">
-            <b>New Confirmed Cases<br>({{loc}})</b>
-            <div class="smargin"></div>
-              <tdata v-for="place in data_confirmed"
-                :count="place.new_confirmed"
-                :per="place.new_confirmed_per"
-                :name="place[dest]"
-                :dest="dest"
-                :flag="place.url"></tdata>
+          <div class="boxheader"><b>New Confirmed Cases<br>({{ loc }})</b></div>
+          <div class="smargin"></div>
+            <tdata v-for="place in data_confirmed"
+              :count="place.new_confirmed"
+              :per="place.new_confirmed_per"
+              :name="place[dest]"
+              :dest="dest"
+              :flag="place.url"></tdata>
         </div>
         <div class="box">
-            <b>New Deaths<br>({{loc}})</b>
-            <div class="smargin"></div>
-              <tdata v-for="place in data_deaths"
-                :count="place.new_deaths"
-                :per="place.new_deaths_per"
-                :name="place[dest]"
-                :dest="dest"
-                :flag="place.url"></tdata>
+          <div class="boxheader"><b>New Deaths<br>({{ loc }})</b></div>
+          <div class="smargin"></div>
+            <tdata v-for="place in data_deaths"
+              :count="place.new_deaths"
+              :per="place.new_deaths_per"
+              :name="place[dest]"
+              :dest="dest"
+              :flag="place.url"></tdata>
         </div>
         <div class="smalltext">
         <p style="color: grey">{{ loc }} last updated on {{ updated }}</p>

@@ -1,20 +1,13 @@
 body { font-size: 18px; overflow-y: scroll; }
 .body, .heatmap { margin: 0 auto; max-width: 800px; }
-
 .box { border: 1px solid #bec3cc; padding: 8px; border-radius: 5px;
-    margin-top: 16px; background-color: #fafafa}
+  margin-top: 16px; background-color: #fafafa}
 .mbottom { margin-bottom: 16px; }
-
 .flex { display: flex; }
-
 .coinheader { text-align: left; font-weight: bold; padding: 10px;
-    margin-bottom: 10px; border-bottom: solid 1px #ccc; }
-
-.hmtable {
-  table-layout: fixed;
-  width: 100%;
-}
-
+  margin-bottom: 10px; border-bottom: solid 1px #ccc; }
+.searchborder { margin-top: 16px; border-bottom: solid 1px #ccc; }
+.hmtable { table-layout: fixed; width: 100%; }
 .wrapper100 { width: 100%; }
 .wrapper90 { width: 97%; }
 .wrapper75 { width: 75%; margin-right: 10px; }
@@ -32,59 +25,43 @@ body { font-size: 18px; overflow-y: scroll; }
 .wrapper15 { width: 15%; }
 .wrapper6p5 { width: 6.5%; }
 .wrapper33 { width: 33%; }
-
 .bizl, bizr { width: 33%; }
-
 .bigger { margin: 0 auto; max-width: 90%; }
-
 .overflow { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .coinpadding { padding-top: 8px; padding-bottom: 8px; }
 .perfheader { text-align: center; font-weight: bold; padding: 10px;
-    margin-bottom: 10px; border-bottom: solid 1px #ccc; }
-
+  margin-bottom: 10px; border-bottom: solid 1px #ccc; }
 .centerns { text-align: center; margin-top: 16px; }
-.centersm { font-size: 45px; margin-bottom: 16px; }
-
+.centersm { font-size: 50px; margin-bottom: 16px; }
 .hm { margin: 0 auto; max-width: 90%;  }
-
-@media only screen and (max-width: 600px) {
-    .portfoliobottom {
-    margin: 0 auto; max-width: 85%
-    }
-    .heatmap { width: 85%; }
-    body, .body { font-size: 16px; }
-    .body { font-size: 16px; margin-right: 16px; margin-left: 16px; }
-    .centersm { text-align: center; }
-    .bigger { max-width: 100%; margin-right: 16px; margin-left: 16px; }
-    .hm { max-width: 90%; margin-right: 8px; margin-left: 8px; }
-    .wrapper5 { width: 10%; }
-    .wrapper25 { width: 45%; }
-    .wrapper10 { width: 50%; text-align: center; }
-    .fm { margin-left: -2px; margin-right: -2px; }
-    .bizl, .bizr { width: 50%; }
-    .bizl { margin-left: 8px; }
-    .bizr { text-align: center; }
-}
-
 .ave { text-align: center; }
-
 .tb { table-layout: fixed; width: 100%; }
 .singleinfo { border-bottom: 1px solid #bec3cc; padding: 10px;
   text-align: center; }
-
 .navborder { border-bottom: 1px solid #cfcfcf; }
 .active { border-bottom: solid; border-width: 2px; border-color: blue;
   background-color: #f0f0f0; }
 .navpad { padding-top: 12px; padding-bottom: 12px; }
-
 tr:hover, .coinpadding:hover {
-    background-color: #fafafa;
-}
-
+    background-color: #fafafa; }
 .centered { text-align: center; }
 .singlebutton { width: 100%; margin-bottom: 4px; }
-
-.hmtd {
-
+@media only screen and (max-width: 600px) {
+  .portfoliobottom { margin: 0 auto; max-width: 85% }
+  .heatmap { width: 85%; }
+  body, .body { font-size: 16px; }
+  .body { font-size: 16px; margin-right: 16px; margin-left: 16px; }
+  .centersm { text-align: center; }
+  .bigger { max-width: 100%; margin-right: 16px; margin-left: 16px; }
+  .hm { max-width: 90%; margin-right: 8px; margin-left: 8px; }
+  .wrapper5 { width: 10%; }
+  .wrapper25 { width: 45%; }
+  .wrapper10 { width: 50%; text-align: center; }
+  .fm { margin-left: -2px; margin-right: -2px; }
+  .bizl, .bizr { width: 50%; }
+  .bizl { margin-left: 8px; }
+  .bizr { text-align: center; }
 }
-
+.aligned {
+  display: flex;
+}

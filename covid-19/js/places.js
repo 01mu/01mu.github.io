@@ -4,33 +4,33 @@ const template =
   <loadingbar :showbar="showBar"></loadingbar>
   <div v-if="fullVisible" class="body">
     <div class="box">
-    <div class="dropdown">
-      <button style="background-color: #ebdde1; font-weight: bold; color: black;
-      width: 100%;" class="btn btn-secondary dropdown-toggle"
-      type="button" id="dropdownMenuButton" data-toggle="dropdown"
-      aria-haspopup="true" aria-expanded="false">
-        {{ picked }}
-      </button>
-      <div style="text-align: center; width: 100%;" class="dropdown-menu"
-        aria-labelledby="dropdownMenuButton">
-        <a v-on:click="setType('total')" class="dropdown-item">
-          Total Confirmed / Total Deaths
-        </a>
-        <a v-on:click="setType('new')" class="dropdown-item">
-          New Confirmed / New Deaths
-        </a>
-        <a v-on:click="setType('totalpern')" class="dropdown-item">
-          Total (Per 100,000)
-        </a>
-        <a v-on:click="setType('newpern')" class="dropdown-item">
-          New (Per 100,000)
-        </a>
+      <div class="dropdown">
+        <button style="background-color: #ebdde1; font-weight: bold;
+        color: black; width: 100%;" class="btn btn-secondary dropdown-toggle"
+        type="button" id="dropdownMenuButton" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+          {{ picked }}
+        </button>
+        <div style="text-align: center; width: 100%;" class="dropdown-menu"
+          aria-labelledby="dropdownMenuButton">
+          <a v-on:click="setType('total')" class="dropdown-item">
+            Total Confirmed / Total Deaths
+          </a>
+          <a v-on:click="setType('new')" class="dropdown-item">
+            New Confirmed / New Deaths
+          </a>
+          <a v-on:click="setType('totalpern')" class="dropdown-item">
+            Total (Per 100,000)
+          </a>
+          <a v-on:click="setType('newpern')" class="dropdown-item">
+            New (Per 100,000)
+          </a>
+        </div>
       </div>
-    </div>
-    <div class="smargin"></div>
-    <input class="form-control"
-      style="text-align: center;" :placeholder="searchFor" type="text"
-      @input="updateSearch" @change="updateSearch">
+      <div class="smargin"></div>
+      <input class="form-control"
+        style="text-align: center;" :placeholder="searchFor" type="text"
+        @input="updateSearch" @change="updateSearch">
     </div>
     <div class="smargin2"></div>
     <div class="lbox">
@@ -74,7 +74,7 @@ components.casedata =
         <img height="20" width="30" :src="place.url"/>
         &nbsp;
         <a :href="'index.html#/single/' + dest + '/' + place[dest]">
-          {{place.loc}}
+          {{ place.loc }}
         </a>
       </div>
       <div v-if="!pern" style="text-align:center;" :class="sortbg[show_l]">

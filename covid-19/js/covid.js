@@ -18,9 +18,8 @@ app.component('comp', {
   props: ['destination'],
   template:
   `
-  <nav class="navpad navbar navbar-expand-lg navbar-light bg-light navborder
-    sticky-top"
-    style="padding-bottom: 0px; padding-top: 0px;">
+  <nav class="navpad navbar navbar-expand-lg navbar-light navborder"
+    style="padding-bottom: 0px; padding-top: 0px; background-color: #f2f2f2;">
     <a class="navpad navbar-brand" href="#">
       <!--<img src="img/favicon.png" height="32" width="32">&nbsp;-->
       <b>COVID-19</b>
@@ -74,7 +73,7 @@ app.component('bottom', {
     <p>
       Case data collected from
       <b>
-        <a style="color: grey;" href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series">JHU CSSE</a>
+        <a style="color: grey;" href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series">the JHU CSSE</a>
       </b>
     </p>
   </div>

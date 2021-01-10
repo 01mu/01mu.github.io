@@ -132,7 +132,7 @@ const HeatMap = {
         case (diff >= .5 && diff < 1): color = '#99ffbb;'; break;
         case (diff >= 1 && diff < 2): color = '#80ffaa;'; break;
         case (diff >= 2 && diff < 3): color = '#66ff99;'; break;
-        default: color = '#4dff88;'
+        default: color = '#66ff99;'
       }
 
       return 'text-align: center; background-color:' + color

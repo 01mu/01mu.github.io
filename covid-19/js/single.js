@@ -8,7 +8,7 @@ const Single = {
       <div class="boldtitle">
           <img height="40" width="60" :src="icon"/>
           <div class="smargin"></div>
-          {{place}}
+          {{ place }}
           <div class="smargin"></div>
       </div>
       <singledisplay :data="data" icon:="icon" place:="place" :commas="commas">
@@ -16,34 +16,45 @@ const Single = {
     </div>
     <canvas id="chart"></canvas>
     <div v-if="fullVisible" class="box">
-      <div class="form-check form-check-inline">
-        <label class="form-check-label">
-          <input class="form-check-input" type="radio" value="TC"
-            v-model="picked" v-on:click="generateChart('confirmed')">
-          Total Confirmed
-        </label>
+      <div class="dropdown">
+        <button style="background-color: #ebdde1; font-weight: bold;
+        color: black; width: 100%;" class="btn btn-secondary dropdown-toggle"
+        type="button" id="dropdownMenuButton" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+          {{ picked }}
+        </button>
+        <div style="text-align: center; width: 100%;" class="dropdown-menu"
+          aria-labelledby="dropdownMenuButton">
+          <a v-on:click="generateChart('confirmed')" class="dropdown-item">
+            Total Confirmed
+          </a>
+          <a v-on:click="generateChart('deaths')" class="dropdown-item">
+            Total Deaths
+          </a>
+          <a v-on:click="generateChart('new_confirmed')" class="dropdown-item">
+            New Confirmed
+          </a>
+          <a v-on:click="generateChart('new_deaths')" class="dropdown-item">
+            New Deaths
+          </a>
+        </div>
       </div>
-      <div class="form-check form-check-inline">
-        <label class="form-check-label">
-          <input class="form-check-input" type="radio" id="one" value="TD"
-            v-model="picked" v-on:click="generateChart('deaths')">
-          Total Deaths
-        </label>
+      <div v-if="news.length > 0" class="smargin"></div>
+      <div v-if="news.length > 0" style="width: 100%;"
+        class="btn btn-outline-primary" v-on:click="toggleNews()">
+        {{ newsText }}
       </div>
-      <div class="form-check form-check-inline">
-        <label class="form-check-label">
-          <input class="form-check-input" type="radio" id="two" value="NC"
-            v-model="picked" v-on:click="generateChart('new_confirmed')">
-          New Confirmed
-        </label>
-      </div>
-      <div class="form-check form-check-inline">
-        <label class="form-check-label">
-          <input class="form-check-input" type="radio" id="two" value="ND"
-            v-model="picked" v-on:click="generateChart('new_deaths')">
-          New Deaths
-        </label>
-      </div>
+    </div>
+    <div v-if="newsToggle">
+      <template v-for="(article, index) in news">
+        <div class="newsbox overflow">
+          <a :href="article.url">{{ article.title }}</a><br>
+          <b>{{ article.source }}</b>&nbsp;
+          <span style="color: grey;">
+            {{ timeConverter(article.published) }}
+          </span>
+        </div>
+      </template>
     </div>
     <bottom v-if="fullVisible"></bottom>
     <div style="padding: 1px;"></div>
@@ -101,12 +112,16 @@ const Single = {
         'deaths': 0, 'deaths_per': 0,
         'recovered': 0, 'recovered_per': 0}],
       icon: '',
-      picked: 'TC',
+      picked: 'Total Confirmed',
       chart: null,
       chartLoaded: false,
       showBar: true,
       fullVisible: false,
       commas: commas,
+      news: [],
+      newsToggle: false,
+      newsText: 'Show Headlines',
+      timeConverter: timeConverter,
     }
   },
   created() {
@@ -122,6 +137,12 @@ const Single = {
     this.update()
   },
   methods: {
+    toggleNews() {
+      this.newsToggle ^= 1
+
+      if (this.newsToggle) this.newsText = 'Hide Headlines'
+      else  this.newsText = 'Show Headlines'
+    },
     generateChart(type) {
       var dataset = [[], []]
 
@@ -132,16 +153,16 @@ const Single = {
 
       switch(type) {
         case 'confirmed':
-          label = 'Total Confirmed'
+          label = this.picked = 'Total Confirmed'
           break
         case 'deaths':
-          label = 'Total Deaths'
+          label = this.picked = 'Total Deaths'
           break
         case 'new_confirmed':
-          label = 'New Confirmed'
+          label = this.picked = 'New Confirmed'
           break
         default:
-          label = 'New Deaths'
+          label = this.picked = 'New Deaths'
       }
 
       label += ' | ' + this.place
@@ -226,7 +247,8 @@ const Single = {
           return
         }
 
-        ctx.data = json
+        ctx.news = json['news']
+        ctx.data = json['cases']
         ctx.getIcon()
 
         if (ctx.place != 'Global') {

@@ -4,6 +4,16 @@ const Coins = {
   <comp :destination="navbar" :info="navInfo"></comp>
   <loadingbar :showbar="showBar"></loadingbar>
   <div v-if="fullVisible" class="bigger">
+    <div class="input-group" style="margin-top: 16px;">
+        <input v-on:keyup.enter="search()"
+          placeholder="Search for a coin" style="text-align: center;"
+          v-model="query" class="form-control">
+          &nbsp;
+        <button class="btn btn-outline-primary" v-on:click="search()">
+          Search
+        </button>
+    </div>
+    <div class="searchborder"></div>
     <div class="flex coinheader">
       <div class="wrapper5 overflow">#</div>
       <div class="wrapper25 overflow">Coin</div>
@@ -53,9 +63,9 @@ const Coins = {
       </div>
     </template>
     <div style="margin: 16px">
-      <button class="btn btn-block btn-outline-primary" v-on:click="loadMore()">
+      <div class="btn btn-block btn-outline-primary" v-on:click="loadMore()">
         {{ loadingText }}
-      </button>
+      </div>
     </div>
   </div>
   `,
@@ -64,10 +74,15 @@ const Coins = {
       navInfo: [],
       fullVisible: false,
       showBar: true,
+      query: '',
       nav: 'coins',
+      searchURL: 'https://01mu.bitnamiapp.com/crypto/search/',
       url: 'https://01mu.bitnamiapp.com/crypto/coins/',
       coins: [],
+      hold: [],
+      searchList: [],
       page: 0,
+      searchedFor: false,
       lastUpdated: '',
       loadingText: 'Load more',
     }
@@ -84,12 +99,42 @@ const Coins = {
       ctx.formatCoins(ctx.coins)
       ctx.showBar = false
       ctx.fullVisible = true
+      ctx.hold = [...ctx.coins]
     })
 
     navbarInfo(this.navInfo)
     this.navbar = getNavbar('coins')
   },
   methods: {
+    performSearch() {
+      var searchDisplay = [];
+      const t = this.query.toLowerCase();
+
+      for (p of this.searchList) {
+        const hasName = p['name'].toLowerCase().includes(t)
+        const hasSymbol = p['symbol'].toLowerCase().includes(t)
+
+        if (hasName || hasSymbol) searchDisplay.push(p)
+      }
+
+      this.coins = searchDisplay
+
+      if (this.query === '') this.coins = this.hold
+    },
+    search() {
+      this.page = 0
+
+      if (!this.searchedFor) {
+        $.getJSON(this.searchURL, (json) => {
+          this.formatCoins(json.coins)
+          this.searchList = json.coins
+          this.searchedFor = true
+          this.performSearch()
+        })
+      } else {
+        this.performSearch()
+      }
+    },
     formatCoins(coins) {
       coins.map((element) => {
         element.url = 'https://01mu.bitnamiapp.com/' +

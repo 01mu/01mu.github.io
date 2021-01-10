@@ -7,6 +7,7 @@ const routes = [
   {path: '/performers', component: Performers},
   {path: '/heatmap', component: HeatMap},
   {path: '/biz', component: Biz},
+  {path: '/news', component: News},
   {path: '/single', component: Portfolio},
   {path: '/single/:id', component: Single},
 ]
@@ -22,8 +23,8 @@ app.component('comp', {
   props: ['destination', 'info'],
   template:
   `
-  <nav class="navbar navbar-expand-lg navbar-light bg-light navborder
-    sticky-top" style="padding-bottom: 0px; padding-top: 0px;">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light navborder"
+    style="padding-bottom: 0px; padding-top: 0px;">
     <a class="navpad navbar-brand" href="#"><b>Crypto</b></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
         data-target="#navbarSupportedContent"
@@ -49,6 +50,12 @@ app.component('comp', {
             <a :class="destination['coins']" href="index.html#/coins">
             <img src="img/coins.png" height="16" width="16">
             Coins
+          </a>
+        </li>
+        <li class="nav-item">
+          <a :class="destination['news']" href="index.html#/news">
+            <img src="img/news.png" height="16" width="16">
+            News
           </a>
         </li>
         <li class="nav-item">
