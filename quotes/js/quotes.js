@@ -2,7 +2,8 @@ const nav_template = `
   <nav class="navpad navbar navbar-expand-lg navbar-light navborder"
     style="background-color: #ddded1;">
     <a class="navbar-brand overflow" href="#">
-      <!--<img src="img/favicon-32x32.png"/>&nbsp;--><b>Quotes</b>
+      <!--<img src="img/favicon-32x32.png"/>&nbsp;-->
+      <b class="logotext">Quotes</b>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
         data-target="#navbarSupportedContent"
@@ -13,21 +14,21 @@ const nav_template = `
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <div  v-if="ctx.viewingAuthor" class="sborder"></div>
       <ul class="navbar-nav mr-auto">
-          <a :href="'index.html#/author/quotes/' + ctx.currentAuthor">
-            <li v-if="ctx.viewingAuthor"
-              :class="ctx.nav['quotes']">
-              {{ ctx.currentAuthor }}'s Quotes
-            </li>
-          </a>
+        <a :href="'index.html#/author/quotes/' + ctx.currentAuthor">
+          <li v-if="ctx.viewingAuthor"
+            :class="ctx.nav['quotes']">
+            {{ ctx.currentAuthor }}'s Quotes
+          </li>
+        </a>
         <div class="sborder"></div>
-          <a :href="'index.html#/author/relations/' + ctx.currentAuthor">
-            <li v-if="ctx.viewingAuthor"
-              :class="ctx.nav['relations']">
-              {{ ctx.currentAuthor }}'s Relations
-            </li>
-          </a>
+        <a :href="'index.html#/author/relations/' + ctx.currentAuthor">
+          <li v-if="ctx.viewingAuthor"
+            :class="ctx.nav['relations']">
+            {{ ctx.currentAuthor }}'s Relations
+          </li>
+        </a>
         <div class="d-none d-sm-block">
-            <li class="nav-link"><a>&nbsp;</a></li>
+          <li class="nav-link"><a>&nbsp;</a></li>
         </div>
     </ul>
     <div v-if="ctx.viewingAuthor" class="sborder"></div>
@@ -56,6 +57,15 @@ const nav_template = `
               </div>
           </span>
         </li>
+        <div class="sborder"></div>
+        <a>
+          <li :class="ctx.nav['favorites']">
+            <a href="index.html#/favorites"
+              class="icon">
+              <img src="img/fav_full.png" width="32"/>
+            </a>
+          </li>
+        </a>
       </ul>
     </div>
   </nav>
@@ -91,8 +101,14 @@ function highlight(string, needle) {
     return '<span style="background-color:#fffa00;">' + str + '</span>'});
 }
 
+function dehighlight(string) {
+  return string.replace(/<span style="background-color:#fffa00;">/g, '')
+    .replace(/<\/span>/g, '')
+}
+
 const routes = [
   {path: '/', component: make()},
+  {path: '/favorites', component: make()},
   {path: '/author/relations/:relations', component: make()},
   {path: '/author/quotes/:author', component: make()},
   {path: '/search/author/:authorSearch', component: make()},

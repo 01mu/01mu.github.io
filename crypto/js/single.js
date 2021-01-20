@@ -14,54 +14,52 @@ const Single = {
         </div>
         <schart></schart>
         <div style="margin: 16px;"></div>
-        <div v-if="fullVisible" class="d-none d-sm-block">
-          <div class="input-group">
-            <button class="btn btn-outline-primary" v-on:click="setMinute()">
-              Minutes</button>&nbsp;
-            <button class="btn btn-outline-primary" v-on:click="setHourly()">
-              Hours</button>&nbsp;
-            <button class="btn btn-outline-primary" v-on:click="setDaily()">
-              Days</button>&nbsp;
-            <button class="btn btn-outline-primary" v-on:click="setWeekly()">
-              Weeks</button>&nbsp;
-            <button class="btn btn-outline-primary" v-on:click="setMonthly()">
-              Months</button>&nbsp;
-            <input v-on:keyup.enter="update()" placeholder="Span"
-              v-model="limit"
-              class="form-control">&nbsp;
-            <button class="btn btn-outline-primary" v-on:click="update()">
-              Set span
-            </button>
-          </div>
-        </div>
-        <div v-if="fullVisible" class="d-block d-sm-none">
-          <div class="col-sm-12" style="text-align: center;">
-            <button class="singlebutton btn btn-outline-primary"
-              v-on:click="setMinute()">
-              Minutes</button>
-            <button class="singlebutton btn btn-outline-primary"
-              v-on:click="setHourly()">
-              Hours</button>
-            <button class="singlebutton btn btn-outline-primary"
-              v-on:click="setDaily()">
-              Days</button>
-            <button class="singlebutton btn btn-outline-primary"
-              v-on:click="setWeekly()">
-              Weeks</button>
-            <button class="singlebutton btn btn-outline-primary"
-              v-on:click="setMonthly()">
-              Months</button>
-            <div style="margin: 8px;"></div>
-            <div class="input-group">
+        <div v-if="fullVisible">
+          <div class="flex">
+            <div class="wrapper75">
+             <div class="input-group">
               <input v-on:keyup.enter="update()" placeholder="Span"
                 v-model="limit"
-                class="form-control">&nbsp;
-              <button class="btn btn-outline-primary" v-on:click="update()">
-                Set span
-              </button>
+                class="form-control">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-primary" v-on:click="update()">
+                    Set span
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="wrapper25">
+              <div class="dropdown">
+                <button style="width: 100%;"
+                class="btn btn-outline-primary dropdown-toggle"
+                type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                  {{ mode }}
+                </button>
+                <div style="text-align: center; width: 100%;"
+                  class="dropdown-menu"
+                  aria-labelledby="dropdownMenuButton">
+                  <a v-on:click="setMinute()" class="dropdown-item">
+                    Minutes
+                  </a>
+                  <a v-on:click="setHourly()" class="dropdown-item">
+                    Hours
+                  </a>
+                  <a v-on:click="setDaily()" class="dropdown-item">
+                    Days
+                  </a>
+                  <a v-on:click="setWeekly()" class="dropdown-item">
+                    Weeks
+                  </a>
+                  <a v-on:click="setMonthly()" class="dropdown-item">
+                    Months
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+
       </div>
       <div v-if="fullVisible" class="col-sm-2">
         <div class="singleinfo" style="text-align: center;">
@@ -105,6 +103,7 @@ const Single = {
       </template>
      </div>
     </div>
+    <bottom v-if="fullVisible"></bottom>
   </div>
   `,
   components: {
@@ -122,7 +121,7 @@ const Single = {
       coinHistoryDisplay: 6,
       coin: 'BTC',
       limit: 30,
-      lastMode: '',
+      mode: '',
       recentCoins: [],
       recentIcons: [],
       coinInfo: {'icon' : '', 'open': 0, 'close': 0, 'high': 0, 'low': 0,
@@ -147,6 +146,7 @@ const Single = {
 
       this.upaux(url, '(' + this.limit + ' Minutes)')
       localStorage.setItem('chart_mode', 'minute')
+      this.mode = 'Minutes'
     },
     setHourly() {
       const url = 'https://min-api.cryptocompare.com/data/histohour?fsym=' +
@@ -154,6 +154,7 @@ const Single = {
 
       this.upaux(url, '(' + this.limit + ' Hours)')
       localStorage.setItem('chart_mode', 'hour')
+      this.mode = 'Hours'
     },
     setDaily() {
       const url = 'https://min-api.cryptocompare.com/data/histoday?fsym=' +
@@ -161,6 +162,7 @@ const Single = {
 
       this.upaux(url, '(' + this.limit + ' (Days)')
       localStorage.setItem('chart_mode', 'day')
+      this.mode = 'Days'
     },
     setWeekly() {
       const url = 'https://min-api.cryptocompare.com/data/histoday?fsym=' +
@@ -168,6 +170,7 @@ const Single = {
 
       this.upaux(url, '(' + this.limit + ' Weeks)')
       localStorage.setItem('chart_mode', 'week')
+      this.mode = 'Weeks'
     },
     setMonthly() {
       const url = 'https://min-api.cryptocompare.com/data/histoday?fsym=' +
@@ -175,6 +178,7 @@ const Single = {
 
       this.upaux(url, '(' + this.limit + ' Months)')
       localStorage.setItem('chart_mode', 'month')
+      this.mode = 'Months'
     },
     setChart(dataset, type) {
       if(this.coinChart == null) {
@@ -301,7 +305,7 @@ const Single = {
 
       this.recentCoins.forEach((element) => {
         var icon = 'https://01mu.bitnamiapp.com/' +
-          'graphics/crypto/' + element.toLowerCase() + '.png'
+          'graphics/crypto/' + element + '.png'
 
         ctx.recentIcons.push(icon)
       })
@@ -328,7 +332,7 @@ const Single = {
       localStorage.setItem('chart_limit', this.limit)
 
       this.coinInfo['icon'] = 'https://01mu.bitnamiapp.com/' +
-        'graphics/crypto/' + this.coin.toLowerCase() + '.png'
+        'graphics/crypto/' + this.coin + '.png'
 
       switch (localStorage.getItem('chart_mode')) {
         case 'minute': this.setMinute(); break;

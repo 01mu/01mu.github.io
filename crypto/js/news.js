@@ -21,6 +21,7 @@ const News = {
         {{ loadingText }}
       </div>
     </div>
+    <bottom></bottom>
   </div>
   `,
   data() {

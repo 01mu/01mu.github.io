@@ -41,11 +41,14 @@ const Biz = {
     </div>
     <div class="input-group" style="margin-top: 16px;">
       <input v-on:keyup.enter="updateRank()"
-        placeholder="Rank limit" v-model="rank" class="form-control">&nbsp;
-      <button class="btn btn-outline-primary" v-on:click="updateRank()">
-        Set rank limit
-      </button>
+        placeholder="Rank limit" v-model="rank" class="form-control">
+        <div class="input-group-append">
+          <button class="btn btn-outline-primary" v-on:click="updateRank()">
+            Set rank limit
+          </button>
+        </div>
     </div>
+    <bottom></bottom>
   </div>
   `,
   data() {
@@ -71,16 +74,7 @@ const Biz = {
 
     document.title = 'Crypto | /biz/ Mentions'
 
-    $.getJSON(this.url + this.rank + '/0', (json) => {
-        ctx.formatCounts(json['biz'])
-        ctx.bizCounts = json['biz']
-        ctx.showBar = false
-        ctx.fullVisible = true
-        ctx.lastUpdated =
-            'Last updated ' +
-            since(json.last_update_biz.input_value)
-    })
-
+    this.load()
     navbarInfo(this.navInfo)
     this.navbar = getNavbar('mentions')
   },
@@ -91,6 +85,18 @@ const Biz = {
       this.noticeVisible = 1
       clearInterval(this.timer)
       this.timer = setTimeout(() => { ctx.noticeVisible = 0 }, 1500)
+    },
+    load() {
+      const ctx = this
+
+      $.getJSON(this.url + this.rank + '/0', (json) => {
+          ctx.formatCounts(json['biz'])
+          ctx.bizCounts = json['biz']
+          ctx.showBar = false
+          ctx.fullVisible = true
+          ctx.lastUpdated =
+            'Last updated ' + since(json.last_update_biz.input_value)
+      })
     },
     sort(type) {
       switch (type) {
@@ -119,7 +125,7 @@ const Biz = {
     formatCounts(counts) {
       counts.map((e) => {
         e.url = 'https://01mu.bitnamiapp.com/' +
-          'graphics/crypto/' + e.symbol.toLowerCase() + '.png'
+          'graphics/crypto/' + e.symbol + '.png'
 
         e.name_diff = Math.abs(e.name_count - e.name_count_prev)
 

@@ -120,7 +120,7 @@ const Single = {
       commas: commas,
       news: [],
       newsToggle: false,
-      newsText: 'Show Headlines',
+      newsText: 'Show Recent Headlines',
       timeConverter: timeConverter,
     }
   },
@@ -140,8 +140,8 @@ const Single = {
     toggleNews() {
       this.newsToggle ^= 1
 
-      if (this.newsToggle) this.newsText = 'Hide Headlines'
-      else  this.newsText = 'Show Headlines'
+      if (this.newsToggle) this.newsText = 'Hide Recent Headlines'
+      else this.newsText = 'Show Recent Headlines'
     },
     generateChart(type) {
       var dataset = [[], []]

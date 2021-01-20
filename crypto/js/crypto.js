@@ -77,17 +77,23 @@ app.component('comp', {
         </li>
       </ul>
       <ul v-if="info.length != 0" class="navbar-nav navbar-right">
-        <li class="nav-item">
+        <li class="nav-item smalltext">
           <a>
             <img src="img/cmc.png" height="16" width="16">
             {{ info[0] }}&nbsp;&nbsp;
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item smalltext">
           <a>
             <img src="img/cmc.png" height="16" width="16">
             {{ info[1] }}&nbsp;&nbsp;
           </a>
+        </li>
+        <li class="nav-item smalltext">
+        <a>
+          <img src="img/cmc.png" height="16" width="16">
+          {{ info[2] }}&nbsp;&nbsp;
+        </a>
         </li>
       </ul>
     </div>
@@ -107,6 +113,19 @@ app.component('loadingbar', {
     </div>
   </div>
   <div style="margin-bottom: 16px"></div>
+  `
+})
+
+app.component('bottom', {
+  template:
+  `
+  <div style="color: grey; margin-top: 16px;" class="body centered">
+    <p>
+      <b>
+        <a style="color: grey;" href="https://01mu.github.io/crypto">Crypto</a>
+      </b> | <b>About</b>
+    </p>
+  </div>
   `
 })
 

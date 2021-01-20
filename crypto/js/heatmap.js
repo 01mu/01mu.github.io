@@ -54,10 +54,11 @@ const HeatMap = {
       </tbody>
     </table>
     <div style="margin-top: 16px;">
-      <button class="btn btn-block btn-outline-primary" v-on:click="loadMore()">
+      <div class="btn btn-block btn-outline-primary" v-on:click="loadMore()">
         {{ loadingText }}
-      </button>
+      </div>
     </div>
+    <bottom></bottom>
   </div>
   `,
   data() {
@@ -109,7 +110,7 @@ const HeatMap = {
     formatHM: (hm) => {
       hm.forEach((coin) => {
         coin[0].icon = 'https://01mu.bitnamiapp.com/' +
-          'graphics/crypto/' + coin[0].symbol.toLowerCase() + '.png'
+          'graphics/crypto/' + coin[0].symbol + '.png'
       })
 
       hm.forEach((coin) => {
@@ -170,7 +171,11 @@ const HeatMap = {
           totals[i] += coin[i].difference
       })
 
-      for (i = 0; i < 21; i++) totals[i] = (totals[i] / 21).toFixed(2)
+      for (i = 0; i < 21; i++) {
+        totals[i] = (totals[i] / 21).toFixed(2)
+
+        if (totals[i] > 0) totals[i] = '+' + totals[i]
+      }
 
       this.averages = totals
       this.showAve = true

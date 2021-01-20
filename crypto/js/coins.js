@@ -8,10 +8,11 @@ const Coins = {
         <input v-on:keyup.enter="search()"
           placeholder="Search for a coin" style="text-align: center;"
           v-model="query" class="form-control">
-          &nbsp;
-        <button class="btn btn-outline-primary" v-on:click="search()">
-          Search
-        </button>
+          <div class="input-group-append">
+            <div class="btn btn-outline-primary" v-on:click="search()">
+              Search
+            </div>
+          </div>
     </div>
     <div class="searchborder"></div>
     <div class="flex coinheader">
@@ -19,54 +20,59 @@ const Coins = {
       <div class="wrapper25 overflow">Coin</div>
       <div class="wrapper10 overflow">USD Price</div>
       <div class="wrapper10 d-none d-sm-block overflow">BTC Price</div>
-      <div class="wrapper15 d-none d-sm-block overflow">Market Cap</div>
-      <div class="wrapper15 d-none d-sm-block overflow">24 Hour Volume</div>
-      <div class="wrapper5 d-none d-sm-block overflow">1H Δ</div>
-      <div class="wrapper5 d-none d-sm-block overflow">24H Δ</div>
-      <div class="wrapper5 d-none d-sm-block overflow">7D Δ</div>
+      <div class="wrapper10 d-none d-sm-block overflow">Market Cap</div>
+      <div class="wrapper10 d-none d-sm-block overflow">MC %</div>
+      <div class="wrapper10 d-none d-sm-block overflow">24H Vol.</div>
+      <div class="wrapper7 d-none d-sm-block overflow">1H</div>
+      <div class="wrapper7 d-none d-sm-block overflow">24H</div>
+      <div class="wrapper7 d-none d-sm-block overflow">7D</div>
     </div>
     <template v-for="(coin, index) in coins">
       <div class="coinpadding flex">
         <div class="wrapper5 overflow">{{ coin.rank }}</div>
-          <div class="wrapper25 overflow">
-            <a :href="'index.html#/single/' + coin.symbol">
-              <img height="20" width="20"
-                style="cursor: pointer;"
-                v-on:click="head.showSingle(coin.symbol)"
-                :src="coin.url"/>&nbsp;
-            </a>
-            <a :href="'index.html#/single/' + coin.symbol">
-              {{ coin.name }} ({{ coin.symbol }})
-            </a>
-          </div>
-          <div class="wrapper10 overflow">
-            {{ coin.price_usd }}
-          </div>
-          <div class="wrapper10 d-none d-sm-block overflow">
-            {{ coin.price_btc }}
-          </div>
-          <div class="wrapper15 d-none d-sm-block overflow">
-            {{ coin.market_cap }} ({{ coin.market_cap_percent }})
-          </div>
-          <div class="wrapper15 d-none d-sm-block overflow">
-            {{ coin.volume_24h }} ({{ coin.volume_24h_percent }})
-          </div>
-          <div class="wrapper5 d-none d-sm-block overflow">
-            {{ coin.change_1h }}
-          </div>
-          <div class="wrapper5 d-none d-sm-block overflow">
-            {{ coin.change_24h }}
-          </div>
-          <div class="wrapper5 d-none d-sm-block overflow">
-          {{ coin.change_7d }}
+        <div class="wrapper25 overflow">
+          <a :href="'index.html#/single/' + coin.symbol">
+            <img height="20" width="20"
+              style="cursor: pointer;"
+              v-on:click="head.showSingle(coin.symbol)"
+              :src="coin.url"/>&nbsp;
+          </a>
+          <a :href="'index.html#/single/' + coin.symbol">
+            {{ coin.name }} ({{ coin.symbol }})
+          </a>
+        </div>
+        <div class="wrapper10 overflow">
+          {{ coin.price_usd }}
+        </div>
+        <div class="wrapper10 d-none d-sm-block overflow">
+          {{ coin.price_btc }}
+        </div>
+        <div class="wrapper10 d-none d-sm-block overflow">
+          {{ coin.market_cap }}
+        </div>
+        <div class="wrapper10 d-none d-sm-block overflow">
+            {{ coin.market_cap_percent }}
+        </div>
+        <div class="wrapper10 d-none d-sm-block overflow">
+          {{ coin.volume_24h }} <!--({{ coin.volume_24h_percent }})-->
+        </div>
+        <div class="wrapper7 d-none d-sm-block overflow boldfont">
+          <span :style="coin.color_1h">{{ coin.change_1h }}</span>
+        </div>
+        <div class="wrapper7 d-none d-sm-block overflow boldfont">
+          <span :style="coin.color_24h">{{ coin.change_24h }}</span>
+        </div>
+        <div class="wrapper7 d-none d-sm-block overflow boldfont">
+          <span :style="coin.color_7d">{{ coin.change_7d }}</span>
         </div>
       </div>
     </template>
-    <div style="margin: 16px">
+    <div v-if="showMoreButton" style="margin: 16px">
       <div class="btn btn-block btn-outline-primary" v-on:click="loadMore()">
         {{ loadingText }}
       </div>
     </div>
+    <bottom></bottom>
   </div>
   `,
   data() {
@@ -85,6 +91,7 @@ const Coins = {
       searchedFor: false,
       lastUpdated: '',
       loadingText: 'Load more',
+      showMoreButton: true,
     }
   },
   created() {
@@ -119,10 +126,14 @@ const Coins = {
 
       this.coins = searchDisplay
 
-      if (this.query === '') this.coins = this.hold
+      if (this.query === '') {
+        this.showMoreButton = true
+        this.coins = this.hold
+      }
     },
     search() {
       this.page = 0
+      this.showMoreButton = false
 
       if (!this.searchedFor) {
         $.getJSON(this.searchURL, (json) => {
@@ -136,23 +147,44 @@ const Coins = {
       }
     },
     formatCoins(coins) {
-      coins.map((element) => {
-        element.url = 'https://01mu.bitnamiapp.com/' +
-          'graphics/crypto/' + element.symbol.toLowerCase() + '.png'
+      coins.map((e) => {
+        e.url = 'https://01mu.bitnamiapp.com/' +
+          'graphics/crypto/' + e.symbol + '.png'
 
-        element.price_usd = '$' + commas(element.price_usd.toFixed(2))
-        element.price_btc = element.price_btc.toFixed(5)
-        element.change_1h = element.change_1h.toFixed(2) + '%'
-        element.change_24h = element.change_24h.toFixed(2) + '%'
-        element.change_7d = element.change_7d.toFixed(2) + '%'
+        e.change_1h = e.change_1h.toFixed(2)
+        e.change_24h = e.change_24h.toFixed(2)
+        e.change_7d = e.change_7d.toFixed(2)
 
-        element.market_cap = '$' + numWord(element.market_cap)
-        element.market_cap_percent =
-          element.market_cap_percent.toFixed(2) + '%'
+        e.color_1h = e.color_24h = e.color_7d = 'color: red;'
 
-        element.volume_24h = '$' + numWord(element.volume_24h)
-        element.volume_24h_percent =
-          element.volume_24h_percent.toFixed(2) + '%'
+        if (e.change_1h >= 0) {
+          e.change_1h = '+' + e.change_1h
+          e.color_1h = 'color: green;'
+        }
+
+        if (e.change_24h >= 0) {
+          e.change_24h = '+' + e.change_24h
+          e.color_24h = 'color: green;'
+        }
+
+        if (e.change_7d >= 0) {
+          e.change_7d = '+' + e.change_7d
+          e.color_7d = 'color: green;'
+        }
+
+        e.change_1h = e.change_1h + '%'
+        e.change_24h = e.change_24h + '%'
+        e.change_7d = e.change_7d + '%'
+
+        e.price_usd = '$' + commas(e.price_usd.toFixed(2))
+        e.price_btc = e.price_btc.toFixed(5)
+
+        e.market_cap = '$' + numWord(e.market_cap)
+        e.market_cap_percent = e.market_cap_percent.toFixed(2) + '%'
+
+        e.volume_24h = '$' + numWord(e.volume_24h)
+        e.volume_24h_percent = e.volume_24h_percent.toFixed(2) + '%'
+
       })
     },
     loadMore() {

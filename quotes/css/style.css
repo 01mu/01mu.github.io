@@ -15,7 +15,9 @@ body { overflow-y: scroll; line-height: 1.6; font-size: 22px;
   border-radius: 0px 0px 5px 5px;
   font-weight: bold; background-color: #ebe8e6; margin-left: -20px;
   margin-right: -20px; margin-bottom: -20px; padding: 8px; color: grey;
-  margin-top: 20px; }
+  margin-top: 16px; }
+.logotext { color: #595454; font-size: 28px; }
+.authortext { color: #595454; }
 .authortext:hover { text-decoration: underline; }
 .alignleft { float: left; }
 .alignright { float: right; }
@@ -31,4 +33,8 @@ a:hover{ color: #000000; text-decoration: none; }
     padding-right: 20px; padding-left: 20px; }
   .sborder { margin-top: 6px; margin-bottom: 6px;
     border-bottom: 1px solid grey;}
+  .favnav { margin-left: 0px; }
 }
+.icon { filter: opacity(30%); cursor: pointer; }
+.icon:hover { filter: opacity(100%); }
+.favnav { margin-left: 8px; }

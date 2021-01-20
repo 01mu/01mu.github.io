@@ -136,6 +136,7 @@ const Portfolio = {
         </div>
       </div>
     </div>
+    <bottom></bottom>
   </div>
   `,
   data() {
@@ -266,7 +267,6 @@ const Portfolio = {
       const ctx = this
       this.coinTable = localStorage.getItem('portfolio')
 
-      console.log(this.coinTable)
       if (this.coinTable == null) this.coinTable = new Map()
       else this.coinTable = JSON.parse(this.coinTable)
 
@@ -305,7 +305,7 @@ const Portfolio = {
           const value = (price * amount).toFixed(2)
           var per = (value / ctx.value * 100).toFixed(2)
           const icon = 'https://01mu.bitnamiapp.com/' +
-            'graphics/crypto/' + element.toLowerCase()  + '.png'
+            'graphics/crypto/' + element + '.png'
 
           if(per === 'NaN') per = '- '
 

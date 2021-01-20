@@ -20,10 +20,10 @@ const template =
             New Confirmed / New Deaths
           </a>
           <a v-on:click="setType('totalpern')" class="dropdown-item">
-            Total (Per 100,000)
+            Total (Per 100,000 Population)
           </a>
           <a v-on:click="setType('newpern')" class="dropdown-item">
-            New (Per 100,000)
+            New (Per 100,000 Population)
           </a>
         </div>
       </div>
@@ -168,7 +168,7 @@ function make() {
             break
           case 'newpern':
             this.perN = 1
-            this.picked = 'New (Per 100,000)'
+            this.picked = 'New (Per 100,000 Population)'
             this.show_l = ['New Confirmed', 'new_confirmed_pern']
             this.show_r = ['New Deaths', 'new_deaths_pern']
             this.sort('new_confirmed_pern')
@@ -182,7 +182,7 @@ function make() {
             break
           case 'totalpern':
             this.perN = 1
-            this.picked = 'Total (Per 100,000)'
+            this.picked = 'Total (Per 100,000 Population)'
             this.show_l = ['Confirmed', 'confirmed_pern']
             this.show_r = ['Deaths', 'deaths_pern']
             this.sort('confirmed_pern')

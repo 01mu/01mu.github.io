@@ -16,6 +16,7 @@ body { font-size: 18px; overflow-y: scroll; }
 .wrapper33e { width: 33%; text-align: right; }
 .wrapper25 { width: 25%; }
 .wrapper5 { width: 5%; }
+.wrapper7 { width: 7%; }
 .wrapper9 { width: 9%; }
 .wrapper40 { width: 40%; }
 .wrapper20 { width: 20%; }
@@ -62,6 +63,8 @@ tr:hover, .coinpadding:hover {
   .bizl { margin-left: 8px; }
   .bizr { text-align: center; }
 }
-.aligned {
-  display: flex;
-}
+.aligned { display: flex; }
+.dropdown-item:hover { cursor: pointer; }
+.smalltext { font-size: 16px; }
+.boldfont { font-weight: bold; }
+.nav-item { font-size: 16px; font-weight: bold; color: grey; }

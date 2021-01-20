@@ -51,18 +51,21 @@ const Performers = {
       </div>
       <div class="input-group" style="margin-top: 16px;">
         <input v-on:keyup.enter="updateRank()"
-          placeholder="Rank limit" v-model="rank" class="form-control">&nbsp;
-        <button class="btn btn-outline-primary" v-on:click="updateRank()">
-          Set rank limit
-        </button>
+          placeholder="Rank limit" v-model="rank" class="form-control">
+          <div class="input-group-append">
+            <div class="btn btn-outline-primary " v-on:click="updateRank()">
+              Set rank limit
+            </div>
+          </div>
       </div>
       <div style="margin-top: 16px;">
-        <button class="btn btn-block btn-outline-primary"
+        <div class="btn btn-block btn-outline-primary"
           v-on:click="loadMore()">
           {{ loadingText }}
-        </button>
+        </div>
       </div>
     </div>
+    <bottom></bottom>
   </div>
   `,
   components: {
@@ -84,7 +87,12 @@ const Performers = {
           </a>
         </div>
         <div class="wrapper50 overflow">
-          {{ performer.change.toFixed(2) }}%
+          <span v-if="performer.change >= 0">
+            +{{ performer.change.toFixed(2) }}%
+          </span>
+          <span v-else>
+            {{ performer.change.toFixed(2) }}%
+          </span>
         </div>
       </div>
       `
@@ -151,8 +159,7 @@ const Performers = {
       this.performerTypes.forEach((p) => {
         json[p].map((element) => {
           element.url = 'https://01mu.bitnamiapp.com/' +
-          'graphics/crypto/' + element.symbol.toLowerCase() +
-          '.png'
+          'graphics/crypto/' + element.symbol + '.png'
         })
       })
     },

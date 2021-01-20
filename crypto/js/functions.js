@@ -60,13 +60,17 @@ function navbarInfo(nv) {
 
       i.tmc = nf('Market Cap: $', i.total_market_cap)
       i.tv = nf('24 Hour Volume: $', i.total_volume_24h)
+      i.btc = nf('BTC Dominance: ', i.btc_dominance) + '%'
+
       nv[0] = i.tmc
       nv[1] = i.tv
+      nv[2] = i.btc
       navInfo = nv
     })
   } else {
     nv[0] = navInfo[0]
     nv[1] = navInfo[1]
+    nv[2] = navInfo[2]
   }
 }
 
