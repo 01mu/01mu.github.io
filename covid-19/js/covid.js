@@ -34,15 +34,18 @@ app.component('comp', {
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
           <a :class="destination['today']"
-            href="index.html#">Today</a>
+            href="index.html#">
+            <img src="img/today.png" height="16" width="16">&nbsp;Today</a>
         </li>&nbsp;
         <li class="nav-item">
           <a :class="destination['countries']"
-            href="index.html#/countries">Global</a>
+            href="index.html#/countries">
+            <img src="img/global.png" height="16" width="16">&nbsp;Global</a>
         </li>&nbsp;
         <li class="nav-item">
           <a :class="destination['states']"
-          href="index.html#/states">United States</a>
+          href="index.html#/states">
+            <img src="img/usa.png" height="16" width="16">&nbsp;United States</a>
         </li>
       </ul>
     </div>

@@ -15,15 +15,17 @@ const nav_template = `
     <div  v-if="ctx.viewingAuthor" class="sborder"></div>
       <ul class="navbar-nav mr-auto">
         <a :href="'index.html#/author/quotes/' + ctx.currentAuthor">
-          <li v-if="ctx.viewingAuthor"
+          <li v-if="ctx.viewingAuthor"  style="max-width: 100%;"
             :class="ctx.nav['quotes']">
-            {{ ctx.currentAuthor }}'s Quotes
+            <img class="navicon" src="img/quotes.png" width="32"/>
+            <span class="overflow">{{ ctx.currentAuthor }}'s Quotes</span>
           </li>
         </a>
         <div class="sborder"></div>
         <a :href="'index.html#/author/relations/' + ctx.currentAuthor">
           <li v-if="ctx.viewingAuthor"
             :class="ctx.nav['relations']">
+            <img class="navicon" src="img/relations.png" width="32"/>
             {{ ctx.currentAuthor }}'s Relations
           </li>
         </a>
@@ -60,9 +62,8 @@ const nav_template = `
         <div class="sborder"></div>
         <a>
           <li :class="ctx.nav['favorites']">
-            <a href="index.html#/favorites"
-              class="icon">
-              <img src="img/fav_full.png" width="32"/>
+            <a href="index.html#/favorites">
+              <img class="favnav" src="img/fav_full.png" width="32"/>
             </a>
           </li>
         </a>
@@ -96,15 +97,14 @@ const loading_template =
   <div style="margin-bottom: 16px;"></div>
   `
 
-function highlight(string, needle) {
-  return string.replace(new RegExp(needle, 'gi'), (str) => {
-    return '<span style="background-color:#fffa00;">' + str + '</span>'});
-}
+var likedIDs = localStorage.getItem('likedids')
+var likedQuotes = localStorage.getItem('likedquotes')
 
-function dehighlight(string) {
-  return string.replace(/<span style="background-color:#fffa00;">/g, '')
-    .replace(/<\/span>/g, '')
-}
+if (likedIDs) likedIDs = new Set(JSON.parse(likedIDs))
+else likedIDs = new Set()
+
+if (likedQuotes) likedQuotes = JSON.parse(likedQuotes)
+else likedQuotes = []
 
 const routes = [
   {path: '/', component: make()},

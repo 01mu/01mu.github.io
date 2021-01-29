@@ -4,6 +4,8 @@ function isEmpty(obj) {
 }
 
 function commas(x) {
+    if (x == null) return '-'
+
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 }
 

@@ -119,6 +119,10 @@ const Performers = {
   created() {
     this.load()
     document.title = 'Crypto | Performers'
+
+    document.querySelector("link[rel*='icon']").href =
+      'https://01mu.bitnamiapp.com/graphics/crypto/BTC.png'
+
     navbarInfo(this.navInfo)
     this.navbar = getNavbar('performers')
   },

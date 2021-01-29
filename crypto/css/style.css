@@ -20,13 +20,14 @@ body { font-size: 18px; overflow-y: scroll; }
 .wrapper9 { width: 9%; }
 .wrapper40 { width: 40%; }
 .wrapper20 { width: 20%; }
+.wrapper25 { width: 25%; }
 .wrapper60 { width: 60%; }
 .wrapper30 { width: 30%; }
 .wrapper10 { width: 10%; }
 .wrapper15 { width: 15%; }
 .wrapper6p5 { width: 6.5%; }
 .wrapper33 { width: 33%; }
-.bizl, bizr { width: 33%; }
+.bizl, bizr { width: 25%; }
 .bigger { margin: 0 auto; max-width: 90%; }
 .overflow { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .coinpadding { padding-top: 8px; padding-bottom: 8px; }
@@ -34,16 +35,16 @@ body { font-size: 18px; overflow-y: scroll; }
   margin-bottom: 10px; border-bottom: solid 1px #ccc; }
 .centerns { text-align: center; margin-top: 16px; }
 .centersm { font-size: 50px; margin-bottom: 16px; }
-.hm { margin: 0 auto; max-width: 90%;  }
+.hm, { margin: 0 auto; max-width: 90%;  }
+.singlebody { margin: 0 auto; max-width: 95%;  }
 .ave { text-align: center; }
 .tb { table-layout: fixed; width: 100%; }
-.singleinfo { border-bottom: 1px solid #bec3cc; padding: 10px;
-  text-align: center; }
+.singleinfo { border-bottom: 1px solid #bec3cc; padding: 5px;
+  text-align: center; font-size: 16px; }
 .navborder { border-bottom: 1px solid #cfcfcf; }
-.active { border-bottom: solid; border-width: 2px; border-color: blue;
-  background-color: #f0f0f0; }
+.active { border-bottom: solid 3px blue; background-color: #f0f0f0; }
 .navpad { padding-top: 12px; padding-bottom: 12px; }
-tr:hover, .coinpadding:hover {
+tr:hover, .coinpadding:hover, .bizpostbox:hover {
     background-color: #fafafa; }
 .centered { text-align: center; }
 .singlebutton { width: 100%; margin-bottom: 4px; }
@@ -55,6 +56,7 @@ tr:hover, .coinpadding:hover {
   .centersm { text-align: center; }
   .bigger { max-width: 100%; margin-right: 16px; margin-left: 16px; }
   .hm { max-width: 90%; margin-right: 8px; margin-left: 8px; }
+  .singlebody { margin: 0 auto; max-width: 90%; }
   .wrapper5 { width: 10%; }
   .wrapper25 { width: 45%; }
   .wrapper10 { width: 50%; text-align: center; }
@@ -68,3 +70,25 @@ tr:hover, .coinpadding:hover {
 .smalltext { font-size: 16px; }
 .boldfont { font-weight: bold; }
 .nav-item { font-size: 16px; font-weight: bold; color: grey; }
+.bizpostbox { border-radius: 5px;
+  border: solid 1px #ccc; margin-bottom: 12px; padding: 12px; }
+.centeralign { text-align: center; }
+.viewposts { font-weight: bold; }
+.greytext { color: grey; }
+.figure { font-weight: bold; color: #5c5c5c; }
+
+.singlebox { border-radius: 5px;
+  border: solid 1px blue; margin-top: 16px; padding: 16px; }
+.marketinfo { padding: 10px;
+  text-align: left; }
+.markettitle { padding: 16px; background-color: #fafafa;
+  margin-left: -16px;
+  margin-right: -16px;
+  margin-top: -16px;
+  margin-bottom: 8px;
+  border-bottom: solid 1px blue;
+  border-radius: 5px 5px 0px 0px;
+  text-align: center; }
+.athpointl { text-align: left; }
+.athpointr { text-align: right; }
+.athbox { padding: 6px; border: solid 1px #ccc; border-bottom: solid 0px #ccc; }

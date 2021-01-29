@@ -10,6 +10,8 @@ const routes = [
   {path: '/news', component: News},
   {path: '/single', component: Portfolio},
   {path: '/single/:id', component: Single},
+  {path: '/posts/:id', component: BizPosts},
+  {path: '/ath/:id', component: ATH},
 ]
 
 const router = VueRouter.createRouter({

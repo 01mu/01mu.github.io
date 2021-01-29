@@ -39,6 +39,10 @@ const News = {
   created() {
     const ctx = this
     this.navbar = getNavbar('news')
+
+    document.querySelector("link[rel*='icon']").href =
+      'https://01mu.bitnamiapp.com/graphics/crypto/BTC.png'
+
     navbarInfo(this.navInfo)
     document.title = 'Crypto | News'
     this.loadMore()

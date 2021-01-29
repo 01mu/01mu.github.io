@@ -98,6 +98,9 @@ const Coins = {
     const ctx = this
     document.title = 'Crypto | Coins'
 
+    document.querySelector("link[rel*='icon']").href =
+      'https://01mu.bitnamiapp.com/graphics/crypto/BTC.png'
+
     $.getJSON(this.url + this.page, (json) => {
       ctx.coins = json.coins
       ctx.lastUpdated = 'Last updated ' +

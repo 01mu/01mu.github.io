@@ -5,13 +5,13 @@ const Biz = {
   <loadingbar :showbar="showBar"></loadingbar>
   <div class="body" v-if="fullVisible">
     <div class="flex coinheader">
-      <div class="bizl">Coin</div>
-      <div class="wrapper33 d-none d-sm-block">24 Hour Change</div>
-      <div class="bizr overflow">Name Mentions (24 Hours)</div>
+      <div class="wrapper50">Coin</div>
+      <div class="wrapper40 overflow">Mentions (24H)</div>
+      <div class="wrapper10 overflow">Posts</div>
     </div>
     <template v-for="(count, index) in bizCounts">
       <div class="coinpadding flex">
-        <div class="bizl overflow">
+        <div class="wrapper50 overflow">
           <a :href="'index.html#/single/' + count.symbol">
             <img height="20" width="20"
               style="cursor: pointer;"
@@ -23,16 +23,18 @@ const Biz = {
             {{ count.name }} ({{ count.symbol }})
           </a>
         </div>
-        <div class="wrapper33 d-none d-sm-block">
-          {{ count.name_diff }}
+        <div class="wrapper40">
+          <div class="d-block d-sm-none centeralign">
+            {{ count.total }}&nbsp;<span class="greytext">({{ count.name_diff }})</span>
+          </div>
+          <div class="d-none d-sm-block">
+            {{ count.total }}&nbsp;<span class="greytext">({{ count.name_diff }})</span>
+          </div>
         </div>
-        <div class="bizr">
-          <span class="d-block d-sm-none">
-            {{ count.name_count }}&nbsp;({{ count.name_diff }})
-          </span>
-          <span class="d-none d-sm-block">
-            {{ count.name_count }}
-          </span>
+        <div class="wrapper10">
+           <a class="viewposts" :href="'index.html#/posts/' + count.symbol">
+            [View]
+          </a>
         </div>
       </div>
     </template>
@@ -68,6 +70,9 @@ const Biz = {
   created() {
     const ctx = this
     const limit = localStorage.getItem('biz_rank')
+
+    document.querySelector("link[rel*='icon']").href =
+      'https://01mu.bitnamiapp.com/graphics/crypto/BTC.png'
 
     if (limit == null) this.rank = 50
     else this.rank = limit
@@ -127,7 +132,7 @@ const Biz = {
         e.url = 'https://01mu.bitnamiapp.com/' +
           'graphics/crypto/' + e.symbol + '.png'
 
-        e.name_diff = Math.abs(e.name_count - e.name_count_prev)
+        e.name_diff = Math.abs(e.total - e.total_prev)
 
         if (e.name_count < e.name_count_prev) e.name_diff *= -1
         else e.name_diff = '+' + e.name_diff

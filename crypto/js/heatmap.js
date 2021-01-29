@@ -81,6 +81,9 @@ const HeatMap = {
     const ctx = this
     document.title = 'Crypto | Heat Map'
 
+    document.querySelector("link[rel*='icon']").href =
+      'https://01mu.bitnamiapp.com/graphics/crypto/BTC.png'
+
     if(screen.width <= 600) this.small = true
 
     $.getJSON(this.url + this.page, (json) => {

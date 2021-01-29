@@ -39,11 +39,15 @@ const Today = {
           </div>
         </div>
         <div class="smargin"></div>
-        {{ stats.new_confirmed }} New Confirmed Cases<br>
-        {{ stats.new_deaths }} New Deaths
+        <span class="figure">{{ stats.new_confirmed }}</span>
+        New Confirmed Cases<br>
+        <span class="figure">{{ stats.new_deaths }}</span>
+        New Deaths
         <div class="smargin"></div>
-        {{ stats.confirmed }} Total Confirmed Cases<br>
-        {{ stats.deaths }} Total Deaths<br>
+        <span class="figure">{{ stats.confirmed }}</span>
+        Total Confirmed Cases<br>
+        <span class="figure">{{ stats.deaths }}</span>
+        Total Deaths<br>
         </div>
         <div class="box">
           <div class="boxheader"><b>New Confirmed Cases<br>({{ loc }})</b></div>

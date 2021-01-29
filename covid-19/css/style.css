@@ -27,7 +27,7 @@ a { cursor: pointer; color: black; text-decoration: none; }
 .smalltext { text-align: center; font-size: 14px; margin-bottom: 8px; }
 .navborder { border-bottom: 1px solid #ab0a12; }
 .centered { text-align: center; }
-.active { background-color: #ebdde1; font-weight: bold; }
+.active { border-bottom: solid 3px red; background-color: #ebdde1; }
 .navpad { padding-top: 12px; padding-bottom: 12px; text-align: center; }
 .box, .boxn, .lbox, .newsbox {
   border-radius: 5px;
@@ -57,3 +57,5 @@ a { cursor: pointer; color: black; text-decoration: none; }
   .bigger { max-width: 100%;  }
   .navpad { padding-top: 12px; padding-bottom: 12px; text-align: center; }
 }
+.nav-item { font-weight: bold; }
+.figure { font-weight: bold; color: #5c5c5c; }

@@ -10,14 +10,14 @@ body { overflow-y: scroll; line-height: 1.6; font-size: 22px;
 .navborder { border-bottom: 1px solid grey; }
 .active { background-color: #f0f0f0; }
 .centered { text-align: center; margin-top: 16px; font-size: 16px; }
-.overflow {  overflow: hidden; text-overflow: ellipsis; word-wrap: break-word; }
+.overflow { overflow: hidden; text-overflow: ellipsis; word-wrap: break-word; }
 .author { font-size: 18px; margin-top: 10px; color: red;
   border-radius: 0px 0px 5px 5px;
   font-weight: bold; background-color: #ebe8e6; margin-left: -20px;
   margin-right: -20px; margin-bottom: -20px; padding: 8px; color: grey;
   margin-top: 16px; }
 .logotext { color: #595454; font-size: 28px; }
-.authortext { color: #595454; }
+.authortext { color: #595454;   }
 .authortext:hover { text-decoration: underline; }
 .alignleft { float: left; }
 .alignright { float: right; }
@@ -35,6 +35,13 @@ a:hover{ color: #000000; text-decoration: none; }
     border-bottom: 1px solid grey;}
   .favnav { margin-left: 0px; }
 }
-.icon { filter: opacity(30%); cursor: pointer; }
+.nav-link .navicon { filter: opacity(33%); }
+.active .navicon { filter: opacity(100%); }
+.icon { filter: opacity(33%); cursor: pointer; }
 .icon:hover { filter: opacity(100%); }
-.favnav { margin-left: 8px; }
+.favnav { margin-left: 8px; filter: opacity(33%); }
+.active .favnav { margin-left: 8px; filter: opacity(100%); background-color: #ddded1; }
+.nav-item, .nav-link .active { background-color: #ddded1; }
+.flex { display: flex; }
+.wrapper80 { width: 85%; }
+.wrapper20 { width: 15%; }
