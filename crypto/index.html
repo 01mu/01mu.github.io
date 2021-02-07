@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+
     <script src="https://unpkg.com/vue@next"></script>
     <script src="https://unpkg.com/vue-router@next"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
@@ -27,6 +29,8 @@
   </body>
 </html>
 <script src="js/functions.js"></script>
+<script src="js/timeline.js"></script>
+<script src="js/about.js"></script>
 <script src="js/ath.js"></script>
 <script src="js/bizposts.js"></script>
 <script src="js/news.js"></script>
@@ -37,3 +41,55 @@
 <script src="js/portfolio.js"></script>
 <script src="js/single.js"></script>
 <script src="js/crypto.js"></script>
+
+<script>
+
+const slider = document.querySelector(".subnav");
+
+const preventClick = (e) => {
+  e.preventDefault();
+  e.stopImmediatePropagation();
+}
+let isDown = false;
+var isDragged = false;
+let startX;
+let scrollLeft;
+
+slider.addEventListener("mousedown", e => {
+  isDown = true;
+  //slider.classList.add("active");
+  startX = e.pageX - slider.offsetLeft;
+  scrollLeft = slider.scrollLeft;
+});
+
+slider.addEventListener("mouseleave", () => {
+  isDown = false;
+  slider.classList.remove("active");
+});
+
+slider.addEventListener("mouseup", e => {
+  isDown = false;
+  const elements = document.getElementsByClassName("book");
+  if(isDragged){
+      for(let i = 0; i<elements.length; i++){
+            elements[i].addEventListener("click", preventClick);
+      }
+  }else{
+      for(let i = 0; i<elements.length; i++){
+            elements[i].removeEventListener("click", preventClick);
+      }
+  }
+  //slider.classList.remove("active");
+  isDragged = false;
+});
+
+slider.addEventListener("mousemove", e => {
+  if (!isDown) return;
+  isDragged =  true;
+  e.preventDefault();
+  const x = e.pageX - slider.offsetLeft;
+  const walk = (x - startX) * 2;
+  slider.scrollLeft = scrollLeft - walk;
+});
+
+</script>

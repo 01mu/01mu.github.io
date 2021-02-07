@@ -9,17 +9,18 @@ const News = {
         <img style="width: 100px; height: 50px;" :src="article.image">&nbsp;
         <p class="overflow"><a :href="article.url">
           {{ article.title }}</a><br>
-          <b>{{ article.source }}</b> |
+          <span class="figure">{{ article.source }}</span>
           <span style="color: grey;">
-            {{ timeConverter(article.published) }}
+            | {{ timeConverter(article.published) }}
           </span>
         </p>
       </div>
     </template>
     <div style="margin-top: 16px;">
-      <div class="btn btn-block btn-outline-primary" v-on:click="loadMore()">
+      <button :disabled="loadingText == 'Loading...'"
+        class="btn btn-block btn-outline-primary" v-on:click="loadMore()">
         {{ loadingText }}
-      </div>
+      </button>
     </div>
     <bottom></bottom>
   </div>

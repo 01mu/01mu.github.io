@@ -4,25 +4,25 @@ const Portfolio = {
   <comp :destination="navbar" :info="navInfo"></comp>
   <loadingbar :showbar="showBar"></loadingbar>
   <div v-if="fullVisible" class="body">
-    <div class="centersm">
+    <div class="centersm portfoliofigure">
       {{ value }}
       <h5>{{ btcValue }}</h5>
     </div>
     <table class="table">
       <thead class="thead">
         <tr>
-          <th scope="col">Symbol</th>
-          <th scope="col">Amount</th>
-          <th class="d-none d-sm-table-cell" scope="col">Percentage</th>
-          <th class="d-none d-sm-table-cell" scope="col">Value</th>
-          <th scope="col">Price</th>
-          <th class="d-none d-sm-table-cell" scope="col">Action</th>
+          <th scope="col"><span class="figure">Symbol</span></th>
+          <th scope="col"><span class="figure">Amount</span></th>
+          <th class="d-none d-sm-table-cell" scope="col"><span class="figure">Percentage</span></th>
+          <th class="d-none d-sm-table-cell" scope="col"><span class="figure">Value</span></th>
+          <th scope="col"><span class="figure">Price</span></th>
+          <th class="d-none d-sm-table-cell" scope="col"><span class="figure">Action</span></th>
         </tr>
       </thead>
       <tbody>
         <template v-for="(coin, index) in coinDisplay">
-          <tr>
-            <td style="padding-top: 20px; padding-bottom: 20px;">
+          <tr class="portfoliotr">
+            <td>
               <a :href="'index.html#/single/' + coin.symbol">
                 <img height="20" width="20" :src="coin.icon"
                   style="cursor: pointer;"/>
@@ -32,28 +32,26 @@ const Portfolio = {
                 {{ coin.symbol }}
               </a>
               </td>
-              <td style="padding-top: 20px; padding-bottom: 20px;"
+              <td
                 v-on:click="displayXS(coin.symbol)">
                 {{ coin.amount }}
               </td>
-              <td style="padding-top: 20px; padding-bottom: 20px;"
-                class="d-none d-sm-table-cell">
+              <td class="d-none d-sm-table-cell">
                 {{ coin.percentage }}
               </td>
-              <td style="padding-top: 20px; padding-bottom: 20px;"
-                class="d-none d-sm-table-cell">
+              <td class="d-none d-sm-table-cell">
                 {{ coin.value }}
               </td>
-              <td style="padding-top: 20px; padding-bottom: 20px;"
+              <td
                 v-on:click="displayXS(coin.symbol)">
                 {{ coin.price }}
               </td>
               <td class="d-none d-sm-table-cell">
-                <button class="btn btn-outline-success"
+                <button class="btn btn-outline-success btn-sm"
                   v-on:click="setEdit(coin.symbol)">
                   Edit
                 </button>&nbsp;
-                <button class="btn btn-outline-danger"
+                <button class="btn btn-outline-danger btn-sm"
                   v-on:click="removeCoin(coin.symbol)">
                   Delete
                 </button>
@@ -158,6 +156,7 @@ const Portfolio = {
       xsVisible: false,
       newAmount: '',
       loaded: false,
+      timer: null,
     }
   },
   created() {
@@ -175,7 +174,10 @@ const Portfolio = {
     this.navbar = getNavbar('portfolio')
     this.updateValue()
 
-    setInterval(function() { ctx.updateValue() }, 60000)
+    this.timer = setInterval(function() { ctx.updateValue() }, 60000)
+  },
+  unmounted() {
+    clearInterval(this.timer)
   },
   methods: {
     displayXS(symbol) {

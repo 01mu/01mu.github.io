@@ -6,7 +6,7 @@ const Performers = {
   <div v-if="fullVisible">
     <div class="bigger row">
       <div class="col-sm-4">
-        <div class="perfheader">1 Hour Change</div>
+        <div class="perfheader"><span class="figure">1 Hour Change</span></div>
         <div class="flex">
           <div class="wrapper50">
             <performers v-for="(p, index) in performers['change_1h_desc']"
@@ -19,7 +19,7 @@ const Performers = {
           </div>
         </div>
         <div class="col-sm-4">
-          <div class="perfheader">24 Hour Change</div>
+          <div class="perfheader"><span class="figure">24 Hour Change</span></div>
           <div class="flex">
             <div class="wrapper50">
               <performers v-for="(p, index) in performers['change_24h_desc']"
@@ -32,7 +32,7 @@ const Performers = {
         </div>
       </div>
         <div class="col-sm-4">
-          <div class="perfheader">7 Day Change</div>
+          <div class="perfheader"><span class="figure">7 Day Change</span></div>
           <div class="flex">
             <div class="wrapper50">
               <performers v-for="(p, index) in performers['change_7d_desc']"
@@ -59,10 +59,14 @@ const Performers = {
           </div>
       </div>
       <div style="margin-top: 16px;">
-        <div class="btn btn-block btn-outline-primary"
+        <button :disabled="loadingText == 'Loading...'"
+          class="btn btn-block btn-outline-primary"
           v-on:click="loadMore()">
           {{ loadingText }}
-        </div>
+        </button>
+      </div>
+      <div class="lastupdated">
+        {{ lastUpdated }}
       </div>
     </div>
     <bottom></bottom>

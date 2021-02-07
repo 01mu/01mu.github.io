@@ -92,3 +92,15 @@ function timeConverter(UNIX_timestamp){
 
   return time
 }
+
+function getTimeString(str) {
+  const date = new Date(str * 1000)
+  const day = date.getDate()
+  const month = date.getMonth() + 1
+  const year = date.getFullYear()
+  const hour = date.getHours()
+  const min = date.getMinutes()
+
+  return month + '/' + day + '/' + year
+}
+

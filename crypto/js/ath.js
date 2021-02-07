@@ -14,13 +14,14 @@ const ATH = {
     <template v-for="(point, index) in ath">
       <div class="athbox flex">
         <div class="athpointl wrapper50">
-          {{ '$' + commas(point['ath'].toFixed(3)) }}
+          <b>{{ '$' + commas(point['ath'].toFixed(3)) }}</b>
         </div>
-        <div class="athpointr wrapper50">
+        <div class="figure athpointr wrapper50">
           {{ timeConverter(point.time) }}
         </div>
       </div>
     </template>
+    <div style="border-top: solid 1px #ccc;"></div>
     <bottom></bottom>
   </div>
   `,

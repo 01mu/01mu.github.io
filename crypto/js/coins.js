@@ -16,16 +16,16 @@ const Coins = {
     </div>
     <div class="searchborder"></div>
     <div class="flex coinheader">
-      <div class="wrapper5 overflow">#</div>
-      <div class="wrapper25 overflow">Coin</div>
-      <div class="wrapper10 overflow">USD Price</div>
-      <div class="wrapper10 d-none d-sm-block overflow">BTC Price</div>
-      <div class="wrapper10 d-none d-sm-block overflow">Market Cap</div>
-      <div class="wrapper10 d-none d-sm-block overflow">MC %</div>
-      <div class="wrapper10 d-none d-sm-block overflow">24H Vol.</div>
-      <div class="wrapper7 d-none d-sm-block overflow">1H</div>
-      <div class="wrapper7 d-none d-sm-block overflow">24H</div>
-      <div class="wrapper7 d-none d-sm-block overflow">7D</div>
+      <div class="wrapper5 overflow"><span class="figure">#</span></div>
+      <div class="wrapper25 overflow"><span class="figure">Coin</span></div>
+      <div class="wrapper10 overflow"><span class="figure">USD Price</span></div>
+      <div class="wrapper10 d-none d-sm-block overflow"><span class="figure">BTC Price</span></div>
+      <div class="wrapper10 d-none d-sm-block overflow"><span class="figure">Market Cap</span></div>
+      <div class="wrapper10 d-none d-sm-block overflow"><span class="figure">MC %</span></div>
+      <div class="wrapper10 d-none d-sm-block overflow"><span class="figure">24H Vol.</span></div>
+      <div class="wrapper7 d-none d-sm-block overflow"><span class="figure">1H</span></div>
+      <div class="wrapper7 d-none d-sm-block overflow"><span class="figure">24H</span></div>
+      <div class="wrapper7 d-none d-sm-block overflow"><span class="figure">7D</span></div>
     </div>
     <template v-for="(coin, index) in coins">
       <div class="coinpadding flex">
@@ -68,9 +68,13 @@ const Coins = {
       </div>
     </template>
     <div v-if="showMoreButton" style="margin: 16px">
-      <div class="btn btn-block btn-outline-primary" v-on:click="loadMore()">
+      <button :disabled="loadingText == 'Loading...'"
+        class="btn btn-block btn-outline-primary" v-on:click="loadMore()">
         {{ loadingText }}
-      </div>
+      </button>
+    </div>
+    <div class="lastupdated">
+      {{ lastUpdated }}
     </div>
     <bottom></bottom>
   </div>

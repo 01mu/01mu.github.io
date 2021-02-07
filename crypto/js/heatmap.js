@@ -10,10 +10,10 @@ const HeatMap = {
           <th></th>
           <template v-for="(date, index) in dates">
             <th style="text-align: center;" v-if="small && index > 16">
-              {{ date.date }}
+              <span class="figure">{{ date.date }}</span>
             </th>
             <th style="text-align: center;" v-else-if="!small && index > 4">
-              {{ date.date }}
+              <span class="figure">{{ date.date }}</span>
             </th>
           </template>
         </tr>
@@ -54,9 +54,10 @@ const HeatMap = {
       </tbody>
     </table>
     <div style="margin-top: 16px;">
-      <div class="btn btn-block btn-outline-primary" v-on:click="loadMore()">
+      <button :disabled="loadingText == 'Loading...'"
+        class="btn btn-block btn-outline-primary" v-on:click="loadMore()">
         {{ loadingText }}
-      </div>
+      </button>
     </div>
     <bottom></bottom>
   </div>

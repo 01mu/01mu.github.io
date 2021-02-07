@@ -1,6 +1,6 @@
 const template =
   `
-  <comp :destination="navbar"></comp>
+  <comp :destination="navbar" :info="navInfo"></comp>
   <loadingbar :showbar="showBar"></loadingbar>
   <div v-if="fullVisible" class="body">
     <div class="box">
@@ -97,6 +97,7 @@ function make() {
   return {
     data() {
       return {
+        navInfo: [],
         countries: [],
         hold: [],
         sortOption: {},
@@ -114,6 +115,8 @@ function make() {
     },
     created() {
       const ctx = this
+
+      navbarInfo(this.navInfo)
 
       this.navbar = this.setNavbar()
       this.place = this.setPlace()
@@ -142,7 +145,6 @@ function make() {
         }
 
         ctx.hold = [...ctx.countries]
-
         ctx.fullVisible = true
         ctx.showBar = false
       })

@@ -308,3 +308,24 @@ function getNavbar(dest) {
 
   return nav
 }
+
+
+function navbarInfo(nv) {
+  if (navInfo.length == 0) {
+    var i = {}
+
+    $.getJSON('https://01mu.bitnamiapp.com/covid-19/info', (json) => {
+      json.forEach((element) => {
+          i[element.input_key] = element.input_value
+      })
+
+      nv[0] = 'Global Cases: ' + numWord(i.confirmed_total)
+      nv[1] = 'Global Deaths: ' + numWord(i.deaths_total)
+
+      navInfo = nv
+    })
+  } else {
+    nv[0] = navInfo[0]
+    nv[1] = navInfo[1]
+  }
+}

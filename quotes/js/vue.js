@@ -44,7 +44,7 @@ function make() {
               <div class="wrapper80">
                 –
                 <a class="authortext"
-                  :title="quote.author + ' - Wikipedia'"
+                  :title="quote.author +  ' - ' + quote.title"
                   v-bind:href=quote.link>
                   {{ quote.author }}
                 </a>
@@ -171,6 +171,9 @@ function make() {
             if (this.$route.params.quoteSearch)
               json[i].quote = this.highlight(json[i].quote,
                 this.$route.params.quoteSearch)
+
+            if (this.$route.params.author) json[i].title = 'Wikipedia'
+            else json[i].title = 'Quotes'
 
             json[i].link = link + json[i].author
 

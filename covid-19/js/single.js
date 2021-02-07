@@ -1,7 +1,7 @@
 const Single = {
   template:
   `
-  <comp :destination="navbar"></comp>
+  <comp :destination="navbar" :info="navInfo"></comp>
   <loadingbar :showbar="showBar"></loadingbar>
   <div class="body col-sm-12">
     <div v-if="fullVisible">
@@ -69,30 +69,30 @@ const Single = {
         <div class="col-sm-6">
           <div class="box">
             <b>New Confirmed Cases</b><br>
-            {{commas(data[data.length-1].new_confirmed)}}
+            <span class="figure">{{commas(data[data.length-1].new_confirmed)}}</span>
             ({{data[data.length-1].new_confirmed_per.toFixed(2)}}%)
             <div class="smargin"></div>
             <b>New Confirmed Deaths</b><br>
-            {{commas(data[data.length-1].new_deaths)}}
+            <span class="figure">{{commas(data[data.length-1].new_deaths)}}</span>
             ({{data[data.length-1].new_deaths_per.toFixed(2)}}%)
             <div class="smargin"></div>
             <b>New Confirmed Recoveries</b><br>
-            {{commas(data[data.length-1].new_recovered)}}
+            <span class="figure">{{commas(data[data.length-1].new_recovered)}}</span>
             ({{data[data.length-1].new_recovered_per.toFixed(2)}}%)
           </div>
         </div>
         <div class="col-sm-6">
           <div class="box">
             <b>Total Confirmed Cases</b><br>
-            {{commas(data[data.length-1].confirmed)}}
+            <span class="figure">{{commas(data[data.length-1].confirmed)}}</span>
             ({{data[data.length-1].confirmed_per.toFixed(2)}}%)
             <div class="smargin"></div>
             <b>Total Confirmed Deaths</b><br>
-            {{commas(data[data.length-1].deaths)}}
+            <span class="figure">{{commas(data[data.length-1].deaths)}}</span>
             ({{data[data.length-1].deaths_per.toFixed(2)}}%)
             <div class="smargin"></div>
             <b>Total Confirmed Recoveries</b><br>
-            {{commas(data[data.length-1].recovered)}}
+            <span class="figure">{{commas(data[data.length-1].recovered)}}</span>
             ({{data[data.length-1].recovered_per.toFixed(2)}}%)
           </div>
         </div>
@@ -102,6 +102,7 @@ const Single = {
   },
   data() {
     return {
+      navInfo: [],
       url: 'https://01mu.bitnamiapp.com/covid-19/',
       place: '',
       type: '',
@@ -127,6 +128,8 @@ const Single = {
   created() {
     this.place = this.$route.params.place.replaceAll("%20", " ")
     this.type = this.$route.params.type
+
+    navbarInfo(this.navInfo)
 
     if (this.$route.params.type == 'state') {
       this.type = 'us'

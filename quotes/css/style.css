@@ -1,10 +1,10 @@
-body { overflow-y: scroll; line-height: 1.6; font-size: 22px;
+body { overflow-y: scroll; font-size: 22px;
   font-family: Georgia, serif; }
 .body { white-space: wrap; text-overflow: ellipses; overflow: hidden;
   margin: 0 auto; max-width: 90%; }
 .quote, .authorsearch {
-  border-radius: 5px;
-  border: 1px solid #4b4d52; padding: 20px; background-color: #f5f3ed;
+  border-radius: 5px; color: black;
+  border: 1px solid #4b4d52; padding: 20px; background-color: #fcf8f2;
   margin-bottom: 16px; }
 .authorsearch:hover { background: #ebe8e6; }
 .navborder { border-bottom: 1px solid grey; }
@@ -13,10 +13,10 @@ body { overflow-y: scroll; line-height: 1.6; font-size: 22px;
 .overflow { overflow: hidden; text-overflow: ellipsis; word-wrap: break-word; }
 .author { font-size: 18px; margin-top: 10px; color: red;
   border-radius: 0px 0px 5px 5px;
-  font-weight: bold; background-color: #ebe8e6; margin-left: -20px;
+  font-weight: bold; background-color: #ede9e4; margin-left: -20px;
   margin-right: -20px; margin-bottom: -20px; padding: 8px; color: grey;
   margin-top: 16px; }
-.logotext { color: #595454; font-size: 28px; }
+.logotext { color: #595454; font-size: 22px; }
 .authortext { color: #595454;   }
 .authortext:hover { text-decoration: underline; }
 .alignleft { float: left; }
@@ -40,7 +40,8 @@ a:hover{ color: #000000; text-decoration: none; }
 .icon { filter: opacity(33%); cursor: pointer; }
 .icon:hover { filter: opacity(100%); }
 .favnav { margin-left: 8px; filter: opacity(33%); }
-.active .favnav { margin-left: 8px; filter: opacity(100%); background-color: #ddded1; }
+.active .favnav { margin-left: 8px; filter: opacity(100%);
+  background-color: #ddded1; }
 .nav-item, .nav-link .active { background-color: #ddded1; }
 .flex { display: flex; }
 .wrapper80 { width: 85%; }

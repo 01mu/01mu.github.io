@@ -3,6 +3,7 @@ var navInfo  = []
 const routes = [
   {path: '/', component: Portfolio},
   {path: '/portfolio', component: Portfolio},
+  {path: '/about', component: About},
   {path: '/coins', component: Coins},
   {path: '/performers', component: Performers},
   {path: '/heatmap', component: HeatMap},
@@ -12,6 +13,7 @@ const routes = [
   {path: '/single/:id', component: Single},
   {path: '/posts/:id', component: BizPosts},
   {path: '/ath/:id', component: ATH},
+  {path: '/timeline/:id', component: Timeline},
 ]
 
 const router = VueRouter.createRouter({
@@ -25,6 +27,9 @@ app.component('comp', {
   props: ['destination', 'info'],
   template:
   `
+  <div class="subnav scrollbox">
+  {{ info[0] }}&nbsp;&nbsp;{{ info[1] }}&nbsp;&nbsp;{{ info[2] }}&nbsp;&nbsp;
+  </div>
   <nav class="navbar navbar-expand-lg navbar-light bg-light navborder"
     style="padding-bottom: 0px; padding-top: 0px;">
     <a class="navpad navbar-brand" href="#"><b>Crypto</b></a>
@@ -67,18 +72,21 @@ app.component('comp', {
           </a>
         </li>
         <li class="nav-item dropdown">
-        <a :class="destination['mentions']"
-          href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          <img src="img/mentions.png" height="16" width="16">
-            Mentions
-        </a>
+          <a :class="destination['mentions']"
+            href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <img src="img/mentions.png" height="16" width="16">
+              Mentions
+          </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="index.html#/biz">/biz/</a>
+            <a class="dropdown-item" href="index.html#/posts/all">
+              /biz/ Recent Mentions
+            </a>
+            <a class="dropdown-item" href="index.html#/biz">/biz/ (Past Hour)</a>
           </div>
         </li>
       </ul>
-      <ul v-if="info.length != 0" class="navbar-nav navbar-right">
+      <!--<ul v-if="info.length != 0" class="navbar-nav navbar-right">
         <li class="nav-item smalltext">
           <a>
             <img src="img/cmc.png" height="16" width="16">
@@ -97,7 +105,7 @@ app.component('comp', {
           {{ info[2] }}&nbsp;&nbsp;
         </a>
         </li>
-      </ul>
+      </ul>-->
     </div>
   </nav>
   `
@@ -110,7 +118,7 @@ app.component('loadingbar', {
   <div v-if="showbar" class="progress">
     <div style="background-color:dodgerblue !important; width: 100%"
       class="progress-bar progress-bar-striped progress-bar-animated"
-      role="progressbar" aria-valuenow="75" aria-valuemin="0"
+      role="progressbar" aria-valuenow="100" aria-valuemin="0"
       aria-valuemax="100">
     </div>
   </div>
@@ -125,7 +133,8 @@ app.component('bottom', {
     <p>
       <b>
         <a style="color: grey;" href="https://01mu.github.io/crypto">Crypto</a>
-      </b> | <b>About</b>
+      </b> |
+      <a style="color: grey;" href="index.html#/about"><b>About</b></a>
     </p>
   </div>
   `

@@ -10,14 +10,14 @@ const Single = {
       </div>
       <div :class="centerClass">
         <schart :fullVisible="fullVisible" :coinInfo="coinInfo"
-           :coin="coin"></schart>
+           :coin="coin" :coinName="coinName"></schart>
         <div style="margin: 16px;"></div>
         <div v-if="fullVisible">
           <buttons :ctx="this"></buttons>
         </div>
       </div>
-      <pricerecent :coinInfo="coinInfo" :recentIcons="recentIcons"
-        :recentCoins="recentCoins" :fullVisible="fullVisible"></pricerecent>
+      <pricerecent :coinInfo="coinInfo" :chartType="chartType"
+        :coinList="coinList" :fullVisible="fullVisible"></pricerecent>
     </div>
     <bottom v-if="fullVisible"></bottom>
   </div>
@@ -32,8 +32,8 @@ const Single = {
           <buttons :ctx="this"></buttons>
         </div>
       </div>
-      <pricerecent :coinInfo="coinInfo" :recentIcons="recentIcons"
-        :recentCoins="recentCoins" :fullVisible="fullVisible"></pricerecent>
+      <pricerecent :coinInfo="coinInfo" :coinList="coinList" :chartType="chartType"
+        :fullVisible="fullVisible"></pricerecent>
       <div v-if="showCMC && fullVisible"  class="col-sm-2">
         <cmcinfo :commas="commas" :coinCMC="coinCMC" :small="isSmall"></cmcinfo>
       </div>
@@ -43,39 +43,49 @@ const Single = {
   `,
   components: {
     pricerecent: {
-      props: ['coinInfo', 'recentCoins', 'recentIcons', 'fullVisible'],
+      props: ['coinInfo', 'coinList', 'fullVisible', 'chartType'],
       template:
       `
         <div v-if="fullVisible" class="col-sm-2">
-          <div class="singleinfo" style="text-align: center;">
-            <b>Price</b>
+          <div v-if="chartType == 'Price'">
+            <div class="singlebordertop singleinfo singletitle" style="text-align: center;">
+              <b>Price</b>
+            </div>
+            <priceinfo :name="'Open'" :fig="coinInfo.open"></priceinfo>
+            <priceinfo :name="'Close'" :fig="coinInfo.close"></priceinfo>
+            <div class="singleinfo">
+              Change: <b><span :style="coinInfo.color">
+                {{ coinInfo.change }}</span></b>
+            </div>
+            <priceinfo :name="'High'" :fig="coinInfo.high"></priceinfo>
+            <priceinfo :name="'Low'" :fig="coinInfo.low"></priceinfo>
           </div>
-          <priceinfo :name="'Open'" :fig="coinInfo.open"></priceinfo>
-          <priceinfo :name="'Close'" :fig="coinInfo.close"></priceinfo>
-          <div class="singleinfo">
-            Change: <b><span :style="coinInfo.color">
-              {{ coinInfo.change }}</span></b>
+          <div v-else>
+            <div class="singlebordertop singleinfo singletitle" style="text-align: center;">
+              <b>Volume</b>
+            </div>
+            <volinfo :name="'Max Volume'" :fig="coinInfo.maxvol"></volinfo>
+            <volinfo :name="'Min Volume'" :fig="coinInfo.minvol"></volinfo>
+            <volinfo :name="'Average Volume'" :fig="coinInfo.avgvol"></volinfo>
           </div>
-          <priceinfo :name="'High'" :fig="coinInfo.high"></priceinfo>
-          <priceinfo :name="'Low'" :fig="coinInfo.low"></priceinfo>
-          <div class="singleinfo" style="text-align: center;">
+          <div class="singleinfo singletitle" style="text-align: center;">
             <b>Recent Coins</b>
           </div>
-          <template v-for="(coin, index) in recentCoins">
-            <div class="singleinfo" style="text-align: center;">
-              <a :href="'index.html#/single/' + recentCoins[index]">
+          <template v-for="(coin, index) in coinList">
+            <div :class="coin.selected">
+              <a :href="'index.html#/single/' + coin.symbol">
                 <img height="20" width="20"
                   style="cursor: pointer;"
                   onerror="this.src='https://01mu.bitnamiapp.com/graphics/crypto/BTC.png'"
-                  :src="recentIcons[index]"/>
+                  :src="coin.icon"/>
               </a>
               &nbsp;
-              <a :href="'index.html#/single/' + recentCoins[index]">
-                {{ recentCoins[index] }}
+              <a :href="'index.html#/single/' + coin.symbol">
+                {{ coin.symbol }}
               </a>
             </div>
           </template>
-          <div class="singleinfo" style="text-align: center;">
+          <div class="singletitle singleinfo" style="text-align: center;">
             <b>More</b>
           </div>
           <div class="singleinfo">
@@ -86,6 +96,15 @@ const Single = {
         </div>
       `,
       components: {
+        volinfo: {
+          props: ['name', 'fig'],
+          template:
+          `
+            <div class="singleinfo">
+              {{ name }}<br> <span class="figure">{{ fig }}</span>
+            </div>
+          `
+        },
         priceinfo: {
           props: ['name', 'fig'],
           template:
@@ -101,7 +120,8 @@ const Single = {
       props: ['commas', 'coinCMC', 'small'],
       template:
       `
-        <div class="singleinfo" style="text-align: center;">
+        <div class="singlebordertophide singleinfo singletitle"
+          style="text-align: center;">
           <b>Market</b>
         </div>
         <mi :small="small" :name="'Rank'" :fig="coinCMC.rank"></mi>
@@ -120,45 +140,73 @@ const Single = {
           props: ['name', 'fig', 'small'],
           template:
           `
-            <div class="singleinfo">
-              {{ name }}<span v-if="!small"><br></span>
-                <span v-else>: </span><span class="figure">{{ fig }}</span>
+            <div v-if="small" class="singleinfo">
+              <div class="flex">
+                <div class="athpointl wrapper50">
+                  {{ name }}
+                </div>
+                <div class="athpointr wrapper50">
+                  <span class="figure">{{ fig }}</span>
+                </div>
+              </div>
+            </div>
+            <div v-else class="singleinfo">
+              {{ name }}<br><span class="figure">{{ fig }}</span>
             </div>
           `
         }
       },
     },
     schart: {
-      props: ['fullVisible', 'coinInfo', 'coin'],
+      props: ['fullVisible', 'coinInfo', 'coin', 'coinName'],
       template:
       `
         <div v-if="fullVisible" class="singleinfo centered">
           <img height="20" width="20"
             onerror="this.src='https://01mu.bitnamiapp.com/graphics/crypto/BTC.png'"
             :src="coinInfo['icon']"/>&nbsp;
-          <b>{{ coin }}</b>
+          <b>{{ coinName }} {{ coin }}</b>
         </div>
-        <div style="display: block;"><canvas id="coinChart"></canvas></div>
+        <div id="chartContainer" style="display: block;"><canvas id="coinChart"></canvas></div>
       `
     },
     buttons: {
       props: ['ctx'],
       template:
       `
+       <div class="input-group">
+        <input v-on:keyup.enter="ctx.update()" placeholder="Span"
+          v-model="ctx.limit"
+          class="form-control">
+          <div class="input-group-append">
+            <button class="btn btn-outline-primary" v-on:click="ctx.update()">
+              Set span
+            </button>
+          </div>
+        </div>
+        <div style="margin-top: 16px;"></div>
         <div class="flex">
-          <div class="wrapper75">
-           <div class="input-group">
-            <input v-on:keyup.enter="ctx.update()" placeholder="Span"
-              v-model="ctx.limit"
-              class="form-control">
-              <div class="input-group-append">
-                <button class="btn btn-outline-primary" v-on:click="ctx.update()">
-                  Set span
-                </button>
+          <div class="wrapper50">
+            <div class="dropdown">
+              <button style="width: 100%;"
+              class="btn btn-outline-primary dropdown-toggle"
+              type="button" id="dropdownMenuButton" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+                {{ ctx.chartType }}
+              </button>
+              <div style="text-align: center; width: 100%;"
+                class="dropdown-menu"
+                aria-labelledby="dropdownMenuButton">
+                <a v-on:click="ctx.toggleType('price')" class="dropdown-item">
+                  Price
+                </a>
+                <a v-on:click="ctx.toggleType('volume')" class="dropdown-item">
+                  Volume
+                </a>
               </div>
             </div>
-          </div>
-          <div class="wrapper25">
+          </div>&nbsp;
+          <div class="wrapper50">
             <div class="dropdown">
               <button style="width: 100%;"
               class="btn btn-outline-primary dropdown-toggle"
@@ -194,6 +242,7 @@ const Single = {
   },
   data() {
     return {
+      coinName: '',
       navInfo: [],
       fullVisible: false,
       coinChart: null,
@@ -202,6 +251,7 @@ const Single = {
       coinCMC: {},
       loadedReqs: 0,
       coin: 'BTC',
+      coinList: [],
       limit: 30,
       mode: '',
       showCMC: false,
@@ -213,6 +263,8 @@ const Single = {
         'change': 0},
       commas: commas,
       isSmall: false,
+      chartType: 'Price',
+      typeTogge: false,
     }
   },
   created() {
@@ -224,10 +276,31 @@ const Single = {
     if(localStorage.getItem('chart_limit') == undefined) this.limit = 30
     else this.limit = localStorage.getItem('chart_limit')
 
+    if(localStorage.getItem('chart_type') == undefined)
+      this.chartType = 'Price'
+    else
+      this.chartType = localStorage.getItem('chart_type')
+
     navbarInfo(this.navInfo)
     this.update()
   },
   methods: {
+    toggleType(type) {
+      if (type == 'volume') {
+        localStorage.setItem('chart_type', 'Volume')
+        this.chartType = 'Volume'
+      } else {
+        localStorage.setItem('chart_type', 'Price')
+        this.chartType = 'Price'
+      }
+
+      document.getElementById("chartContainer").innerHTML =
+        '<canvas id="coinChart"></canvas>';
+
+      this.typeToggle = true
+
+      this.update()
+    },
     setMinute() {
       const url = 'https://min-api.cryptocompare.com/data/histominute' +
         '?fsym=' + this.coin + '&tsym=USD&limit=' + this.limit +
@@ -269,63 +342,99 @@ const Single = {
       localStorage.setItem('chart_mode', 'month')
       this.mode = 'Months'
     },
-    setChart(dataset, type) {
-      if(this.coinChart == null) {
-        const single = this
-        const ctx = document.getElementById('coinChart').getContext('2d')
+    initChart(dataset, type) {
+      const single = this
+      const ctx = document.getElementById('coinChart').getContext('2d')
 
-        const options = {
-          elements: {
-            point:{
-              radius: 0
-            }
-          },
-          maintainAspectRatio: false,
-          tooltips: {
-            mode: 'x-axis'
-          },
-          scales: {
-            xAxes: [{
-              ticks: {
-                autoSkip: true,
-                maxTicksLimit: 10
-              },
-              gridLines: {
-                display:false
-              }
-            }],
-            yAxes: [{
-              gridLines: {
-                display:false
-              }
-            }]
-          }
-        }
+      var ds = dataset.prices
+      var chType = 'candlestick'
+      var dataLabel = 'Price'
 
-        const ch = new Chart(ctx, {
-          type: 'candlestick',
-          data: {
-            datasets: [{
-              label: single.coin + ' ' + type,
-              data: dataset
-            }]
-          },
-          options: options
-        })
-
-        if(screen.width <= 600) ch.canvas.parentNode.style.height = '400px'
-        else ch.canvas.parentNode.style.height = '500px'
-
-        this.coinChart = ch
-      } else {
-        this.coinChart.data.datasets[0].label = this.coin + ' ' + type
-        this.coinChart.data.datasets[0].data = dataset
-        this.coinChart.update()
+      if (this.chartType == 'Volume') {
+        ds = dataset.volume
+        chType = 'bar'
+        dataLabel = 'Volume'
       }
 
-      if(screen.width <= 600)
-      $('html, body').animate({ scrollTop: 0 }, 'fast')
+      const options = {
+        elements: {
+          point:{
+            radius: 0
+          }
+        },
+        maintainAspectRatio: false,
+        tooltips: {
+          mode: 'x-axis'
+        },
+        scales: {
+          xAxes: [{
+            ticks: {
+              autoSkip: true,
+              maxTicksLimit: 10
+            },
+            gridLines: {
+              display: true
+            }
+          }],
+          yAxes: [{
+            ticks: {
+                display: false
+            },
+            gridLines: {
+              drawBorder: false,
+              display: true
+            }
+          }]
+        }
+      }
 
+      const ch = new Chart(ctx, {
+        type: chType,
+        data: {
+          labels: dataset.labels,
+          datasets: [{
+            backgroundColor: "#b2d8eb",
+            label: single.coin + ' ' + dataLabel + ' ' + type,
+            data: ds,
+          }]
+        },
+        options: options
+      })
+
+      if(screen.width <= 600) ch.canvas.parentNode.style.height = '400px'
+      else ch.canvas.parentNode.style.height = '500px'
+
+      this.coinChart = ch
+    },
+    setChart(dataset, type) {
+      if(this.coinChart == null) {
+        this.initChart(dataset, type)
+      } else {
+        if (this.typeToggle) {
+          this.initChart(dataset, type)
+          this.typeToggle = false
+        } else {
+          var ds = dataset.prices
+          var chType = 'candlestick'
+          var dataLabel = 'Price'
+
+          if (this.chartType == 'Volume') {
+            ds = dataset.volume
+            chType = 'bar'
+            dataLabel = 'Volume'
+          }
+
+          this.coinChart.data.datasets[0].data = ds
+          this.coinChart.data.datasets[0].label =
+            this.coin + ' ' + dataLabel + ' ' + type
+
+          this.coinChart.type = chType
+          this.coinChart.data.labels = dataset.labels
+          this.coinChart.update()
+        }
+      }
+
+      if(screen.width <= 600) $('html, body').animate({ scrollTop: 0 }, 'fast')
     },
     upaux(url, type) {
       const ctx = this
@@ -333,8 +442,14 @@ const Single = {
       $.getJSON(url, (json) => {
         const response = json['Response']
         var dataset = []
-        var highest = 0
-        var lowest = Number.MAX_SAFE_INTEGER
+
+        dataset.prices = []
+        dataset.volume = []
+        dataset.labels = []
+
+        var volumeSum = 0
+        var coinInfo = {'highest': 0, 'lowest': Number.MAX_SAFE_INTEGER,
+            'minvol': 0, 'maxvol': 0, 'avgvol': 0}
 
         if (response == 'Error')  {
             ctx.coin = 'Error'
@@ -345,7 +460,9 @@ const Single = {
 
         for (i in json['Data']) {
           var element = json['Data'][i]
-          var point = {};
+          var point = {}
+
+          volumeSum += element.volumeto
 
           point['t'] = luxon.DateTime.fromSeconds(element.time).valueOf()
           point['o'] = element.open
@@ -353,15 +470,24 @@ const Single = {
           point['l'] = element.low
           point['c'] = element.close
 
-          dataset.push(point)
+          dataset.prices.push(point)
+          dataset.volume.push(element.volumeto)
+          dataset.labels.push(getTimeString(element.time))
 
-          highest = Math.max(element.high, highest)
-          lowest = Math.min(element.low, lowest)
+          coinInfo['maxvol'] = Math.max(element.volumeto, coinInfo['maxvol'])
+          coinInfo['minvol'] = Math.min(element.volumeto, coinInfo['maxvol'])
+
+          coinInfo['highest'] = Math.max(element.high, coinInfo['highest'])
+          coinInfo['lowest'] = Math.min(element.low, coinInfo['lowest'])
         }
 
         ctx.coinInfo['open'] = json['Data'][0].high
         ctx.coinInfo['close'] = json['Data'][json['Data'].length - 1].high
-        ctx.setCoinInfo(highest, lowest)
+        ctx.coinInfo['avgvol'] =
+          '$' + commas((volumeSum / json['Data'].length).toFixed(2))
+
+        ctx.setCoinInfo(coinInfo)
+
         ctx.setChart(dataset, type)
         ctx.updateCoinHistory()
         ctx.setRecentCoins()
@@ -370,7 +496,7 @@ const Single = {
         //ctx.fullVisible = true
       })
     },
-    setCoinInfo(highest, lowest) {
+    setCoinInfo(ci) {
       const current = this.coinInfo['close']
       const previous = this.coinInfo['open']
 
@@ -378,8 +504,10 @@ const Single = {
       else this.coinInfo['color'] = 'color: red;'
 
       this.coinInfo['change'] = this.getChange(current, previous)
-      this.coinInfo['high'] = '$' + commas(highest.toFixed(3))
-      this.coinInfo['low'] = '$' + commas(lowest.toFixed(3))
+      this.coinInfo['high'] = '$' + commas(ci.highest.toFixed(3))
+      this.coinInfo['low'] = '$' + commas(ci.lowest.toFixed(3))
+      this.coinInfo['minvol'] = '$' + commas(ci.minvol.toFixed(2))
+      this.coinInfo['maxvol'] = '$' + commas(ci.maxvol.toFixed(2))
       this.coinInfo['open'] = '$' + commas(this.coinInfo['open'].toFixed(3))
       this.coinInfo['close'] = '$' + commas(this.coinInfo['close'].toFixed(3))
       this.coinInfo['symbol'] = this.coin
@@ -407,6 +535,18 @@ const Single = {
 
         ctx.recentIcons.push(icon)
       })
+
+      this.coinList = []
+
+      for (i in this.recentCoins) {
+        var put = {'symbol': this.recentCoins[i], 'icon': this.recentIcons[i]}
+
+        if (this.coin == put.symbol) put.selected = 'recentcoinsel'
+        else put.selected = 'recentcoin'
+
+        this.coinList.push(put)
+      }
+
     },
     updateCoinHistory() {
       var i = 1
@@ -432,11 +572,30 @@ const Single = {
     update(url, type) {
       localStorage.setItem('chart_limit', this.limit)
 
+      this.coinName = ''
       this.loadedReqs = 0
       this.coinInfo['icon'] = 'https://01mu.bitnamiapp.com/' +
         'graphics/crypto/' + this.coin + '.png'
 
       document.querySelector("link[rel*='icon']").href = this.coinInfo['icon']
+
+
+      if (!this.typeToggle) {
+        console.log(1)
+        $.getJSON(this.singleURL + this.coin, (json) => {
+          if (json.length == 0) {
+            this.centerClass = 'col-sm-10'
+            this.showCMC = false
+          } else {
+            this.coinName = json[0].name + ' | '
+            this.centerClass = 'col-sm-8'
+            this.showCMC = true
+            this.coinCMC = json[0]
+          }
+
+          this.loadInc()
+        })
+      }
 
       switch (localStorage.getItem('chart_mode')) {
         case 'minute': this.setMinute(); break;
@@ -446,19 +605,6 @@ const Single = {
         case 'month': this.setMonthly(); break;
         default: this.setDaily(); break;
       }
-
-      $.getJSON(this.singleURL + this.coin, (json) => {
-        if (json.length == 0) {
-          this.centerClass = 'col-sm-10'
-          this.showCMC = false
-        } else {
-          this.centerClass = 'col-sm-8'
-          this.showCMC = true
-          this.coinCMC = json[0]
-        }
-
-        this.loadInc()
-      })
     },
   },
   watch: {
@@ -466,8 +612,8 @@ const Single = {
       if (to.matched[0].path == from.matched[0].path) {
         this.coin = this.$route.params.id
         this.update()
-        if(screen.width <= 600)
-        $('html, body').animate({ scrollTop: 0 }, 'fast')
+        if (screen.width <= 600)
+          $('html, body').animate({ scrollTop: 0 }, 'fast')
       }
     }
   }

@@ -6,7 +6,7 @@ const Biz = {
   <div class="body" v-if="fullVisible">
     <div class="flex coinheader">
       <div class="wrapper50">Coin</div>
-      <div class="wrapper40 overflow">Mentions (24H)</div>
+      <div class="wrapper40 overflow">Past Hour Mentions</div>
       <div class="wrapper10 overflow">Posts</div>
     </div>
     <template v-for="(count, index) in bizCounts">
@@ -50,6 +50,9 @@ const Biz = {
           </button>
         </div>
     </div>
+    <div class="lastupdated">
+      {{ lastUpdated }}
+    </div>
     <bottom></bottom>
   </div>
   `,
@@ -65,6 +68,7 @@ const Biz = {
       noticeVisible: false,
       notice: '',
       st: 0,
+      since: since,
     }
   },
   created() {
@@ -95,6 +99,7 @@ const Biz = {
       const ctx = this
 
       $.getJSON(this.url + this.rank + '/0', (json) => {
+        console.log(json)
           ctx.formatCounts(json['biz'])
           ctx.bizCounts = json['biz']
           ctx.showBar = false

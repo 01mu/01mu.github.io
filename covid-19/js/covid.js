@@ -15,7 +15,7 @@ const router = VueRouter.createRouter({
 const app = Vue.createApp({})
 
 app.component('comp', {
-  props: ['destination'],
+  props: ['destination', 'info'],
   template:
   `
   <nav class="navpad navbar navbar-expand-lg navbar-light navborder"
@@ -46,6 +46,16 @@ app.component('comp', {
           <a :class="destination['states']"
           href="index.html#/states">
             <img src="img/usa.png" height="16" width="16">&nbsp;United States</a>
+        </li>
+      </ul>
+        <ul v-if="info.length != 0" class="navbar-nav navbar-right">
+        <li class="nav-item">
+          <img class="navinfoicon" src="img/covid.png" height="16" width="16">
+          <span class="navinfotext">&nbsp;{{ info[0] }}</span>
+        </li>&nbsp;&nbsp;
+        <li class="nav-item">
+          <img class="navinfoicon"  src="img/covid.png" height="16" width="16">
+          <span class="navinfotext">&nbsp;{{ info[1] }}</span>
         </li>
       </ul>
     </div>

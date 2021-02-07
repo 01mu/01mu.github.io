@@ -1,7 +1,7 @@
 const Today = {
   template:
   `
-  <comp :destination="navbar"></comp>
+  <comp :destination="navbar" :info="navInfo"></comp>
   <loadingbar :showbar="showBar"></loadingbar>
   <div v-if="fullVisible" class="body row">
     <tmargin :loc="'Global'"
@@ -50,7 +50,12 @@ const Today = {
         Total Deaths<br>
         </div>
         <div class="box">
-          <div class="boxheader"><b>New Confirmed Cases<br>({{ loc }})</b></div>
+          <div class="boxheader">
+            <b>
+              {{ loc }}<br>
+              <span class="figure">New Confirmed Cases</span>
+            </b>
+          </div>
           <div class="smargin"></div>
             <tdata v-for="place in data_confirmed"
               :count="place.new_confirmed"
@@ -60,7 +65,12 @@ const Today = {
               :flag="place.url"></tdata>
         </div>
         <div class="box">
-          <div class="boxheader"><b>New Deaths<br>({{ loc }})</b></div>
+          <div class="boxheader">
+            <b>
+              {{ loc }}<br>
+              <span class="figure">New Deaths</span>
+            </b>
+          </div>
           <div class="smargin"></div>
             <tdata v-for="place in data_deaths"
               :count="place.new_deaths"
@@ -99,6 +109,7 @@ const Today = {
   },
   data() {
     return {
+      navInfo: [],
       url: 'https://01mu.bitnamiapp.com/covid-19/today',
       globalStats: [],
       usStats: [],
@@ -114,6 +125,7 @@ const Today = {
   created() {
     const ctx = this
 
+    navbarInfo(this.navInfo)
     document.title = 'COVID-19 | Today'
     this.navbar = getNavbar('today')
 
