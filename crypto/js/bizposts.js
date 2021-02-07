@@ -6,13 +6,13 @@ const BizPosts = {
   <div v-if="fullVisible" class="body">
     <div v-if="fullVisible" class="singleinfo centered">
       <div v-if="coin == 'ALL'">
-        <b>Recent /biz/ Mentions</b>
+        <span class="figure">Recent /biz/ Mentions</span>
       </div>
       <div v-else>
         <img height="20" width="20"
           onerror="this.src='https://01mu.bitnamiapp.com/graphics/crypto/BTC.png'"
           :src="coinURL"/>&nbsp;
-        <b>Recent {{ coin }} Mentions</b>
+        <span class="figure">Recent {{ coin }} Mentions</span>
       </div>
     </div>
     <div style="margin: 16px;"></div>

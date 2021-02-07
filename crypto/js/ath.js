@@ -8,15 +8,15 @@ const ATH = {
       <img height="20" width="20"
         onerror="this.src='https://01mu.bitnamiapp.com/graphics/crypto/BTC.png'"
         :src="coinURL"/>&nbsp;
-      <b>{{ coin }} ATH History</b>
+      <span class="figure">{{ coin }} ATH History</span>
     </div>
     <div style="margin: 16px;"></div>
     <template v-for="(point, index) in ath">
       <div class="athbox flex">
-        <div class="athpointl wrapper50">
+        <div class="figure athpointl wrapper50">
           <b>{{ '$' + commas(point['ath'].toFixed(3)) }}</b>
         </div>
-        <div class="figure athpointr wrapper50">
+        <div class=" athpointr wrapper50">
           {{ timeConverter(point.time) }}
         </div>
       </div>

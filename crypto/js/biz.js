@@ -5,9 +5,9 @@ const Biz = {
   <loadingbar :showbar="showBar"></loadingbar>
   <div class="body" v-if="fullVisible">
     <div class="flex coinheader">
-      <div class="wrapper50">Coin</div>
-      <div class="wrapper40 overflow">Past Hour Mentions</div>
-      <div class="wrapper10 overflow">Posts</div>
+      <div class="figure wrapper50">Coin</div>
+      <div class="figure wrapper40 overflow">Past Hour Mentions</div>
+      <div class="figure wrapper10 overflow">Posts</div>
     </div>
     <template v-for="(count, index) in bizCounts">
       <div class="coinpadding flex">

@@ -53,27 +53,31 @@ function nf(text, val) {
 
 function navbarInfo(nv) {
   if (navInfo.length == 0) {
+    var bizLimit = localStorage.getItem('biz_rank')
+    if (bizLimit == null) bizLimit = 50
+
     var i = {}
 
-    $.getJSON('https://01mu.bitnamiapp.com/crypto/info', (json) => {
-      json.forEach((element) => {
+    $.getJSON('https://01mu.bitnamiapp.com/crypto/info/' + bizLimit, (json) => {
+      json['info'].forEach((element) => {
           i[element.input_key] = element.input_value
       })
 
-      i.tmc = nf('Market Cap: $', i.total_market_cap)
-      i.tv = nf('24 Hour Volume: $', i.total_volume_24h)
-      i.btc = nf('BTC Dominance: ', i.btc_dominance) + '%'
+      nv[0] = nf('<span class="figure">◾Market Cap:&nbsp;</span>$',
+        i.total_market_cap)
+      nv[1] = nf('<span class="figure">◾24 Hour Volume:&nbsp;</span>$',
+        i.total_volume_24h)
+      nv[2] = nf('<span class="figure">◾BTC Dominance:&nbsp;</span>',
+        i.btc_dominance) + '%'
 
-      nv[0] = i.tmc
-      nv[1] = i.tv
-      nv[2] = i.btc
+      nv[3] = '<span class="figure">◾/biz/:&nbsp;</span>' +
+        json['biz'][0].symbol + ' (' + json['biz'][0].total + ') ' +
+        json['biz'][1].symbol + ' (' + json['biz'][1].total + ') ' +
+        json['biz'][2].symbol + ' (' + json['biz'][2].total + ') '
+
       navInfo = nv
     })
-  } else {
-    nv[0] = navInfo[0]
-    nv[1] = navInfo[1]
-    nv[2] = navInfo[2]
-  }
+  } else for (i in navInfo) nv[i] = navInfo[i]
 }
 
 function timeConverter(UNIX_timestamp){

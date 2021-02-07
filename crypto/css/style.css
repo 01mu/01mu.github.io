@@ -90,7 +90,7 @@ tr:hover, .coinpadding:hover, .bizpostbox:hover {
   margin-left: -16px;
   margin-right: -16px;
   margin-top: -16px;
-  margin-bottom: 8px;
+  margin-bottom: 8px;cur
   border-bottom: solid 1px blue;
   border-radius: 5px 5px 0px 0px;
   text-align: center; }
@@ -111,8 +111,32 @@ tr:hover, .coinpadding:hover, .bizpostbox:hover {
 .navinfoicon { filter: opacity(33%); }
 .navinfotext { color: #5c5c5c; }
 
-
 .aboutheader { text-align: center; font-weight: bold; color: #5c5c5c; }
-.subnav { background-color: #f0f0f0; font-size: 15px; text-align: right;
+.subnav { background-color: #f0f0f0; font-size: 15px;
   overflow: auto; border-bottom: 1px solid #cfcfcf; padding: 4px;
-  white-space: nowrap; color: grey; }
+  white-space: nowrap;
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+
+.subnav:hover {
+cursor: default;
+}
+
+.subnav::-webkit-scrollbar { /* WebKit */
+  width: 0;
+  height: 0;
+}
+
+.subnavflex { display: flex; }
+.subnav50r, .subnav50l { width: 50%; }
+.subnav50r { margin-right: 10px; text-align: right; }
+.subnav50l { margin-left: 10px; text-align: left; }
+
+@media only screen and (max-width: 600px) {
+.subnavflex { display: contents; }
+.subnav50r, .subnav50l { display: contents; }
+.subnav50r { }
+.subnav50l {  }
+}

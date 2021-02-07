@@ -28,7 +28,16 @@ app.component('comp', {
   template:
   `
   <div class="subnav scrollbox">
-  {{ info[0] }}&nbsp;&nbsp;{{ info[1] }}&nbsp;&nbsp;{{ info[2] }}&nbsp;&nbsp;
+    <div class="subnavflex">
+      <div class="subnav50l">
+        <span v-html="info[0]"></span>&nbsp;
+        <span v-html="info[1]"></span>&nbsp;
+        <span v-html="info[2]"></span>
+      </div>
+      <div class="subnav50r">
+        <span v-html="info[3]"></span>
+      </div>
+    </div>
   </div>
   <nav class="navbar navbar-expand-lg navbar-light bg-light navborder"
     style="padding-bottom: 0px; padding-top: 0px;">
@@ -78,7 +87,8 @@ app.component('comp', {
             <img src="img/mentions.png" height="16" width="16">
               Mentions
           </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown"
+            style="margin-bottom: 16px;">
             <a class="dropdown-item" href="index.html#/posts/all">
               /biz/ Recent Mentions
             </a>
