@@ -45,7 +45,7 @@ const Performers = {
           </div>
       </div>
     </div>
-    <div class="bigger">
+    <div class="bigger" style="margin-left: 16px; margin-right: 16px;">
       <div v-if="noticeVisible" class="alert alert-danger" role="alert">
         <b>{{ notice }}</b>
       </div>

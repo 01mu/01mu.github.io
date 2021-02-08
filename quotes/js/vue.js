@@ -23,11 +23,12 @@ function make() {
               :quote="p" :ctx="this"></column>
           </div>
         </div>
-        <div v-if="showButton" class="btn btn-block btn-outline-secondary"
-          style="font-size: 22px;"
+        <button :disabled="loadingText == 'Loading...'"
+          v-if="showButton" class="btn btn-block btn-outline-secondary
+          loadingbutton"
           v-on:click="loadMore()">
             {{ loadingText }}
-        </div>
+        </button>
       </div>
       <bottom></bottom>
     </div>

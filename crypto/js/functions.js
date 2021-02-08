@@ -71,9 +71,9 @@ function navbarInfo(nv) {
         i.btc_dominance) + '%'
 
       nv[3] = '<span class="figure">◾/biz/:&nbsp;</span>' +
-        json['biz'][0].symbol + ' (' + json['biz'][0].total + ') ' +
-        json['biz'][1].symbol + ' (' + json['biz'][1].total + ') ' +
-        json['biz'][2].symbol + ' (' + json['biz'][2].total + ') '
+        json['biz'][0].symbol + ': ' + json['biz'][0].total + ' | ' +
+        json['biz'][1].symbol + ': ' + json['biz'][1].total + ' | ' +
+        json['biz'][2].symbol + ': ' + json['biz'][2].total
 
       navInfo = nv
     })

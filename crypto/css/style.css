@@ -1,4 +1,4 @@
-body { font-size: 18px; overflow-y: scroll; }
+body { font-size: 18px; overflow-y: scroll; font-family: 'Open Sans', sans-serif; }
 .body, .heatmap { margin: 0 auto; max-width: 800px; }
 .box { border: 1px solid #bec3cc; padding: 8px; border-radius: 5px;
   margin-top: 16px; background-color: #fafafa}
@@ -43,7 +43,7 @@ body { font-size: 18px; overflow-y: scroll; }
 .singleinfo { border-bottom: 1px solid #bec3cc; padding: 5px;
   text-align: center; font-size: 16px; }
 .navborder { border-bottom: 1px solid #cfcfcf; }
-.active { border-bottom: solid 3px blue; background-color: #f0f0f0; }
+.active { border-bottom: solid 0px blue; background-color: #f0f0f0; }
 .navpad { padding-top: 12px; padding-bottom: 12px; }
 tr:hover, .coinpadding:hover, .bizpostbox:hover {
     background-color: #fafafa; }
@@ -57,8 +57,8 @@ tr:hover, .coinpadding:hover, .bizpostbox:hover {
   .heatmap { width: 85%; }
   body, .body { font-size: 16px; }
   .body { font-size: 16px; margin-right: 16px; margin-left: 16px; }
-  .centersm { text-align: center; font-size: 50px; }
-  .bigger { max-width: 100%; margin-right: 16px; margin-left: 16px; }
+  .centersm { text-align: center; font-size: 40px; }
+  .bigger { max-width: 100%; margin-right: 0px; margin-left: 0px; }
   .hm { max-width: 90%; margin-right: 8px; margin-left: 8px; }
   .singlebody { margin: 0 auto; max-width: 90%; }
   .wrapper5 { width: 10%; }
@@ -112,8 +112,8 @@ tr:hover, .coinpadding:hover, .bizpostbox:hover {
 .navinfotext { color: #5c5c5c; }
 
 .aboutheader { text-align: center; font-weight: bold; color: #5c5c5c; }
-.subnav { background-color: #f0f0f0; font-size: 15px;
-  overflow: auto; border-bottom: 1px solid #cfcfcf; padding: 4px;
+.subnav { background-color: #f2f8ff; font-size: 14px;
+  overflow: auto; border-bottom: 1px solid #cfcfcf; padding: 5px;
   white-space: nowrap;
   overflow-y: scroll;
   scrollbar-width: none; /* Firefox */
