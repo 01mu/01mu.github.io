@@ -1,18 +1,24 @@
-const BizPosts = {
+const Posts = {
   template:
   `
   <comp :destination="navbar" :info="navInfo"></comp>
   <loadingbar :showbar="showBar"></loadingbar>
   <div v-if="fullVisible" class="body">
     <div v-if="fullVisible" class="singleinfo centered">
-      <div v-if="coin == 'ALL'">
-        <span class="figure">Recent /biz/ Mentions</span>
+      <div v-if="type == 'all'">
+        <span v-if="place == 'reddit'" class="figure">Recent /r/CryptoCurrency DD Mentions</span>
+        <span v-else class="figure">Recent /biz/ Mentions</span>
       </div>
       <div v-else>
         <img height="20" width="20"
           onerror="this.src='https://01mu.bitnamiapp.com/graphics/crypto/BTC.png'"
           :src="coinURL"/>&nbsp;
-        <span class="figure">Recent {{ coin }} Mentions</span>
+        <span v-if="place == 'reddit'" class="figure">
+          Recent /r/CryptoCurrency DD {{ coin }} Mentions
+        </span>
+        <span v-else class="figure">
+          Recent /biz/ {{ coin }} Mentions
+        </span>
       </div>
     </div>
     <div style="margin: 16px;"></div>
@@ -37,7 +43,7 @@ const BizPosts = {
         </span>
       </div>
     </template>
-    <div v-if="coin == 'ALL'" class="input-group" style="margin-top: 16px;">
+    <div v-if="type == 'all'" class="input-group" style="margin-top: 16px;">
       <input
       v-on:keyup.enter="updateRank()"
         placeholder="Rank limit" v-model="rank" class="form-control">
@@ -69,7 +75,7 @@ const BizPosts = {
       posts: [],
       coin: '',
       loadingText: 'Load more',
-      url: 'https://01mu.bitnamiapp.com/crypto/posts/',
+      url: 'https://01mu.bitnamiapp.com/crypto/posts/biz/',
       showBar: true,
       showLoading: true,
       fullVisible: false,
@@ -80,17 +86,27 @@ const BizPosts = {
       ids: {},
       postsShow: [],
       lastID: Number.MAX_SAFE_INTEGER,
+      place: '',
+      type: '',
     }
   },
   created() {
     this.init()
-    this.navbar = getNavbar('mentions')
     this.loadMore()
     navbarInfo(this.navInfo)
+    this.navbar = getNavbar('mentions')
   },
   methods: {
     init() {
-      this.coin = this.$route.params.id.toUpperCase()
+      if(this.$route.params.id)
+        this.coin = this.$route.params.id.toUpperCase()
+
+      this.place = this.$route.params.place
+      this.type = this.$route.params.type
+
+      if (this.place !== 'reddit' && this.place !== 'biz') console.log('err')
+      if (this.type !== 'all' && this.type !== 'symbol') console.log('err')
+
       this.posts = []
       this.postsShow = []
       this.lastUpdate = null
@@ -106,14 +122,14 @@ const BizPosts = {
 
       this.ids = new Map()
 
-      if (this.coin == 'ALL') {
+      if (this.type == 'all') {
         this.coinURL = 'https://01mu.bitnamiapp.com/' +
           'graphics/crypto/BTC.png'
-        document.title = 'Crypto | Recent /biz/ Posts'
+        document.title = 'Crypto | Recent Posts'
       } else {
         this.coinURL = 'https://01mu.bitnamiapp.com/' +
             'graphics/crypto/' + this.coin + '.png'
-        document.title = 'Crypto | ' + this.coin + ' /biz/ Posts'
+        document.title = 'Crypto | ' + this.coin + ' Posts'
       }
 
       document.querySelector("link[rel*='icon']").href = this.coinURL
@@ -135,11 +151,11 @@ const BizPosts = {
       if (!limit) this.rank = 50
       else this.rank = limit
 
-      if (this.coin == 'ALL') {
-        this.url = 'https://01mu.bitnamiapp.com/crypto/allposts/' +
+      if (this.type == 'all') {
+        this.url = 'https://01mu.bitnamiapp.com/crypto/posts/all/' + this.place +'/' +
           this.rank + '/' + this.page++
       } else {
-        this.url ='https://01mu.bitnamiapp.com/crypto/posts/'
+        this.url ='https://01mu.bitnamiapp.com/crypto/posts/symbol/' + this.place +'/'
           + this.coin + '/' + this.page++
       }
 
@@ -172,11 +188,17 @@ const BizPosts = {
               this.coin + '.png'
           }
 
-          post.url = 'https://boards.4chan.org/biz/thread/'
-            + post.thread_id + '#p' + post.post_id
-        }
+          if (this.place == 'biz') {
+            post.url = 'https://boards.4chan.org/biz/thread/'
+              + post.thread + '#p' + post.post_id
+          } else {
+              post.url = post.thread + post.post_id
+            }
+          }
 
         for (post of this.posts) {
+          post.comment = post.comment.replace("\n", "<br><br>")
+
           if (!this.ids.has(post.post_id)) {
             var data = post
             data['symbols'] = []
@@ -192,16 +214,28 @@ const BizPosts = {
         var last = this.lastID
 
         for (var v in this.ids) {
-          if (v < last) {
-            a.push(this.ids[v])
-          }
+          if (this.place == 'reddit') {
+            recent = this.ids[v].time
 
-          this.lastID = Math.min(v, this.lastID)
+            if (recent < last) {
+              a.push(this.ids[v])
+            }
+
+            this.lastID = Math.min(recent, this.lastID)
+          } else {
+            if (v < last) {
+              a.push(this.ids[v])
+            }
+
+            this.lastID = Math.min(v, this.lastID)
+          }
         }
+
+        if (this.place == 'biz') a = a.reverse()
 
         //a.reverse()
         //this.postsShow = this.postsShow.reverse()
-        this.postsShow = this.postsShow.concat(a.reverse())
+        this.postsShow = this.postsShow.concat(a)
       })
     }
   },

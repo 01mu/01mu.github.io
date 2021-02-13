@@ -3,7 +3,7 @@ const nav_template = `
     style="background-color: #ddded1;">
     <a class="navbar-brand overflow" href="#">
       <!--<img src="img/favicon-32x32.png"/>&nbsp;-->
-      <b class="logotext">Quotes</b>
+      <b class="logotext">BreadQuotes</b>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
         data-target="#navbarSupportedContent"

@@ -1,4 +1,4 @@
-const Biz = {
+const Reddit = {
   template:
   `
   <comp :destination="navbar" :info="navInfo"></comp>
@@ -61,7 +61,7 @@ const Biz = {
       navInfo: [],
       fullVisible: false,
       showBar: true,
-      url: 'https://01mu.bitnamiapp.com/crypto/biz/',
+      url: 'https://01mu.bitnamiapp.com/crypto/reddit/',
       rank: 50,
       bizCounts: [],
       lastUpdated: '',
@@ -99,13 +99,13 @@ const Biz = {
       const ctx = this
 
       $.getJSON(this.url + this.rank + '/0', (json) => {
-        console.log(json)
-          ctx.formatCounts(json['biz'])
-          ctx.bizCounts = json['biz']
+          console.log(json)
+          ctx.formatCounts(json['reddit'])
+          ctx.bizCounts = json['reddit']
           ctx.showBar = false
           ctx.fullVisible = true
           ctx.lastUpdated =
-            'Last updated ' + since(json.last_update_biz.input_value)
+            'Last updated ' + since(json.last_update_reddit.input_value)
       })
     },
     sort(type) {

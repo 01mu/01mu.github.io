@@ -40,7 +40,7 @@ function make() {
         `
         <div @mouseover="" v-if="ctx.type == 'quote'">
           <div class="quote">
-            <div class="overflow" v-html="quote.quote"></div>
+            <div class="overflow">{{ quote.quote }}</div>
             <div class=" flex author">
               <div class="wrapper80">
                 –
@@ -160,6 +160,7 @@ function make() {
 
           for (i in json) {
             json[i].quote = '"' + json[i].quote + '"'
+
             this.quotes[flag++].push(json[i])
 
             if (flag == 3) flag = 0
@@ -169,9 +170,9 @@ function make() {
 
             if (this.$route.params.relations) json[i].author = json[i].relation
 
-            if (this.$route.params.quoteSearch)
+            /*if (this.$route.params.quoteSearch)
               json[i].quote = this.highlight(json[i].quote,
-                this.$route.params.quoteSearch)
+                this.$route.params.quoteSearch)*/
 
             if (this.$route.params.author) json[i].title = 'Wikipedia'
             else json[i].title = 'Quotes'

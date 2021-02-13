@@ -1,5 +1,5 @@
-body { overflow-y: scroll; font-size: 20px; background-color: #fafafa;
-   font-family: 'Open Sans', sans-serif; }
+body { overflow-y: scroll;  background-color: #fafafa; font-size: 20px;
+   font-family: 'Times New Roman', serif; }
 .body { white-space: wrap; text-overflow: ellipses; overflow: hidden;
   margin: 0 auto; max-width: 90%; }
 .quote, .authorsearch {
@@ -11,7 +11,7 @@ body { overflow-y: scroll; font-size: 20px; background-color: #fafafa;
 .active { background-color: #f0f0f0; }
 .centered { text-align: center; margin-top: 16px; font-size: 16px; }
 .overflow { overflow: hidden; text-overflow: ellipsis; word-wrap: break-word; }
-.author { font-size: 18px; margin-top: 10px; color: red;
+.author { font-size: 20px; margin-top: 10pxl;
   border-radius: 0px 0px 5px 5px;
   font-weight: bold; background-color: #ede9e4; margin-left: -20px;
   margin-right: -20px; margin-bottom: -20px; padding: 8px; color: grey;
@@ -24,7 +24,8 @@ body { overflow-y: scroll; font-size: 20px; background-color: #fafafa;
 .navpad { padding-bottom: 6px; padding-top: 6px; }
 a {color: #000000;}
 a:hover{ color: #000000; text-decoration: none; }
-.loadingbutton { font-size: 22px; background-color: #fcf8f2; color: black; }
+.loadingbutton { background-color: #ede9e4; color: black; font-weight: bold;
+  color: #595454; font-size: 20px; }
 
 @media only screen and (max-width: 600px) {
   body { font-size: 16px; }

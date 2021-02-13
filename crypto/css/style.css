@@ -58,7 +58,7 @@ tr:hover, .coinpadding:hover, .bizpostbox:hover {
   body, .body { font-size: 16px; }
   .body { font-size: 16px; margin-right: 16px; margin-left: 16px; }
   .centersm { text-align: center; font-size: 40px; }
-  .bigger { max-width: 100%; margin-right: 0px; margin-left: 0px; }
+  .bigger { max-width: 100%; margin-right: 16px; margin-left: 16px; }
   .hm { max-width: 90%; margin-right: 8px; margin-left: 8px; }
   .singlebody { margin: 0 auto; max-width: 90%; }
   .wrapper5 { width: 10%; }
@@ -69,6 +69,7 @@ tr:hover, .coinpadding:hover, .bizpostbox:hover {
   .bizl { margin-left: 8px; }
   .bizr { text-align: center; }
   .singlebordertophide { border-top: 0px;  }
+  .prefmargin { margin-left: 16px; margin-right: 16px; }
 }
 .aligned { display: flex; }
 .dropdown-item:hover { cursor: pointer; }centersm

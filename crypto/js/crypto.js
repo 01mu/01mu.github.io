@@ -7,11 +7,12 @@ const routes = [
   {path: '/coins', component: Coins},
   {path: '/performers', component: Performers},
   {path: '/heatmap', component: HeatMap},
-  {path: '/biz', component: Biz},
-  {path: '/news', component: News},
+  {path: '/mentions/:place', component: Mentions},
+  {path: '/news/:place', component: News},
   {path: '/single', component: Portfolio},
   {path: '/single/:id', component: Single},
-  {path: '/posts/:id', component: BizPosts},
+  {path: '/posts/:type/:place/:id', component: Posts},
+  {path: '/posts/:type/:place/', component: Posts},
   {path: '/ath/:id', component: ATH},
   {path: '/timeline/:id', component: Timeline},
 ]
@@ -32,16 +33,18 @@ app.component('comp', {
       <div class="subnav50l">
         <span v-html="info[0]"></span>&nbsp;
         <span v-html="info[1]"></span>&nbsp;
-        <span v-html="info[2]"></span>
+        <span v-html="info[2]"></span>&nbsp;
+        <span v-html="info[3]"></span>
       </div>
       <div class="subnav50r">
-        <span v-html="info[3]"></span>
+        <span v-html="info[4]"></span>&nbsp;
+        <span v-html="info[5]"></span>
       </div>
     </div>
   </div>
   <nav class="navbar navbar-expand-lg navbar-light bg-light navborder"
     style="padding-bottom: 0px; padding-top: 0px;">
-    <a class="navpad navbar-brand" href="#"><b>Crypto</b></a>
+    <a class="navpad navbar-brand" href="#">Coinbool</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
         data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent"
@@ -69,16 +72,27 @@ app.component('comp', {
           </a>
         </li>
         <li class="nav-item">
-          <a :class="destination['news']" href="index.html#/news">
-            <img src="img/news.png" height="16" width="16">
-            News
-          </a>
-        </li>
-        <li class="nav-item">
           <a :class="destination['heatmap']" href="index.html#/heatmap">
             <img src="img/hm.png" height="16" width="16">
             Heat Map
           </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a :class="destination['news']"
+            href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <img src="img/news.png" height="16" width="16">
+              News
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown"
+            style="margin-bottom: 16px;">
+            <a class="dropdown-item" href="index.html#/news/hl">
+              ◾ Headlines
+            </a>
+            <a class="dropdown-item" href="index.html#/news/hn">
+              ◾ Hacker News
+            </a>
+          </div>
         </li>
         <li class="nav-item dropdown">
           <a :class="destination['mentions']"
@@ -89,33 +103,22 @@ app.component('comp', {
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown"
             style="margin-bottom: 16px;">
-            <a class="dropdown-item" href="index.html#/posts/all">
-              /biz/ Recent Mentions
+            <a class="dropdown-item" href="index.html#/posts/all/biz/">
+              ◾ /biz/ Recent Mentions
             </a>
-            <a class="dropdown-item" href="index.html#/biz">/biz/ (Past Hour)</a>
+            <a class="dropdown-item" href="index.html#/posts/all/reddit/">
+              ◾ /r/CryptoCurrency Recent Mentions
+            </a>
+            <hr>
+            <a class="dropdown-item" href="index.html#/mentions/biz">◾ /biz/ (Past Hour)</a>
+            <a class="dropdown-item" href="index.html#/mentions/reddit">◾ /r/CryptoCurrency (Past Hour)</a>
           </div>
         </li>
       </ul>
-      <!--<ul v-if="info.length != 0" class="navbar-nav navbar-right">
-        <li class="nav-item smalltext">
-          <a>
-            <img src="img/cmc.png" height="16" width="16">
-            {{ info[0] }}&nbsp;&nbsp;
-          </a>
+      <ul class="navbar-nav navbar-right">
+        <li class="nav-item">
         </li>
-        <li class="nav-item smalltext">
-          <a>
-            <img src="img/cmc.png" height="16" width="16">
-            {{ info[1] }}&nbsp;&nbsp;
-          </a>
-        </li>
-        <li class="nav-item smalltext">
-        <a>
-          <img src="img/cmc.png" height="16" width="16">
-          {{ info[2] }}&nbsp;&nbsp;
-        </a>
-        </li>
-      </ul>-->
+      </ul>
     </div>
   </nav>
   `
@@ -141,10 +144,7 @@ app.component('bottom', {
   `
   <div style="color: grey; margin-top: 16px;" class="body centered">
     <p>
-      <b>
-        <a style="color: grey;" href="https://01mu.github.io/crypto">Crypto</a>
-      </b> |
-      <a style="color: grey;" href="index.html#/about"><b>About</b></a>
+      <a class="figure" href="index.html#/about">Coinbool 2021</a>
     </p>
   </div>
   `

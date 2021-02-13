@@ -1,4 +1,4 @@
-body { background: #ff; font-size: 18px; background-color: #ffffff;
+body { background: #ff; background-color: #ffffff;
   overflow-y: scroll; font-family: 'Open Sans', sans-serif; }
 a { cursor: pointer; color: black; text-decoration: none; }
 [v-cloak] { display: none; }
@@ -18,7 +18,7 @@ a { cursor: pointer; color: black; text-decoration: none; }
 .flagmargin { margin-bottom: 6px; }
 .lbox {  padding: 15px; }
 .box { text-align: center; padding: 15px; }
-.newsbox {  padding: 5px; font-size: 16px; }
+.newsbox {  padding: 5px; }
 .boxn { padding: 20px;}
 .overflow { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .wrapper50 { width: 50%;}

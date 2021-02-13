@@ -581,7 +581,6 @@ const Single = {
 
 
       if (!this.typeToggle) {
-        console.log(1)
         $.getJSON(this.singleURL + this.coin, (json) => {
           if (json.length == 0) {
             this.centerClass = 'col-sm-10'
@@ -610,7 +609,7 @@ const Single = {
   watch: {
     '$route' (to, from) {
       if (to.matched[0].path == from.matched[0].path) {
-        this.coin = this.$route.params.id
+        this.coin = this.$route.params.id.toUpperCase()
         this.update()
         if (screen.width <= 600)
           $('html, body').animate({ scrollTop: 0 }, 'fast')
