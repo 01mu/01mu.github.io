@@ -241,7 +241,7 @@ const Posts = {
   },
   watch: {
     '$route' (to, from) {
-      if (to.matched[0].path == from.matched[0].path) {
+      if (to.matched[0].path.substring(0,7) == '/posts/') {
         this.init()
         this.loadMore()
       }

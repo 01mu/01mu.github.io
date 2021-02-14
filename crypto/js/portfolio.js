@@ -324,13 +324,13 @@ const Portfolio = {
         const totalString = commas(ctx.priceSymbol + totalValue.toFixed(2))
 
         ctx.formatPortfolioDisplay(newDisplay)
-        ctx.setFavIcon(newDisplay, ctx)
+        //ctx.setFavIcon(newDisplay, ctx)
         ctx.coinDisplay = newDisplay
         ctx.showBar = false
         ctx.fullVisible = true
         ctx.btcValue = btcTotal.toFixed(10) + ' BTC'
         ctx.value = totalString
-        document.title = 'Crypto | ' + totalString
+        document.title = totalString
       })
     },
     formatPortfolioDisplay(newDisplay) {

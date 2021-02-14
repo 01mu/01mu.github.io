@@ -608,7 +608,8 @@ const Single = {
   },
   watch: {
     '$route' (to, from) {
-      if (to.matched[0].path == from.matched[0].path) {
+      if (to.matched[0].path == from.matched[0].path &&
+        this.$route.params.id.toUpperCase() != this.coin.toUpperCase()) {
         this.coin = this.$route.params.id.toUpperCase()
         this.update()
         if (screen.width <= 600)

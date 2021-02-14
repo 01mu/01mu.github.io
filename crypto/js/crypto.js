@@ -44,6 +44,7 @@ app.component('comp', {
   </div>
   <nav class="navbar navbar-expand-lg navbar-light bg-light navborder"
     style="padding-bottom: 0px; padding-top: 0px;">
+    <a href="#"><img src="img/favicon.ico" height="28" width="28"/></a>&nbsp;
     <a class="navpad navbar-brand" href="#">Coinbool</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
         data-target="#navbarSupportedContent"
@@ -143,9 +144,9 @@ app.component('bottom', {
   template:
   `
   <div style="color: grey; margin-top: 16px;" class="body centered">
-    <p>
+    <p>-
       <a class="figure" href="index.html#/about">Coinbool 2021</a>
-    </p>
+    -</p>
   </div>
   `
 })

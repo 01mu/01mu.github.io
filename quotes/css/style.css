@@ -1,4 +1,4 @@
-body { overflow-y: scroll;  background-color: #fafafa; font-size: 20px;
+body { overflow-y: scroll; background-color: #fafafa; font-size: 20px;
    font-family: 'Times New Roman', serif; }
 .body { white-space: wrap; text-overflow: ellipses; overflow: hidden;
   margin: 0 auto; max-width: 90%; }
