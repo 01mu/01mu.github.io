@@ -22,7 +22,7 @@ app.component('comp', {
     style="padding-bottom: 0px; padding-top: 0px; background-color: #f2f2f2;">
     <a class="navpad navbar-brand" href="#">
       <!--<img src="img/favicon.png" height="32" width="32">&nbsp;-->
-      <b>COVID-19</b>
+      <b>COVID Tracker</b>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
         data-target="#navbarSupportedContent"

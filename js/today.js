@@ -10,7 +10,7 @@ const Today = {
       :data_deaths="globalDeaths"
       :stats="globalStats"
       :updated="lastUpdate['global']"
-      :url="'https://www.01mu.bitnamiapp.com/graphics/countries/GLOBAL.PNG'">
+      :url="'https://www.fables.bitnamiapp.com/graphics/countries/GLOBAL.PNG'">
     </tmargin>
     <tmargin :loc="'United States'"
       :dest="'state'"
@@ -18,7 +18,7 @@ const Today = {
       :data_deaths="usDeaths"
       :stats="usStats"
       :updated="lastUpdate['us']"
-      :url="'https://www.01mu.bitnamiapp.com/graphics/countries/US.PNG'">
+      :url="'https://www.fables.bitnamiapp.com/graphics/countries/US.PNG'">
     </tmargin>
     <bottom></bottom>
   </div>
@@ -110,7 +110,7 @@ const Today = {
   data() {
     return {
       navInfo: [],
-      url: 'https://www.01mu.bitnamiapp.com/covid-19/today',
+      url: 'https://www.fables.bitnamiapp.com/covid-19/today',
       globalStats: [],
       usStats: [],
       globalConfirmed: [],
@@ -166,14 +166,14 @@ const Today = {
 
       [this.globalConfirmed, this.globalDeaths].map((a) => {
         a.map((element) => {
-          element.url = 'https://www.01mu.bitnamiapp.com/' +
+          element.url = 'https://www.fables.bitnamiapp.com/' +
             'graphics/countries/' + countryCode(element.country) + '.PNG'
         })
       });
 
       [this.usConfirmed, this.usDeaths].map((a) => {
         a.map((element) => {
-          element.url = 'https://www.01mu.bitnamiapp.com/' +
+          element.url = 'https://www.fables.bitnamiapp.com/' +
             'graphics/states/' +
             replaceAll(element.state.toLowerCase(), " ", "-") + '.png'
         })

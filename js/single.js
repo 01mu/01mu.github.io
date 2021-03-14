@@ -103,7 +103,7 @@ const Single = {
   data() {
     return {
       navInfo: [],
-      url: 'https://www.01mu.bitnamiapp.com/covid-19/',
+      url: 'https://www.fables.bitnamiapp.com/covid-19/',
       place: '',
       type: '',
       data: [{'new_confirmed': 0, 'new_confirmed_per': 0,
@@ -235,10 +235,10 @@ const Single = {
     },
     getIcon() {
       if (this.type == 'country')
-        this.icon = 'https://www.01mu.bitnamiapp.com/' +
+        this.icon = 'https://www.fables.bitnamiapp.com/' +
           'graphics/countries/' + countryCode(this.place) + '.PNG'
       else
-        this.icon = 'https://www.01mu.bitnamiapp.com/graphics/states/' +
+        this.icon = 'https://www.fables.bitnamiapp.com/graphics/states/' +
           replaceAll(this.place.toLowerCase(), " ", "-") + '.png'
     },
     update() {

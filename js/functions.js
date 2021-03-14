@@ -314,7 +314,7 @@ function navbarInfo(nv) {
   if (navInfo.length == 0) {
     var i = {}
 
-    $.getJSON('https://www.01mu.bitnamiapp.com/covid-19/info', (json) => {
+    $.getJSON('https://www.fables.bitnamiapp.com/covid-19/info', (json) => {
       json.forEach((element) => {
           i[element.input_key] = element.input_value
       })

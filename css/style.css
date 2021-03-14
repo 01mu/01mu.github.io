@@ -27,7 +27,7 @@ a { cursor: pointer; color: black; text-decoration: none; }
 .smalltext { text-align: center; font-size: 14px; margin-bottom: 8px; }
 .navborder { border-bottom: 1px solid #ab0a12; }
 .centered { text-align: center; }
-.active { border-bottom: solid 3px red; background-color: #ebdde1; }
+.active { border-bottom: solid 6px red; background-color: #ebdde1; }
 .navpad { padding-top: 12px; padding-bottom: 12px; text-align: center; }
 .box, .boxn, .lbox, .newsbox {
   border-radius: 5px;

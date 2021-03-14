@@ -233,19 +233,19 @@ const States = make()
 Countries.template = States.template = template;
 Countries.components = States.components = components
 
-Countries.methods.url = () => 'https://www.01mu.bitnamiapp.com/covid-19/' +
+Countries.methods.url = () => 'https://www.fables.bitnamiapp.com/covid-19/' +
   'countries'
 Countries.methods.setNavbar = () => getNavbar('countries')
 Countries.methods.setPlace = () => 'country'
 
-States.methods.url = () => 'https://www.01mu.bitnamiapp.com/covid-19/states'
+States.methods.url = () => 'https://www.fables.bitnamiapp.com/covid-19/states'
 States.methods.setNavbar = () => getNavbar('states')
 States.methods.setPlace = () => 'state'
 
 Countries.methods.format = function() {
   this.countries.map((element) => {
     element.loc = element.country
-    element.url = 'https://www.01mu.bitnamiapp.com/graphics/countries/' +
+    element.url = 'https://www.fables.bitnamiapp.com/graphics/countries/' +
       countryCode(element.country) + '.PNG'
   })
 }
@@ -253,7 +253,7 @@ Countries.methods.format = function() {
 States.methods.format = function() {
   this.countries.map((element) => {
     element.loc = element.state
-    element.url = 'https://www.01mu.bitnamiapp.com/graphics/states/' +
+    element.url = 'https://www.fables.bitnamiapp.com/graphics/states/' +
       replaceAll(element.state.toLowerCase(), " ", "-") + '.png'
   })
 }
